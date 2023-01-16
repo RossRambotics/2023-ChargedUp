@@ -56,6 +56,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // roughly 4.116 for our setup
         public static final double MAX_VELOCITY_METERS_PER_SECOND = 4;
 
+        
         /**
          * The maximum angular velocity of the robot in radians per second.
          * <p>
