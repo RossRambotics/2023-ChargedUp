@@ -56,6 +56,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // roughly 4.116 for our setup
         public static final double MAX_VELOCITY_METERS_PER_SECOND = 4;
 
+        
         /**
          * The maximum angular velocity of the robot in radians per second.
          * <p>
@@ -115,8 +116,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         private SwerveModulePosition[] m_swerveModulePositions = new SwerveModulePosition[4];
 
         // adding SwerveOdometry
-        private SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics, getGyroscopeRotation(),
-                        m_swerveModulePositions);
+        private SwerveDriveOdometry m_odometry = null;
 
         private Field2d m_field = new Field2d();
 
@@ -127,6 +127,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 m_swerveModuleStates[1] = new SwerveModuleState();
                 m_swerveModuleStates[2] = new SwerveModuleState();
                 m_swerveModuleStates[3] = new SwerveModuleState();
+
+                m_swerveModulePositions[0] = new SwerveModulePosition();
+                m_swerveModulePositions[1] = new SwerveModulePosition();
+                m_swerveModulePositions[2] = new SwerveModulePosition();
+                m_swerveModulePositions[3] = new SwerveModulePosition();
+
+                m_odometry = new SwerveDriveOdometry(m_kinematics, getGyroscopeRotation(),
+                                m_swerveModulePositions);
 
                 ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
                 ShuffleboardTab fieldtab = Shuffleboard.getTab("Field");
