@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.Drive.SnapDrive;
+import frc.robot.commands.auto.AutoMoveConeLeft;
 import frc.robot.sim.PhysicsSim;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Tracking;
@@ -267,6 +268,11 @@ public class RobotContainer {
                 autoCmd = new InstantCommand();
                 autoCmd.setName("Do Nothing");
                 m_autoChooser.addOption("Do Nothing", autoCmd);
+
+                autoCmd = new AutoMoveConeLeft();
+                autoCmd.setName("AutoMoveConeLeft");
+                m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+                commands.add(autoCmd);
 
                 tab.add("Autonomous", m_autoChooser).withSize(2, 1);
 

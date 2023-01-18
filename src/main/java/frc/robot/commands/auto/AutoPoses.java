@@ -12,8 +12,8 @@ import frc.robot.RobotContainer;
 
 /** Add your docs here. */
 public class AutoPoses {
-        public final static Pose2d S1 = new Pose2d(6.53, 5.37, new Rotation2d(Math.toRadians(-41.01)));
-        public final static Pose2d S2 = new Pose2d(7.03, 4.57, new Rotation2d(Math.toRadians(-22.11)));
+        public final static Pose2d Tag1 = new Pose2d(14.59, 1.05, new Rotation2d(Math.toRadians(0)));
+        public final static Pose2d Tag1ConeLeft = new Pose2d(14.59, 0.5, new Rotation2d(Math.toRadians(0)));
         public final static Pose2d S3 = new Pose2d(7.7, 2.75, new Rotation2d(Math.toRadians(69)));
         public final static Pose2d C1 = new Pose2d(5.77, 5.86, new Rotation2d(Math.toRadians(-22.84)));
         public final static Pose2d C2 = new Pose2d(5.81, 2.31, new Rotation2d(Math.toRadians(29.75)));
