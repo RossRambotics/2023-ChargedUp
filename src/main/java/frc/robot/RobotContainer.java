@@ -48,7 +48,7 @@ public class RobotContainer {
         private static double slewLimit = 0.6;
 
         private final XboxController m_controllerDriver = new XboxController(0);
-        private final XboxController m_controllerOperator = new XboxController(1);
+        // private final XboxController m_controllerOperator = new XboxController(1);
 
         public PhysicsSim m_PhysicsSim;
 
@@ -93,17 +93,17 @@ public class RobotContainer {
                 return slew * slewLimit;
         }
 
-        private double getOperatorRightY() {
-                double operatorRightY = 0;
+        // private double getOperatorRightY() {
+        // double operatorRightY = 0;
 
-                // implement Joystick Deadzone
-                if (Math.abs(m_controllerOperator.getRightY()) > 0.08) {
-                        operatorRightY = m_controllerOperator.getRightY();
+        // // implement Joystick Deadzone
+        // if (Math.abs(m_controllerOperator.getRightY()) > 0.08) {
+        // operatorRightY = m_controllerOperator.getRightY();
 
-                }
+        // }
 
-                return operatorRightY;
-        }
+        // return operatorRightY;
+        // }
 
         private double m_lastSnapAngle = 720; // defaults to 720 because 720 tells snap drive to not adjust the angle
 
@@ -177,8 +177,8 @@ public class RobotContainer {
                                 () -> -getInputLeftX(),
                                 0);
 
-                new POVButton(m_controllerOperator, 0)
-                                .whenHeld(cmd);
+                // new POVButton(m_controllerOperator, 0)
+                // .whenHeld(cmd);
 
                 // South
                 cmd = new frc.robot.commands.Drive.SnapDrive(
@@ -187,8 +187,8 @@ public class RobotContainer {
                                 () -> -getInputLeftX(),
                                 180);
 
-                new POVButton(m_controllerOperator, 180)
-                                .whenHeld(cmd);
+                // new POVButton(m_controllerOperator, 180)
+                // .whenHeld(cmd);
 
                 // East
                 cmd = new frc.robot.commands.Drive.SnapDrive(
@@ -197,8 +197,8 @@ public class RobotContainer {
                                 () -> -getInputLeftX(),
                                 90);
 
-                new POVButton(m_controllerOperator, 90)
-                                .whenHeld(cmd);
+                // new POVButton(m_controllerOperator, 90)
+                // .whenHeld(cmd);
 
                 // West
                 cmd = new frc.robot.commands.Drive.SnapDrive(
@@ -207,8 +207,8 @@ public class RobotContainer {
                                 () -> -getInputLeftX(),
                                 270);
 
-                new POVButton(m_controllerOperator, 270)
-                                .whenHeld(cmd);
+                // new POVButton(m_controllerOperator, 270)
+                // .whenHeld(cmd);
 
         }
 

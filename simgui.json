@@ -1,7 +1,15 @@
 {
   "NTProvider": {
     "types": {
-      "/FMSInfo": "FMSInfo"
+      "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/Field/Field": "Field2d",
+      "/Shuffleboard/Match.Auto/Autonomous": "String Chooser",
+      "/Shuffleboard/Match.Auto/Commands/SnapDriveToCargo": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Blue Cargo": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Enable Light": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Red Cargo": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Test Mode": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Update PIDF": "Command"
     }
   }
 }

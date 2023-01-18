@@ -87,6 +87,10 @@ public class Tracking extends SubsystemBase {
         // }
         // }
 
+        // stop error message for now
+        if (true)
+            return;
+
         m_currentYaw = RobotContainer.m_drivetrainSubsystem.getGyroHeading()
                 .getDegrees();
         m_goalYaw = m_currentYaw + getHeadingOffset();

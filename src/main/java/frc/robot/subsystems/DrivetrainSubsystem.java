@@ -17,6 +17,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -56,7 +57,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // roughly 4.116 for our setup
         public static final double MAX_VELOCITY_METERS_PER_SECOND = 4;
 
-        
         /**
          * The maximum angular velocity of the robot in radians per second.
          * <p>
@@ -296,7 +296,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
                 m_lastRotationSpeed = rotationSpeed;
                 // update the actual swerve modules
-                this.updateSDSSwerveModules();
+                this.setSwerveModulesStates(m_swerveModuleStates);
         }
 
         // method created to facilitate autonomous using odometry
@@ -352,11 +352,24 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
                 // update field sim
                 if (Robot.isSimulation()) {
-                        Pose2d simPose = new Pose2d(
-                                        getOdometryPose().getX(),
-                                        getOdometryPose().getY(),
-                                        new Rotation2d(m_lastRotationSpeed));
-                        m_field.setRobotPose(simPose);
+                        // This method will be called once per scheduler run during simulation only
+                        // update the pose every
+                        // 0.002 seconds
+                        if (m_simTimer.advanceIfElapsed(0.002)) {
+
+                                // we need to simulate the update of the (x,y) of the robot
+                                // we will use the average speed of the modules
+                                double ave = m_swerveModuleStates[0].speedMetersPerSecond +
+                                                m_swerveModuleStates[1].speedMetersPerSecond +
+                                                m_swerveModuleStates[2].speedMetersPerSecond +
+                                                m_swerveModuleStates[3].speedMetersPerSecond;
+                                ave /= 4.0;
+                                Pose2d simPose = new Pose2d(
+                                                getOdometryPose().getX() + (ave * 0.002),
+                                                getOdometryPose().getY() + (ave * 0.002),
+                                                new Rotation2d(m_lastRotationSpeed));
+                                m_field.setRobotPose(simPose);
+                        }
                 } else {
                         m_field.setRobotPose(getOdometryPose());
                 }
@@ -371,9 +384,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 return m_odometry;
         }
 
+        private final Timer m_simTimer = new Timer();
+
         @Override
         public void simulationPeriodic() {
-                // This method will be called once per scheduler run during simulation
+
         }
 
         public SwerveModulePosition[] getSwervePositions() {
