@@ -41,9 +41,10 @@ public class AutoPoses {
 
                 if (Robot.isSimulation()) {
                         RobotContainer.m_drivetrainSubsystem.getOdometry().resetPosition(
-                                        new Rotation2d(Math.toRadians(69.0)),
+                                        pose.getRotation(),
                                         RobotContainer.m_drivetrainSubsystem.getSwervePositions(),
                                         pose);
+                        RobotContainer.m_drivetrainSubsystem.resetSimEndoers();
                 } else {
                         RobotContainer.m_drivetrainSubsystem.getOdometry().resetPosition(pose.getRotation(),
                                         RobotContainer.m_drivetrainSubsystem.getSwervePositions(),

@@ -7,6 +7,7 @@ package frc.robot.commands.Drive;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -19,8 +20,10 @@ public class SnapDriveToPoseField extends CommandBase {
     private final DrivetrainSubsystem m_drivetrainSubsystem;
     private Pose2d m_goal;
     ProfiledPIDController m_rotationPID = null;
-    PIDController m_xPID = null;
-    PIDController m_yPID = null;
+    ProfiledPIDController m_xPID = null;
+    ProfiledPIDController m_yPID = null;
+    SimpleMotorFeedforward m_xFF = null;
+    SimpleMotorFeedforward m_yFF = null;
     private Pose2d m_error = null;
     final private double m_maxErrorMeters;
 
@@ -48,6 +51,10 @@ public class SnapDriveToPoseField extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        double TRANSLATE_P = 1.0;
+        double TRANSLATE_D = 0.0;
+        double TRANSLATE_FF_S = 0.0; // keep zero we are going to use the PID and static FF
+        double TRANSLATE_FF_V = 1.0; // Weight of the position pid to the velocity
 
         TrapezoidProfile.Constraints rotationConstraints = new TrapezoidProfile.Constraints(
                 1.0, 0.5);
@@ -59,15 +66,18 @@ public class SnapDriveToPoseField extends CommandBase {
 
         TrapezoidProfile.Constraints translateConstraints = new TrapezoidProfile.Constraints(
                 SnapConstants.kMAX_TRANSLATE_VELOCITY, SnapConstants.kMAX_TRANSLATE_ACCEL);
-        m_xPID = new PIDController(0.4, 0,
-                SnapConstants.kTRANSLATE_D);
-        m_yPID = new PIDController(0.4, 0,
-                SnapConstants.kTRANSLATE_D);
+        m_xPID = new ProfiledPIDController(TRANSLATE_P, 0, TRANSLATE_D, translateConstraints);
+        m_yPID = new ProfiledPIDController(TRANSLATE_P, 0, TRANSLATE_D, translateConstraints);
+
+        m_xFF = new SimpleMotorFeedforward(TRANSLATE_FF_S, TRANSLATE_FF_V);
+        m_yFF = new SimpleMotorFeedforward(TRANSLATE_FF_S, TRANSLATE_FF_V);
+
         // setup the X/Y PIDs
 
-        // Pose2d error = getError();
-        // m_xPID.reset(error.getTranslation().getX());
-        // m_yPID.reset(error.getTranslation().getY());
+        // TODO add to the resets the current velocities
+        Pose2d error = getError();
+        m_xPID.reset(error.getTranslation().getX());
+        m_yPID.reset(error.getTranslation().getY());
 
         // TODO uncomment this and test it, then add it to other Snap commands as
         // necessary...
@@ -103,23 +113,27 @@ public class SnapDriveToPoseField extends CommandBase {
         }
 
         double translateSpeedX = m_xPID.calculate(m_error.getX(), 0);
-        translateSpeedX = MathUtil.clamp(translateSpeedX, -SnapConstants.kMAX_TRANSLATE_VELOCITY,
+        translateSpeedX += m_xFF.calculate(m_xPID.getSetpoint().velocity);
+        translateSpeedX = MathUtil.clamp(translateSpeedX,
+                -SnapConstants.kMAX_TRANSLATE_VELOCITY,
                 SnapConstants.kMAX_TRANSLATE_VELOCITY);
 
-        double TRANSLATE_FF = 0.1;
+        double TRANSLATE_FF = 0.0;
         if (translateSpeedX > 0) {
             translateSpeedX += TRANSLATE_FF;
-        } else {
+        } else if (translateSpeedX < 0) {
             translateSpeedX -= TRANSLATE_FF;
         }
 
         double translateSpeedY = m_yPID.calculate(m_error.getY(), 0);
-        translateSpeedY = MathUtil.clamp(translateSpeedY, -SnapConstants.kMAX_TRANSLATE_VELOCITY,
+        translateSpeedY += m_yFF.calculate(m_yPID.getSetpoint().velocity);
+        translateSpeedY = MathUtil.clamp(translateSpeedY,
+                -SnapConstants.kMAX_TRANSLATE_VELOCITY,
                 SnapConstants.kMAX_TRANSLATE_VELOCITY);
 
         if (translateSpeedY > 0) {
             translateSpeedY += TRANSLATE_FF;
-        } else {
+        } else if (translateSpeedY < 0) {
             translateSpeedY -= TRANSLATE_FF;
         }
 

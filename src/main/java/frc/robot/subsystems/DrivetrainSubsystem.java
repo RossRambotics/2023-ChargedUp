@@ -25,6 +25,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
+
 import static frc.robot.Constants.*;
 
 public class DrivetrainSubsystem extends SubsystemBase {
@@ -214,6 +216,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
                                 BACK_RIGHT_MODULE_STEER_MOTOR,
                                 BACK_RIGHT_MODULE_STEER_ENCODER,
                                 BACK_RIGHT_MODULE_STEER_OFFSET);
+
+                m_simTimer.start();
         }
 
         /**
@@ -323,6 +327,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 m_swerveModulePositions[3].distanceMeters = m_backLeftModule.getDriveDistance();
         }
 
+        private double m_simEncoders[] = { 0.0, 0.0, 0.0, 0.0 };
+
         @Override
         public void periodic() {
 
@@ -348,25 +354,47 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 // states[3].angle.getRadians());
 
                 // update odometry
-                m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
+                if (!Robot.isSimulation()) {
+                        m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
+                }
 
                 // update field sim
                 if (Robot.isSimulation()) {
                         // This method will be called once per scheduler run during simulation only
                         // update the pose every
                         // 0.002 seconds
-                        if (m_simTimer.advanceIfElapsed(0.002)) {
+                        if (m_simTimer.advanceIfElapsed(0.02)) {
 
                                 // we need to simulate the update of the (x,y) of the robot
                                 // we will use the average speed of the modules
-                                double ave = m_swerveModuleStates[0].speedMetersPerSecond +
-                                                m_swerveModuleStates[1].speedMetersPerSecond +
-                                                m_swerveModuleStates[2].speedMetersPerSecond +
-                                                m_swerveModuleStates[3].speedMetersPerSecond;
-                                ave /= 4.0;
+                                // double ave = m_swerveModuleStates[0].speedMetersPerSecond +
+                                // m_swerveModuleStates[1].speedMetersPerSecond +
+                                // m_swerveModuleStates[2].speedMetersPerSecond +
+                                // m_swerveModuleStates[3].speedMetersPerSecond;
+                                // ave /= 4.0;
+                                m_simEncoders[0] += m_swerveModuleStates[0].speedMetersPerSecond
+                                                * 0.02;
+                                m_simEncoders[1] += m_swerveModuleStates[1].speedMetersPerSecond
+                                                * 0.02;
+                                m_simEncoders[2] += m_swerveModuleStates[2].speedMetersPerSecond
+                                                * 0.02;
+                                m_simEncoders[3] += m_swerveModuleStates[3].speedMetersPerSecond
+                                                * 0.02;
+
+                                m_swerveModulePositions[0].distanceMeters = m_simEncoders[0];
+                                m_swerveModulePositions[0].angle = m_swerveModuleStates[0].angle;
+                                m_swerveModulePositions[1].distanceMeters = m_simEncoders[1];
+                                m_swerveModulePositions[1].angle = m_swerveModuleStates[1].angle;
+                                m_swerveModulePositions[2].distanceMeters = m_simEncoders[2];
+                                m_swerveModulePositions[2].angle = m_swerveModuleStates[2].angle;
+                                m_swerveModulePositions[3].distanceMeters = m_simEncoders[3];
+                                m_swerveModulePositions[3].angle = m_swerveModuleStates[3].angle;
+
+                                m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
+
                                 Pose2d simPose = new Pose2d(
-                                                getOdometryPose().getX() + (ave * 0.002),
-                                                getOdometryPose().getY() + (ave * 0.002),
+                                                getOdometryPose().getX(),
+                                                getOdometryPose().getY(),
                                                 new Rotation2d(m_lastRotationSpeed));
                                 m_field.setRobotPose(simPose);
                         }
@@ -393,6 +421,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         public SwerveModulePosition[] getSwervePositions() {
                 return m_swerveModulePositions;
+        }
+
+        public void resetSimEndoers() {
+                m_simEncoders[0] = 0.0;
+                m_simEncoders[1] = 0.0;
+                m_simEncoders[2] = 0.0;
+                m_simEncoders[3] = 0.0;
         }
 
 }
