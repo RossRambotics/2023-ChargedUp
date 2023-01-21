@@ -52,7 +52,7 @@ public class SnapDriveToPoseField extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        double TRANSLATE_P = 1.0;
+        double TRANSLATE_P = 4.0;
         double TRANSLATE_D = 0.0;
         double TRANSLATE_FF_S = 0.0; // keep zero we are going to use the PID and static FF
         double TRANSLATE_FF_V = 1.0; // Weight of the position pid to the velocity
