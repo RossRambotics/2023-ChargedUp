@@ -39,7 +39,8 @@ public class SnapDriveToPoseField extends CommandBase {
             Pose2d goal, double maxErrorMeters) {
 
         this.m_drivetrainSubsystem = drivetrainSubsystem;
-        double kFACTOR = 1.0;
+        double kFACTOR = 1.0; // scaling factor to correct for calculation error between simulated world and
+                              // real world
 
         m_goal = new Pose2d(goal.getX() * kFACTOR, goal.getY() * kFACTOR, goal.getRotation());
         m_maxErrorMeters = maxErrorMeters;
