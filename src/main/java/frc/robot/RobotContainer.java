@@ -20,15 +20,19 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.Drive.SnapDrive;
+import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
 import frc.robot.sim.PhysicsSim;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Tracking;
 
 public class RobotContainer {
+        
 
         private static RobotContainer m_theRobot = null;
 
@@ -48,10 +52,12 @@ public class RobotContainer {
         static public final Tracking m_Tracking = new Tracking();
         private static double slewLimit = 0.6;
 
+        private final CommandXboxController m_controllerDriver1 = new CommandXboxController(0);
         private final XboxController m_controllerDriver = new XboxController(0);
         // private final XboxController m_controllerOperator = new XboxController(1);
 
         public PhysicsSim m_PhysicsSim;
+
 
         public RobotContainer() {
                 // Set up the default command for the drivetrain.
@@ -137,6 +143,7 @@ public class RobotContainer {
          * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
          */
         private void configureButtonBindings() {
+                
                 // Back button zeros the gyroscope
                 new Button(m_controllerDriver::getBackButton)
                                 // No requirements because we don't need to interrupt anything
@@ -171,23 +178,32 @@ public class RobotContainer {
                  * Implement Snap Drive
                  */
 
-                // North
+                // left degress
                 cmd = new frc.robot.commands.Drive.SnapDrive(
                                 m_drivetrainSubsystem,
                                 () -> -getInputLeftY(),
                                 () -> -getInputLeftX(),
-                                0);
+                                RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() + 10);
+
+                                m_controllerDriver1.leftBumper().onTrue(cmd);
+                                
+                //Trigger leftBumpTrigger = m_controllerDriver1.leftBumper();
 
                 // new POVButton(m_controllerOperator, 0)
                 // .whenHeld(cmd);
 
-                // South
+                // Right Degrees
                 cmd = new frc.robot.commands.Drive.SnapDrive(
                                 m_drivetrainSubsystem,
                                 () -> -getInputLeftY(),
                                 () -> -getInputLeftX(),
-                                180);
+                                RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() - 10);
 
+                                m_controllerDriver1.rightBumper().onTrue(cmd);
+
+                        
+
+                               
                 // new POVButton(m_controllerOperator, 180)
                 // .whenHeld(cmd);
 
@@ -271,6 +287,11 @@ public class RobotContainer {
 
                 autoCmd = new AutoMoveConeLeft();
                 autoCmd.setName("AutoMoveConeLeft");
+                m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+                commands.add(autoCmd);
+
+                autoCmd = new AutoMoveBackToPose();
+                autoCmd.setName("AutoMoceBackToPose");
                 m_autoChooser.addOption(autoCmd.getName(), autoCmd);
                 commands.add(autoCmd);
 
