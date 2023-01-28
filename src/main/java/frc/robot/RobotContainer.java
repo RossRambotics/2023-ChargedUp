@@ -19,8 +19,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DefaultDriveCommand;
@@ -52,10 +54,11 @@ public class RobotContainer {
         static public final Tracking m_Tracking = new Tracking();
         private static double slewLimit = 0.6;
 
-        private final CommandXboxController m_controllerDriver1 = new CommandXboxController(0);
         private final XboxController m_controllerDriver = new XboxController(0);
         // private final XboxController m_controllerOperator = new XboxController(1);
-
+        Trigger leftBumper = new JoystickButton(m_controllerDriver, XboxController.Button.kLeftBumper.value);
+        Trigger rightBumper = new JoystickButton(m_controllerDriver, XboxController.Button.kRightBumper.value);
+        Trigger backButton = new JoystickButton(m_controllerDriver, XboxController.Button.kBack.value);
         public PhysicsSim m_PhysicsSim;
 
 
@@ -113,7 +116,9 @@ public class RobotContainer {
         // }
 
         private double m_lastSnapAngle = 720; // defaults to 720 because 720 tells snap drive to not adjust the angle
-
+        public void resetLastSnapAngle(){
+                m_lastSnapAngle = 720;
+        }
         private double snapAngle() {
                 double x = m_controllerDriver.getRightX();
                 double y = -m_controllerDriver.getRightY();
@@ -143,32 +148,29 @@ public class RobotContainer {
          * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
          */
         private void configureButtonBindings() {
-                
-                // Back button zeros the gyroscope
-                new Button(m_controllerDriver::getBackButton)
-                                // No requirements because we don't need to interrupt anything
-                                .whenPressed(m_drivetrainSubsystem::zeroGyroscope);
-
                 Command cmd;
-                cmd = new DefaultDriveCommand(
-                                m_drivetrainSubsystem,
-                                () -> -getInputLeftY(),
-                                () -> -getInputLeftX(),
-                                () -> {
-                                        return -0.2;
-                                });
-                new POVButton(m_controllerDriver, 180)
-                                .whenHeld(cmd);
 
-                cmd = new DefaultDriveCommand(
-                                m_drivetrainSubsystem,
-                                () -> -getInputLeftY(),
-                                () -> -getInputLeftX(),
-                                () -> {
-                                        return 0.2;
-                                });
-                new POVButton(m_controllerDriver, 90)
-                                .whenHeld(cmd);
+                backButton.whileTrue(new RunCommand(() -> m_drivetrainSubsystem.zeroGyroscope()));
+
+                // cmd = new DefaultDriveCommand(
+                //                 m_drivetrainSubsystem,
+                //                 () -> -getInputLeftY(),
+                //                 () -> -getInputLeftX(),
+                //                 () -> {
+                //                         return -0.2;
+                //                 });
+                // new POVButton(m_controllerDriver, 180)
+                //                .whenHeld(cmd);
+
+                // cmd = new DefaultDriveCommand(
+                //                 m_drivetrainSubsystem,
+                //                 () -> -getInputLeftY(),
+                //                 () -> -getInputLeftX(),
+                //                 () -> {
+                //                         return 0.2;
+                //                 });
+                // new POVButton(m_controllerDriver, 90)
+                //                 .whenHeld(cmd);
 
                 /**
                  * Operator controls
@@ -178,28 +180,57 @@ public class RobotContainer {
                  * Implement Snap Drive
                  */
 
-                // left degress
+                cmd = new frc.robot.commands.Drive.SnapDrive(
+                                m_drivetrainSubsystem,
+                                () -> 0.4,
+                                () -> 0,
+                                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees());
+                        
+                        new POVButton(m_controllerDriver, 0).whileTrue(cmd);
+
+                cmd = new frc.robot.commands.Drive.SnapDrive(
+                                m_drivetrainSubsystem,
+                                () -> -0.4,
+                                () -> 0,
+                                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees());
+                        
+                        new POVButton(m_controllerDriver, 180).whileTrue(cmd);
+
+                cmd = new frc.robot.commands.Drive.SnapDrive(
+                                m_drivetrainSubsystem,
+                                () -> 0,
+                                () -> -0.4,
+                                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees());
+                        
+                        new POVButton(m_controllerDriver, 90).whileTrue(cmd);
+
+                cmd = new frc.robot.commands.Drive.SnapDrive(
+                                m_drivetrainSubsystem,
+                                () -> 0,
+                                () -> 0.4,
+                                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees());
+                        
+                        new POVButton(m_controllerDriver, 270).whileTrue(cmd);
+
+                
+                // Turn Left with Left Bumper
                 cmd = new frc.robot.commands.Drive.SnapDrive(
                                 m_drivetrainSubsystem,
                                 () -> -getInputLeftY(),
                                 () -> -getInputLeftX(),
-                                RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() + 10);
+                                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() - 10);
 
-                                m_controllerDriver1.leftBumper().onTrue(cmd);
-                                
-                //Trigger leftBumpTrigger = m_controllerDriver1.leftBumper();
+                                leftBumper.whileTrue(cmd);
 
-                // new POVButton(m_controllerOperator, 0)
-                // .whenHeld(cmd);
 
-                // Right Degrees
+                // Turn Right with Right Bumper
                 cmd = new frc.robot.commands.Drive.SnapDrive(
                                 m_drivetrainSubsystem,
                                 () -> -getInputLeftY(),
                                 () -> -getInputLeftX(),
-                                RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() - 10);
+                                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() + 10);
 
-                                m_controllerDriver1.rightBumper().onTrue(cmd);
+                                rightBumper.whileTrue(cmd);
 
                         
 
