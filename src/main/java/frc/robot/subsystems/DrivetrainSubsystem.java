@@ -17,13 +17,17 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
+
 import static frc.robot.Constants.*;
 
 public class DrivetrainSubsystem extends SubsystemBase {
@@ -56,7 +60,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // roughly 4.116 for our setup
         public static final double MAX_VELOCITY_METERS_PER_SECOND = 4;
 
-        
         /**
          * The maximum angular velocity of the robot in radians per second.
          * <p>
@@ -85,28 +88,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 return m_kinematics;
         }
 
-        // By default we use a Pigeon for our gyroscope. But if you use another
-        // gyroscope, like a NavX, you can change this.
         // The important thing about how you configure your gyroscope is that rotating
         // the robot counter-clockwise should
         // cause the angle reading to increase until it wraps back over to zero.
-        // FIXME Remove if you are using a Pigeon
-
-        // private final PigeonIMU m_pigeon = new PigeonIMU(DRIVETRAIN_PIGEON_ID);
         private final WPI_Pigeon2 m_pigeon = new WPI_Pigeon2(DRIVETRAIN_PIGEON_ID);
-
-        // FIXME Uncomment if you are using a NavX
-        // private final AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX
-        // connected over MXP
 
         // These are our modules. We initialize them in the constructor.
         private final SwerveModule m_frontLeftModule;
         private final SwerveModule m_frontRightModule;
         private final SwerveModule m_backLeftModule;
         private final SwerveModule m_backRightModule;
-
-        // removed below as part of conversion to support odometry
-        // private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
         // private Pose2d m_odometryPose = new Pose2d();
         private SwerveModuleState[] m_swerveModuleStates = new SwerveModuleState[4]; // added while adding odometry
@@ -142,30 +133,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
                                 .withSize(8, 8)
                                 .withPosition(0, 0);
 
-                // There are 4 methods you can call to create your swerve modules.
-                // The method you use depends on what motors you are using.
-                //
-                // Mk3SwerveModuleHelper.createFalcon500(...)
-                // Your module has two Falcon 500s on it. One for steering and one for driving.
-                //
-                // Mk3SwerveModuleHelper.createNeo(...)
-                // Your module has two NEOs on it. One for steering and one for driving.
-                //
-                // Mk3SwerveModuleHelper.createFalcon500Neo(...)
-                // Your module has a Falcon 500 and a NEO on it. The Falcon 500 is for driving
-                // and the NEO is for steering.
-                //
-                // Mk3SwerveModuleHelper.createNeoFalcon500(...)
-                // Your module has a NEO and a Falcon 500 on it. The NEO is for driving and the
-                // Falcon 500 is for steering.
-                //
-                // Similar helpers also exist for Mk4 modules using the Mk4SwerveModuleHelper
-                // class.
-
-                // By default we will use Falcon 500s in standard configuration. But if you use
-                // a different configuration or motors
-                // you MUST change it. If you do not, your code will crash on startup.
-                // FIXME Setup motor configuration
+                // FIXME Setup motor configuration - we will need to update to Mk4i
                 m_frontLeftModule = Mk4SwerveModuleHelper.createFalcon500(
                                 // This parameter is optional, but will allow you to see the current state of
                                 // the module on the dashboard.
@@ -214,6 +182,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
                                 BACK_RIGHT_MODULE_STEER_MOTOR,
                                 BACK_RIGHT_MODULE_STEER_ENCODER,
                                 BACK_RIGHT_MODULE_STEER_OFFSET);
+
+                m_simTimer.start();
         }
 
         /**
@@ -222,12 +192,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
          * 'forwards' direction.
          */
         public void zeroGyroscope() {
-                // FIXME Remove if you are using a Pigeon
-                // m_pigeon.setFusedHeading(0.0);
-                m_pigeon.setYaw(0.0, 10);
 
-                // FIXME Uncomment if you are using a NavX
-                // m_navx.zeroYaw();
+                m_pigeon.setYaw(0.0, 10);
         }
 
         /**
@@ -241,19 +207,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         }
 
         public Rotation2d getGyroscopeRotation() {
-                // FIXME Remove if you are using a Pigeon
-                // return Rotation2d.fromDegrees(m_pigeon.getFusedHeading());
                 return Rotation2d.fromDegrees(m_pigeon.getYaw());
-
-                // FIXME Uncomment if you are using a NavX
-                // if (m_navx.isMagnetometerCalibrated()) {
-                // // We will only get valid fused headings if the magnetometer is calibrated
-                // return Rotation2d.fromDegrees(m_navx.getFusedHeading());
-                // }
-                //
-                // // We have to invert the angle of the NavX so that rotating the robot
-                // counter-clockwise makes the angle increase.
-                // return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
         }
 
         // clockwise rotoation is a positive change in angle
@@ -296,12 +250,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
                 m_lastRotationSpeed = rotationSpeed;
                 // update the actual swerve modules
-                this.updateSDSSwerveModules();
+                this.setSwerveModulesStates();
         }
 
         // method created to facilitate autonomous using odometry
-        public void setSwerveModulesStates(SwerveModuleState[] states) {
-                m_swerveModuleStates = states;
+        public void setSwerveModulesStates() {
                 SwerveDriveKinematics.desaturateWheelSpeeds(
                                 m_swerveModuleStates,
                                 MAX_VELOCITY_METERS_PER_SECOND);
@@ -323,40 +276,55 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 m_swerveModulePositions[3].distanceMeters = m_backLeftModule.getDriveDistance();
         }
 
+        private double m_simEncoders[] = { 0.0, 0.0, 0.0, 0.0 };
+
         @Override
         public void periodic() {
-
-                // Moved section below (the setting of the modules) into the drive method
-                // and create a new method to set the swerve modules using the states
-
-                // SwerveModuleState[] states =
-                // m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
-                // SwerveDriveKinematics.desaturateWheelSpeeds(states,
-                // MAX_VELOCITY_METERS_PER_SECOND);
-
-                // m_frontLeftModule.set(states[0].speedMetersPerSecond /
-                // MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
-                // states[0].angle.getRadians());
-                // m_frontRightModule.set(states[1].speedMetersPerSecond /
-                // MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
-                // states[1].angle.getRadians());
-                // m_backLeftModule.set(states[2].speedMetersPerSecond /
-                // MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
-                // states[2].angle.getRadians());
-                // m_backRightModule.set(states[3].speedMetersPerSecond /
-                // MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
-                // states[3].angle.getRadians());
-
                 // update odometry
-                m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
+                if (!Robot.isSimulation()) {
+                        m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
+                }
 
                 // update field sim
                 if (Robot.isSimulation()) {
-                        Pose2d simPose = new Pose2d(
-                                        getOdometryPose().getX(),
-                                        getOdometryPose().getY(),
-                                        new Rotation2d(m_lastRotationSpeed));
-                        m_field.setRobotPose(simPose);
+                        // This method will be called once per scheduler run during simulation only
+                        // update the pose every
+                        // 0.002 seconds
+                        if (m_simTimer.advanceIfElapsed(0.02)) {
+
+                                // we need to simulate the update of the (x,y) of the robot
+                                // we will use the average speed of the modules
+                                // double ave = m_swerveModuleStates[0].speedMetersPerSecond +
+                                // m_swerveModuleStates[1].speedMetersPerSecond +
+                                // m_swerveModuleStates[2].speedMetersPerSecond +
+                                // m_swerveModuleStates[3].speedMetersPerSecond;
+                                // ave /= 4.0;
+                                m_simEncoders[0] += m_swerveModuleStates[0].speedMetersPerSecond
+                                                * 0.02;
+                                m_simEncoders[1] += m_swerveModuleStates[1].speedMetersPerSecond
+                                                * 0.02;
+                                m_simEncoders[2] += m_swerveModuleStates[2].speedMetersPerSecond
+                                                * 0.02;
+                                m_simEncoders[3] += m_swerveModuleStates[3].speedMetersPerSecond
+                                                * 0.02;
+
+                                m_swerveModulePositions[0].distanceMeters = m_simEncoders[0];
+                                m_swerveModulePositions[0].angle = m_swerveModuleStates[0].angle;
+                                m_swerveModulePositions[1].distanceMeters = m_simEncoders[1];
+                                m_swerveModulePositions[1].angle = m_swerveModuleStates[1].angle;
+                                m_swerveModulePositions[2].distanceMeters = m_simEncoders[2];
+                                m_swerveModulePositions[2].angle = m_swerveModuleStates[2].angle;
+                                m_swerveModulePositions[3].distanceMeters = m_simEncoders[3];
+                                m_swerveModulePositions[3].angle = m_swerveModuleStates[3].angle;
+
+                                m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
+
+                                Pose2d simPose = new Pose2d(
+                                                getOdometryPose().getX(),
+                                                getOdometryPose().getY(),
+                                                new Rotation2d(m_lastRotationSpeed));
+                                m_field.setRobotPose(simPose);
+                        }
                 } else {
                         m_field.setRobotPose(getOdometryPose());
                 }
@@ -371,13 +339,22 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 return m_odometry;
         }
 
+        private final Timer m_simTimer = new Timer();
+
         @Override
         public void simulationPeriodic() {
-                // This method will be called once per scheduler run during simulation
+
         }
 
         public SwerveModulePosition[] getSwervePositions() {
                 return m_swerveModulePositions;
+        }
+
+        public void resetSimEndoers() {
+                m_simEncoders[0] = 0.0;
+                m_simEncoders[1] = 0.0;
+                m_simEncoders[2] = 0.0;
+                m_simEncoders[3] = 0.0;
         }
 
 }
