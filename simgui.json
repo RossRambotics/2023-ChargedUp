@@ -14,6 +14,7 @@
     },
     "windows": {
       "/Shuffleboard/Field/Field": {
+        "image": "/Users/hollisms/Data/FRC/2023/2023-ChargedUp/2023-field.png",
         "window": {
           "visible": true
         }
