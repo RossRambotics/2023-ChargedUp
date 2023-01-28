@@ -47,7 +47,7 @@ public class SnapDrive extends CommandBase {
         this.m_drivetrainSubsystem = drivetrainSubsystem;
         this.m_translationXSupplier = translationXSupplier;
         this.m_translationYSupplier = translationYSupplier;
-        this.m_goalDegrees = goalSupplier.getAsDouble();
+        this.m_goalDegrees = 720;
         this.m_goalSupplier = goalSupplier;
 
         // Use addRequirements() here to declare subsystem dependencies.
@@ -71,6 +71,9 @@ public class SnapDrive extends CommandBase {
         // let's the theta controller know that it is a circle (ie, 180 = -180)
         m_PIDTracking.enableContinuousInput(0, 360);
         // m_PIDTracking.reset(getError());
+        if (m_goalDegrees == 720) {
+            RobotContainer.getTheRobot().resetLastSnapAngle();
+        }
 
         m_timer.reset();
         m_timer.start();
