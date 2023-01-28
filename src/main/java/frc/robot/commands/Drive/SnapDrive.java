@@ -47,7 +47,7 @@ public class SnapDrive extends CommandBase {
         this.m_drivetrainSubsystem = drivetrainSubsystem;
         this.m_translationXSupplier = translationXSupplier;
         this.m_translationYSupplier = translationYSupplier;
-        this.m_goalDegrees = 720;
+        this.m_goalDegrees = goalSupplier.getAsDouble();
         this.m_goalSupplier = goalSupplier;
 
         // Use addRequirements() here to declare subsystem dependencies.
