@@ -9,6 +9,7 @@ import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -27,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.Positioning;
 
 import static frc.robot.Constants.*;
 
@@ -107,7 +109,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         private SwerveModulePosition[] m_swerveModulePositions = new SwerveModulePosition[4];
 
         // adding SwerveOdometry
-        private SwerveDriveOdometry m_odometry = null;
+        private static SwerveDrivePoseEstimator m_odometry = null;
 
         private Field2d m_field = new Field2d();
 
@@ -124,8 +126,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 m_swerveModulePositions[2] = new SwerveModulePosition();
                 m_swerveModulePositions[3] = new SwerveModulePosition();
 
-                m_odometry = new SwerveDriveOdometry(m_kinematics, getGyroscopeRotation(),
-                                m_swerveModulePositions);
+                m_odometry = new SwerveDrivePoseEstimator(m_kinematics, getGyroscopeRotation(),
+                                m_swerveModulePositions, new Pose2d(0, 0, new Rotation2d(Math.toRadians(0))));
 
                 ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
                 ShuffleboardTab fieldtab = Shuffleboard.getTab("Field");
@@ -332,10 +334,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
         }
 
         public Pose2d getOdometryPose() {
-                return m_odometry.getPoseMeters();
+                return m_odometry.getEstimatedPosition();
         }
 
-        public SwerveDriveOdometry getOdometry() {
+        public static SwerveDrivePoseEstimator getOdometry() {
                 return m_odometry;
         }
 
