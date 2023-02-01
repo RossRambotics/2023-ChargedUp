@@ -291,16 +291,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 if (Robot.isSimulation()) {
                         // This method will be called once per scheduler run during simulation only
                         // update the pose every
-                        // 0.002 seconds
+                        // 0.02 seconds
                         if (m_simTimer.advanceIfElapsed(0.02)) {
 
                                 // we need to simulate the update of the (x,y) of the robot
-                                // we will use the average speed of the modules
-                                // double ave = m_swerveModuleStates[0].speedMetersPerSecond +
-                                // m_swerveModuleStates[1].speedMetersPerSecond +
-                                // m_swerveModuleStates[2].speedMetersPerSecond +
-                                // m_swerveModuleStates[3].speedMetersPerSecond;
-                                // ave /= 4.0;
+                                // we will use the speed of the modules
                                 m_simEncoders[0] += m_swerveModuleStates[0].speedMetersPerSecond
                                                 * 0.02;
                                 m_simEncoders[1] += m_swerveModuleStates[1].speedMetersPerSecond
