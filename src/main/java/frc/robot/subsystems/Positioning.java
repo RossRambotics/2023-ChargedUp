@@ -16,6 +16,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.LimelightHelpers;
 
 public class Positioning extends SubsystemBase {
   private NetworkTable m_limelight = null;
@@ -27,18 +28,12 @@ public class Positioning extends SubsystemBase {
   private NetworkTable m_table;
   private String m_tableName;
 
-  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-  int tv = m_limelight.getEntry("tv").getNumber(0).intValue();
-  int botpose_wpiblue = m_limelight.getEntry("botpose_wpiblue").getNumber(0).intValue();
+  // NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  // int tv = m_limelight.getEntry("tv").getNumber(0).intValue();
+  // int botpose_wpiblue =
+  // m_limelight.getEntry("botpose_wpiblue").getNumber(0).intValue();
 
-  
-  
- 
   Pose2d m_botpose = null;
-
-  
-
-
 
   /** Creates a new Positioning. */
   public Positioning() {
@@ -49,12 +44,11 @@ public class Positioning extends SubsystemBase {
 
     m_limelight = NetworkTableInstance.getDefault().getTable("limelight-rambot");
 
-    
     double m_bluepose[];
-    m_bluepose = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose_wpiblue").getDoubleArray(new double[6]);
+    m_bluepose = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose_wpiblue")
+        .getDoubleArray(new double[6]);
 
     Pose2d m_botpose = new Pose2d(m_bluepose[0], m_bluepose[1], null);
-    
 
   }
 
@@ -68,34 +62,37 @@ public class Positioning extends SubsystemBase {
     p2d = new Pose2d(tran2d, r2d);
 
     return p2d;
-}
+  }
 
   public void updateVision(SwerveDrivePoseEstimator odometry) {
 
-
     // double bluepose[];
-    // bluepose = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose_wpiblue").getDoubleArray(new double[6]);
+    // bluepose =
+    // NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose_wpiblue").getDoubleArray(new
+    // double[6]);
 
     // Pose2d botpose = new Pose2d(bluepose[0], bluepose[1], null);
-    
-    if (tv == 1) {
-      odometry.addVisionMeasurement(getRobotPose(), 1);
-      
-    }
+
+    // if (tv == 1) {
+    // odometry.addVisionMeasurement(getRobotPose(), 1);
+
+    // }
   }
 
   @Override
   public void periodic() {
-        // This method will be called once per scheduler run
+    // This method will be called once per scheduler run
+    Pose2d botPose = LimelightHelpers.getBotPose2d_wpiBlue("");
 
-        // check that we have a valid potpose
-        if (tv == 1) {
+    // check that we have a valid potpose
+    if (LimelightHelpers.getTV("") > 0) {
 
-          DrivetrainSubsystem.getOdometry().addVisionMeasurement(getRobotPose(), 1);
-        }
+      DrivetrainSubsystem.getOdometry().addVisionMeasurement(getRobotPose(), 0.1);
+      System.out.println("Updated Odometry with Limelight");
+    }
 
-        // get the odometry from drive train
+    // get the odometry from drive train
 
-        // update the vision estimate
+    // update the vision estimate
   }
 }

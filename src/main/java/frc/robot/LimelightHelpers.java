@@ -2,9 +2,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -371,6 +375,28 @@ public class LimelightHelpers {
     }
 
     /////
+
+    /**
+     * Gets the BotPose for easy use with Odometry vision pose estimator
+     * (addVisionMeasurement)
+     * 
+     * @param limelightName
+     * @return
+     */
+    public static Pose2d getBotPose2d_wpiBlue(String limelightName) {
+
+        double[] result = getBotpose_wpiBlue(limelightName);
+        Translation2d tran2d = new Translation2d(result[0], result[1]);
+        Rotation2d r2d = new Rotation2d(result[5]);
+
+        return new Pose2d(tran2d, r2d);
+
+    }
+
+    public static double getTV(String limelightName) {
+        return getLimelightNTDouble(limelightName, "tv");
+    }
+
     /////
 
     public static void setPipelineIndex(String limelightName, int pipelineIndex) {

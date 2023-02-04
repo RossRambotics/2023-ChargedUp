@@ -31,10 +31,10 @@ import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
 import frc.robot.sim.PhysicsSim;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Positioning;
 import frc.robot.subsystems.Tracking;
 
 public class RobotContainer {
-        
 
         private static RobotContainer m_theRobot = null;
 
@@ -50,6 +50,7 @@ public class RobotContainer {
         static public final ShuffleboardTab m_TuningTab = Shuffleboard.getTab("Match.Tuning");
 
         static public final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+        static public final Positioning m_positioning = new Positioning();
 
         static public final Tracking m_Tracking = new Tracking();
         private static double slewLimit = 0.6;
@@ -60,7 +61,6 @@ public class RobotContainer {
         Trigger rightBumper = new JoystickButton(m_controllerDriver, XboxController.Button.kRightBumper.value);
         Trigger backButton = new JoystickButton(m_controllerDriver, XboxController.Button.kBack.value);
         public PhysicsSim m_PhysicsSim;
-
 
         public RobotContainer() {
                 // Set up the default command for the drivetrain.
@@ -116,9 +116,11 @@ public class RobotContainer {
         // }
 
         private double m_lastSnapAngle = 720; // defaults to 720 because 720 tells snap drive to not adjust the angle
-        public void resetLastSnapAngle(){
+
+        public void resetLastSnapAngle() {
                 m_lastSnapAngle = 720;
         }
+
         private double snapAngle() {
                 double x = m_controllerDriver.getRightX();
                 double y = -m_controllerDriver.getRightY();
@@ -153,24 +155,24 @@ public class RobotContainer {
                 backButton.whileTrue(new RunCommand(() -> m_drivetrainSubsystem.zeroGyroscope()));
 
                 // cmd = new DefaultDriveCommand(
-                //                 m_drivetrainSubsystem,
-                //                 () -> -getInputLeftY(),
-                //                 () -> -getInputLeftX(),
-                //                 () -> {
-                //                         return -0.2;
-                //                 });
+                // m_drivetrainSubsystem,
+                // () -> -getInputLeftY(),
+                // () -> -getInputLeftX(),
+                // () -> {
+                // return -0.2;
+                // });
                 // new POVButton(m_controllerDriver, 180)
-                //                .whenHeld(cmd);
+                // .whenHeld(cmd);
 
                 // cmd = new DefaultDriveCommand(
-                //                 m_drivetrainSubsystem,
-                //                 () -> -getInputLeftY(),
-                //                 () -> -getInputLeftX(),
-                //                 () -> {
-                //                         return 0.2;
-                //                 });
+                // m_drivetrainSubsystem,
+                // () -> -getInputLeftY(),
+                // () -> -getInputLeftX(),
+                // () -> {
+                // return 0.2;
+                // });
                 // new POVButton(m_controllerDriver, 90)
-                //                 .whenHeld(cmd);
+                // .whenHeld(cmd);
 
                 /**
                  * Operator controls
@@ -185,34 +187,33 @@ public class RobotContainer {
                                 () -> 0.4,
                                 () -> 0,
                                 () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees());
-                        
-                        new POVButton(m_controllerDriver, 0).whileTrue(cmd);
+
+                new POVButton(m_controllerDriver, 0).whileTrue(cmd);
 
                 cmd = new frc.robot.commands.Drive.SnapDrive(
                                 m_drivetrainSubsystem,
                                 () -> -0.4,
                                 () -> 0,
                                 () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees());
-                        
-                        new POVButton(m_controllerDriver, 180).whileTrue(cmd);
+
+                new POVButton(m_controllerDriver, 180).whileTrue(cmd);
 
                 cmd = new frc.robot.commands.Drive.SnapDrive(
                                 m_drivetrainSubsystem,
                                 () -> 0,
                                 () -> -0.4,
                                 () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees());
-                        
-                        new POVButton(m_controllerDriver, 90).whileTrue(cmd);
+
+                new POVButton(m_controllerDriver, 90).whileTrue(cmd);
 
                 cmd = new frc.robot.commands.Drive.SnapDrive(
                                 m_drivetrainSubsystem,
                                 () -> 0,
                                 () -> 0.4,
                                 () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees());
-                        
-                        new POVButton(m_controllerDriver, 270).whileTrue(cmd);
 
-                
+                new POVButton(m_controllerDriver, 270).whileTrue(cmd);
+
                 // Turn Left with Left Bumper
                 cmd = new frc.robot.commands.Drive.SnapDrive(
                                 m_drivetrainSubsystem,
@@ -220,8 +221,7 @@ public class RobotContainer {
                                 () -> -getInputLeftX(),
                                 () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() - 10);
 
-                                leftBumper.whileTrue(cmd);
-
+                leftBumper.whileTrue(cmd);
 
                 // Turn Right with Right Bumper
                 cmd = new frc.robot.commands.Drive.SnapDrive(
@@ -230,11 +230,8 @@ public class RobotContainer {
                                 () -> -getInputLeftX(),
                                 () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() + 10);
 
-                                rightBumper.whileTrue(cmd);
+                rightBumper.whileTrue(cmd);
 
-                        
-
-                               
                 // new POVButton(m_controllerOperator, 180)
                 // .whenHeld(cmd);
 
