@@ -66,6 +66,15 @@ public class Positioning extends SubsystemBase {
 
   public void updateVision(SwerveDrivePoseEstimator odometry) {
 
+    Pose2d botPose = LimelightHelpers.getBotPose2d_wpiBlue("");
+
+    // check that we have a valid potpose
+    if (LimelightHelpers.getTV("") > 0) {
+
+      odometry.addVisionMeasurement(getRobotPose(), 0.0);
+      System.out.println("Updated Odometry with Limelight");
+    }
+
     // double bluepose[];
     // bluepose =
     // NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose_wpiblue").getDoubleArray(new
@@ -82,14 +91,14 @@ public class Positioning extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    Pose2d botPose = LimelightHelpers.getBotPose2d_wpiBlue("");
+    // Pose2d botPose = LimelightHelpers.getBotPose2d_wpiBlue("");
 
-    // check that we have a valid potpose
-    if (LimelightHelpers.getTV("") > 0) {
+    // // check that we have a valid potpose
+    // if (LimelightHelpers.getTV("") > 0) {
 
-      DrivetrainSubsystem.getOdometry().addVisionMeasurement(getRobotPose(), 0.1);
-      System.out.println("Updated Odometry with Limelight");
-    }
+    //   DrivetrainSubsystem.getOdometry().addVisionMeasurement(getRobotPose(), 0.1);
+    //   System.out.println("Updated Odometry with Limelight");
+    // }
 
     // get the odometry from drive train
 

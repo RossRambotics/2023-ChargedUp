@@ -285,6 +285,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 // update odometry
                 if (!Robot.isSimulation()) {
                         m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
+                        RobotContainer.m_positioning.updateVision(m_odometry);
                 }
 
                 // update field sim
