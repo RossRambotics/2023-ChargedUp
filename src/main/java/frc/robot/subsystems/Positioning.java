@@ -6,102 +6,69 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.networktables.DoubleArraySubscriber;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 
 public class Positioning extends SubsystemBase {
-  private NetworkTable m_limelight = null;
-  private DoubleArraySubscriber camtransub;
-  private DoubleArraySubscriber posesub;
-  private Translation2d tran2d;
-  private Rotation2d r2d;
-  private Pose2d p2d;
-  private NetworkTable m_table;
-  private String m_tableName;
-
-  // NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-  // int tv = m_limelight.getEntry("tv").getNumber(0).intValue();
-  // int botpose_wpiblue =
-  // m_limelight.getEntry("botpose_wpiblue").getNumber(0).intValue();
-
-  Pose2d m_botpose = null;
+  private Timer m_timer = new Timer();
 
   /** Creates a new Positioning. */
   public Positioning() {
 
-    m_tableName = "limelight";
-    m_table = NetworkTableInstance.getDefault().getTable(m_tableName);
-    posesub = m_table.getDoubleArrayTopic("botpose").subscribe(new double[] {});
-
-    m_limelight = NetworkTableInstance.getDefault().getTable("limelight-rambot");
-
-    double m_bluepose[];
-    m_bluepose = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose_wpiblue")
-        .getDoubleArray(new double[6]);
-
-    Pose2d m_botpose = new Pose2d(m_bluepose[0], m_bluepose[1], null);
-
-  }
-
-  public Pose2d getRobotPose() {
-
-    System.out.println("Geting Robot Pose");
-
-    double[] result = posesub.get();
-    tran2d = new Translation2d(result[0], result[1]);
-    r2d = new Rotation2d(result[3]);
-    p2d = new Pose2d(tran2d, r2d);
-
-    return p2d;
+    m_timer.start();
   }
 
   public void updateVision(SwerveDrivePoseEstimator odometry) {
 
-    Pose2d botPose = LimelightHelpers.getBotPose2d_wpiBlue("");
-
-    // check that we have a valid potpose
-    if (LimelightHelpers.getTV("") > 0) {
-
-      odometry.addVisionMeasurement(getRobotPose(), 0.0);
-      System.out.println("Updated Odometry with Limelight");
+    if (!m_timer.advanceIfElapsed(0.02)) {
+      DataLogManager.log("Skipping vision update...");
+      return;
     }
 
-    // double bluepose[];
-    // bluepose =
-    // NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose_wpiblue").getDoubleArray(new
-    // double[6]);
+    if (Robot.isSimulation()) {
+      Pose2d botPose = new Pose2d(14.0, 2.0, new Rotation2d());
 
-    // Pose2d botpose = new Pose2d(bluepose[0], bluepose[1], null);
+      try {
+        odometry.addVisionMeasurement(botPose, 0.0);
+      } catch (Exception e) {
+        DataLogManager.log("Vision Measurement Error: " + e.getClass());
+      }
+      return;
+    }
 
-    // if (tv == 1) {
-    // odometry.addVisionMeasurement(getRobotPose(), 1);
+    // check that we have a valid potpose
+    if (LimelightHelpers.getTV("") > 0.0) {
+      // Pose2d botPose = LimelightHelpers.getBotPose2d_wpiBlue("");
+      Pose2d botPose = new Pose2d(14.0, 2.0, new Rotation2d());
 
-    // }
+      Translation2d odometry_xy = odometry.getEstimatedPosition().getTranslation();
+      Translation2d vision_xy = botPose.getTranslation();
+
+      // if the poses is more than 1.0m different
+      // set the post rather than use add measurement
+      if (odometry_xy.getDistance(vision_xy) > 1.0) {
+        DataLogManager.log("Odometry & Vision mismatch.  Updating pose in odometry from Vision.");
+        botPose = new Pose2d(botPose.getTranslation(), odometry.getEstimatedPosition().getRotation());
+        RobotContainer.m_drivetrainSubsystem.setOdometryPose(botPose);
+        return;
+      }
+
+      try {
+        odometry.addVisionMeasurement(botPose, 0.0);
+      } catch (Exception e) {
+        DataLogManager.log("Vision Measurement Error: " + e.getClass());
+      }
+    }
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    // Pose2d botPose = LimelightHelpers.getBotPose2d_wpiBlue("");
-
-    // // check that we have a valid potpose
-    // if (LimelightHelpers.getTV("") > 0) {
-
-    //   DrivetrainSubsystem.getOdometry().addVisionMeasurement(getRobotPose(), 0.1);
-    //   System.out.println("Updated Odometry with Limelight");
-    // }
-
-    // get the odometry from drive train
-
-    // update the vision estimate
   }
 }

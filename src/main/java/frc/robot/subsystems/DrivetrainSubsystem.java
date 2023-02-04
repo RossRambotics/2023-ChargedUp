@@ -115,7 +115,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         private double m_lastRotationSpeed;
 
+        private Timer m_Timer = new Timer();
+
         public DrivetrainSubsystem() {
+                m_Timer.start();
                 m_swerveModuleStates[0] = new SwerveModuleState();
                 m_swerveModuleStates[1] = new SwerveModuleState();
                 m_swerveModuleStates[2] = new SwerveModuleState();
@@ -284,8 +287,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
         public void periodic() {
                 // update odometry
                 if (!Robot.isSimulation()) {
-                        m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
                         RobotContainer.m_positioning.updateVision(m_odometry);
+                        m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
                 }
 
                 // update field sim
@@ -315,6 +318,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
                                 m_swerveModulePositions[3].distanceMeters = m_simEncoders[3];
                                 m_swerveModulePositions[3].angle = m_swerveModuleStates[3].angle;
 
+                                RobotContainer.m_positioning.updateVision(m_odometry);
                                 m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
 
                                 Pose2d simPose = new Pose2d(
@@ -353,6 +357,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 m_simEncoders[1] = 0.0;
                 m_simEncoders[2] = 0.0;
                 m_simEncoders[3] = 0.0;
+        }
+
+        public void setOdometryPose(Pose2d botPose) {
+                m_odometry.resetPosition(getGyroHeading(), m_swerveModulePositions, botPose);
         }
 
 }
