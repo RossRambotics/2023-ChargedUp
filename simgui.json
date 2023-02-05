@@ -4,6 +4,7 @@
       "/FMSInfo": "FMSInfo",
       "/Shuffleboard/Field/Field": "Field2d",
       "/Shuffleboard/Match.Auto/Autonomous": "String Chooser",
+      "/Shuffleboard/Match.Auto/Commands/AutoMoceBackToPose": "Command",
       "/Shuffleboard/Match.Auto/Commands/AutoMoveConeLeft": "Command",
       "/Shuffleboard/Match.Auto/Commands/SnapDriveToCargo": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Blue Cargo": "Command",
