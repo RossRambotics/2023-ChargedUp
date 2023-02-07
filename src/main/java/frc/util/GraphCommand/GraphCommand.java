@@ -4,12 +4,9 @@
 
 package frc.util.GraphCommand;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.SortedMap;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -29,10 +26,20 @@ public class GraphCommand extends CommandBase {
     Map<String, GraphCommandNode> m_nodes = new HashMap<>();
     m_rootNode.getNodeMap(m_nodes);
 
-    // TODO call initializeGraph for every node
+    // initialize all of the nodes in the graph
+    Iterator<String> iterator = m_nodes.keySet().iterator();
+    while (iterator.hasNext()) {
+      String nodeName = iterator.next();
+      GraphCommandNode node = m_nodes.get(nodeName);
 
-    Map<String, GraphCommandNode> nodeMap = new HashMap<>();
-    m_rootNode.initializeGraph(m_rootNode, nodeMap);
+      System.out.println("Optimizing Node: " + node.m_nodeName);
+      node.optimizeGraph(node, null, null, 0);
+      node.printNeighbors();
+      System.out.println();
+      node.printLinks();
+      System.out.println();
+
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -56,8 +63,8 @@ public class GraphCommand extends CommandBase {
   }
 
   public class GraphCommandNode {
-    private Map<String, GraphCommandNodeLink> m_nodes = new HashMap<>();
-    private Map<String, GraphCommandNodeLink> m_leastCostLink = null;
+    private Map<String, GraphCommandNodeLink> m_neighborLinks = new HashMap<>();
+    private Map<String, GraphCommandNodeLink> m_optimizedLinks = null;
     private String m_nodeName;
 
     /**
@@ -76,12 +83,12 @@ public class GraphCommand extends CommandBase {
     public void getNodeMap(Map<String, GraphCommandNode> nodes) {
       nodes.put(m_nodeName, this);
 
-      Iterator<String> iterator = m_nodes.keySet().iterator();
+      Iterator<String> iterator = m_neighborLinks.keySet().iterator();
 
       // add all of the child nodes
       while (iterator.hasNext()) {
         String nodeName = iterator.next();
-        GraphCommandNodeLink link = m_nodes.get(nodeName);
+        GraphCommandNodeLink link = m_neighborLinks.get(nodeName);
 
         if (nodes.get(nodeName) == null) {
           // node hasn't been added so add it
@@ -95,74 +102,50 @@ public class GraphCommand extends CommandBase {
      * node to the child node costs. Parent cost is assume zero so stop seach if
      * parent is reached.
      * 
-     * @param nodeMap - a map of the nodes that have been initialized
      */
-    public Map<String, GraphCommandNodeLink> initializeGraph(GraphCommandNode rootNode,
-        Map<String, GraphCommandNode> nodeMap) {
-      nodeMap.put(m_nodeName, this);
+    public void optimizeGraph(GraphCommandNode rootNode,
+        GraphCommandNode parentNode, Map<String, GraphCommandNodeLink> bestLinks, double cost) {
 
-      // copy the map to pre-populate all the child links
-      Map<String, GraphCommandNodeLink> tempLinks = new HashMap<>(m_nodes);
+      if (bestLinks == null) {
+        bestLinks = new HashMap<>();
+      }
+
+      // mark this node as processed
+      GraphCommandNodeLink thisLink = new GraphCommandNodeLink();
+      thisLink.m_cost = cost;
+      thisLink.m_node = this;
+      thisLink.m_nodeName = m_nodeName;
+      thisLink.m_wayPointNode = parentNode;
+      bestLinks.put(m_nodeName, thisLink);
 
       // for each child node
       // initialize each child node
-      Iterator<String> iterator = m_nodes.keySet().iterator();
+      Iterator<String> iterator = m_neighborLinks.keySet().iterator();
 
       while (iterator.hasNext()) {
-        String nodeName = iterator.next();
-        GraphCommandNodeLink link = m_nodes.get(nodeName);
+        String neighborNodeName = iterator.next();
+        GraphCommandNodeLink neighborLink = m_neighborLinks.get(neighborNodeName);
+        GraphCommandNodeLink bestLink = bestLinks.get(neighborNodeName);
 
-        // if this node has all ready been visited skip it
-        if (nodeMap.get(link.m_nodeName) != null) {
-          continue;
-        }
-
-        // make sure the node isn't a child of itself
-        assert (!nodeName.equals(m_nodeName)) : " Node must not be added as child of itself.";
-
-        // otherwise intilize this node
-        Map<String, GraphCommandNodeLink> childLinks = link.m_node.initializeGraph(rootNode, nodeMap);
-
-        Iterator<String> childInterator = childLinks.keySet().iterator();
-        while (childInterator.hasNext()) {
-
-          // add path replacing if lower cost is found
-          String childNodeName = childInterator.next();
-
-          // don't add link to self
-          if (childNodeName.equals(m_nodeName)) {
+        // check to see if this node has been visited already
+        if (bestLink != null) {
+          // if existing path cost is lower skip it
+          if (bestLink.m_cost < neighborLink.m_cost + cost) {
             continue;
           }
-
-          GraphCommandNodeLink childLink = childLinks.get(childNodeName);
-
-          GraphCommandNodeLink n = tempLinks.get(childLink.m_nodeName);
-          if (n == null) {
-            // doesn't exist so add it
-            GraphCommandNodeLink tmpLink = new GraphCommandNodeLink(childLink);
-            tmpLink.m_wayPointNode = link.m_node;
-            tmpLink.m_cost += link.m_cost;
-            tempLinks.put(childLink.m_nodeName, tmpLink);
-          } else {
-            if (n.m_cost > childLink.m_cost + link.m_cost) {
-              // replace link with lower cost link
-              GraphCommandNodeLink newLink = new GraphCommandNodeLink(childLink);
-              newLink.m_cost += link.m_cost;
-              newLink.m_wayPointNode = link.m_node;
-              tempLinks.put(n.m_nodeName, newLink);
-            }
-
-          }
         }
 
+        // Optimize the neighbor node
+        if (rootNode == this) {
+          parentNode = neighborLink.m_node;
+        }
+        neighborLink.m_node.optimizeGraph(rootNode, parentNode, bestLinks, neighborLink.m_cost + cost);
       }
 
       // if we were initializing for this node update least cost links
       if (rootNode.m_nodeName.equals(this.m_nodeName)) {
-        m_leastCostLink = new HashMap<>(tempLinks);
+        m_optimizedLinks = new HashMap<>(bestLinks);
       }
-
-      return tempLinks;
     }
 
     /**
@@ -186,7 +169,7 @@ public class GraphCommand extends CommandBase {
       link.m_nodeName = childNode.m_nodeName;
       link.m_node = childNode;
       link.m_cost = cost;
-      m_nodes.put(link.m_nodeName, link);
+      m_neighborLinks.put(link.m_nodeName, link);
 
       // child --> this
       if (!isOneWay) {
@@ -194,12 +177,47 @@ public class GraphCommand extends CommandBase {
         link2.m_nodeName = m_nodeName;
         link2.m_node = this;
         link2.m_cost = cost;
-        childNode.m_nodes.put(link2.m_nodeName, link2);
+        childNode.m_neighborLinks.put(link2.m_nodeName, link2);
       }
     }
 
     public void AddNode(GraphCommandNode childNode, double cost) {
       this.AddNode(childNode, cost, false);
+    }
+
+    public void printNeighbors() {
+      Iterator<String> iterator = m_neighborLinks.keySet().iterator();
+
+      // add all of the child nodes
+      while (iterator.hasNext()) {
+        String nodeName = iterator.next();
+        GraphCommandNodeLink link = m_neighborLinks.get(nodeName);
+
+        System.out.println("Neighbor: " + nodeName + " Cost: " + link.m_cost);
+      }
+    }
+
+    public void printLinks() {
+      if (m_optimizedLinks == null) {
+        this.optimizeGraph(this, null, null, 0);
+      }
+
+      Iterator<String> iterator = m_optimizedLinks.keySet().iterator();
+
+      // add all of the child nodes
+      while (iterator.hasNext()) {
+        String nodeName = iterator.next();
+        GraphCommandNodeLink link = m_optimizedLinks.get(nodeName);
+
+        if (link.m_wayPointNode == null) {
+          System.out
+              .println("Link: " + nodeName + " Cost: " + link.m_cost + " Waypoint: null");
+        } else {
+          System.out
+              .println("Link: " + nodeName + " Cost: " + link.m_cost + " Waypoint: " + link.m_wayPointNode.m_nodeName);
+        }
+
+      }
     }
 
     private class GraphCommandNodeLink {
