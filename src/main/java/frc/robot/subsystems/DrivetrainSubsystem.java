@@ -361,6 +361,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         public void setOdometryPose(Pose2d botPose) {
                 m_odometry.resetPosition(getGyroHeading(), m_swerveModulePositions, botPose);
+                System.out.println("Resting Odometry Pose");
         }
 
 }

@@ -27,6 +27,9 @@ public class Positioning extends SubsystemBase {
 
   public void updateVision(SwerveDrivePoseEstimator odometry) {
 
+
+
+
     if (!m_timer.advanceIfElapsed(0.02)) {
       DataLogManager.log("Skipping vision update...");
       return;
@@ -44,28 +47,37 @@ public class Positioning extends SubsystemBase {
     }
 
     // check that we have a valid potpose
-    if (LimelightHelpers.getTV("") > 0.0) {
-      // Pose2d botPose = LimelightHelpers.getBotPose2d_wpiBlue("");
-      Pose2d botPose = new Pose2d(14.0, 2.0, new Rotation2d());
+    if (LimelightHelpers.getTV("") == 1.0) {
+      Pose2d botPose = LimelightHelpers.getBotPose2d_wpiBlue("");
+      // Pose2d botPose = new Pose2d(14.0, 2.0, new Rotation2d());
 
       Translation2d odometry_xy = odometry.getEstimatedPosition().getTranslation();
       Translation2d vision_xy = botPose.getTranslation();
 
+      if (vision_xy.getDistance(new Translation2d()) == 0.0) {
+        System.out.println("Zero botpose.");
+        return;
+      }
+
       // if the poses is more than 1.0m different
       // set the post rather than use add measurement
-      if (odometry_xy.getDistance(vision_xy) > 1.0) {
-        DataLogManager.log("Odometry & Vision mismatch.  Updating pose in odometry from Vision.");
+      double distance = odometry_xy.getDistance(vision_xy);
+      if (distance > 1.0) {
+        DataLogManager.log("Odometry & Vision mismatch.  Updating pose in odometry from Vision. Distance: " + distance);
         botPose = new Pose2d(botPose.getTranslation(), odometry.getEstimatedPosition().getRotation());
         RobotContainer.m_drivetrainSubsystem.setOdometryPose(botPose);
+        System.out.println("Botpose: " + botPose);
         return;
       }
 
       try {
-        odometry.addVisionMeasurement(botPose, Timer.getFPGATimestamp() - LimelightHelpers.getLatency_Pipeline(""));
+        //odometry.addVisionMeasurement(botPose, Timer.getFPGATimestamp());
+        //odometry.addVisionMeasurement(botPose, Timer.getFPGATimestamp() - LimelightHelpers.getLatency_Pipeline(""));
       } catch (Exception e) {
         DataLogManager.log("Vision Measurement Error: " + e.getClass());
       }
     }
+  
   }
 
   @Override

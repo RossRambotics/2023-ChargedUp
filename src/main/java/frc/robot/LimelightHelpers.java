@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 
@@ -430,7 +431,7 @@ public class LimelightHelpers {
         double[] poseArray = getLimelightNTDoubleArray(limelightName, "botpose_wpiblue");
         return new Pose3d(
                 new Translation3d(poseArray[0], poseArray[1], poseArray[2]),
-                new Rotation3d(poseArray[3], poseArray[4], poseArray[5]));
+                new Rotation3d(poseArray[3], poseArray[4], Units.degreesToRadians(poseArray[5])));
     }
 
     public static Pose3d getBotPose3d_TargetSpace(String limelightName) {
