@@ -18,6 +18,8 @@ import frc.robot.RobotContainer;
 
 public class Positioning extends SubsystemBase {
   private Timer m_timer = new Timer();
+  private Pose2d m_lastVisionPose = new Pose2d();
+  private double m_lasttime = 0;
 
   /** Creates a new Positioning. */
   public Positioning() {
@@ -59,6 +61,16 @@ public class Positioning extends SubsystemBase {
 
       Translation2d odometry_xy = odometry.getEstimatedPosition().getTranslation();
       Translation2d vision_xy = botPose.getTranslation();
+
+      if (botPose != m_lastVisionPose && LimelightHelpers.getTA("") > .5) {
+        if (vision_xy.getDistance(m_lastVisionPose.getTranslation()) < .5
+            || m_lasttime + .5 < Timer.getFPGATimestamp()) {
+          resetVision();
+          m_lastVisionPose = botPose;
+          m_lasttime = Timer.getFPGATimestamp();
+
+        }
+      }
 
       double fID = LimelightHelpers.getFiducialID("");
       if (fID == 0.0) {
