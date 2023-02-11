@@ -54,6 +54,10 @@ public class Positioning extends SubsystemBase {
       Translation2d odometry_xy = odometry.getEstimatedPosition().getTranslation();
       Translation2d vision_xy = botPose.getTranslation();
 
+      if (LimelightHelpers.getFiducialID("") == 0.0) {
+        return;
+      }
+
       if (vision_xy.getDistance(new Translation2d()) == 0.0) {
         System.out.println("Zero botpose.");
         return;
@@ -64,7 +68,7 @@ public class Positioning extends SubsystemBase {
       double distance = odometry_xy.getDistance(vision_xy);
       if (distance > 1.0) {
         DataLogManager.log("Odometry & Vision mismatch.  Updating pose in odometry from Vision. Distance: " + distance);
-        botPose = new Pose2d(botPose.getTranslation(), odometry.getEstimatedPosition().getRotation());
+        //botPose = new Pose2d(botPose.getTranslation(), odometry.getEstimatedPosition().getRotation());
         RobotContainer.m_drivetrainSubsystem.setOdometryPose(botPose);
         System.out.println("Botpose: " + botPose);
         return;
