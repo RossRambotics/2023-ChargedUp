@@ -25,15 +25,21 @@ public class Positioning extends SubsystemBase {
     m_timer.start();
   }
 
-  public void updateVision(SwerveDrivePoseEstimator odometry) {
-
-
-
-
-    if (!m_timer.advanceIfElapsed(0.02)) {
-      DataLogManager.log("Skipping vision update...");
+  public void resetVision() {
+    if (LimelightHelpers.getTV("") == false) {
       return;
     }
+
+    Pose2d botPose = LimelightHelpers.getBotPose2d_wpiBlue("");
+    // Pose2d botPose = new Pose2d(14.0, 2.0, new Rotation2d());
+
+    DataLogManager.log("Updating pose in odometry from Vision. botPose: " + botPose);
+    RobotContainer.m_drivetrainSubsystem.setOdometryPose(botPose);
+    return;
+
+  }
+
+  public void updateVision(SwerveDrivePoseEstimator odometry) {
 
     if (Robot.isSimulation()) {
       Pose2d botPose = new Pose2d(14.0, 2.0, new Rotation2d());
@@ -47,41 +53,39 @@ public class Positioning extends SubsystemBase {
     }
 
     // check that we have a valid potpose
-    if (LimelightHelpers.getTV("") == 1.0) {
+    if (LimelightHelpers.getTV("") == true) {
       Pose2d botPose = LimelightHelpers.getBotPose2d_wpiBlue("");
       // Pose2d botPose = new Pose2d(14.0, 2.0, new Rotation2d());
 
       Translation2d odometry_xy = odometry.getEstimatedPosition().getTranslation();
       Translation2d vision_xy = botPose.getTranslation();
 
-      if (LimelightHelpers.getFiducialID("") == 0.0) {
+      double fID = LimelightHelpers.getFiducialID("");
+      if (fID == 0.0) {
         return;
       }
 
       if (vision_xy.getDistance(new Translation2d()) == 0.0) {
-        System.out.println("Zero botpose.");
+        DataLogManager.log("Zero botpose.");
         return;
       }
 
       // if the poses is more than 1.0m different
-      // set the post rather than use add measurement
+      // skip it
       double distance = odometry_xy.getDistance(vision_xy);
       if (distance > 1.0) {
-        DataLogManager.log("Odometry & Vision mismatch.  Updating pose in odometry from Vision. Distance: " + distance);
-        //botPose = new Pose2d(botPose.getTranslation(), odometry.getEstimatedPosition().getRotation());
-        RobotContainer.m_drivetrainSubsystem.setOdometryPose(botPose);
-        System.out.println("Botpose: " + botPose);
+        DataLogManager.log("Odometry & Vision mismatch.  Distance: " + distance);
         return;
       }
 
       try {
-        //odometry.addVisionMeasurement(botPose, Timer.getFPGATimestamp());
-        //odometry.addVisionMeasurement(botPose, Timer.getFPGATimestamp() - LimelightHelpers.getLatency_Pipeline(""));
+        odometry.addVisionMeasurement(botPose,
+            Timer.getFPGATimestamp() - LimelightHelpers.getLatency_Pipeline("") - 10);
       } catch (Exception e) {
         DataLogManager.log("Vision Measurement Error: " + e.getClass());
       }
     }
-  
+
   }
 
   @Override

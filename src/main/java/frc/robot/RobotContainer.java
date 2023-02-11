@@ -60,6 +60,7 @@ public class RobotContainer {
         Trigger leftBumper = new JoystickButton(m_controllerDriver, XboxController.Button.kLeftBumper.value);
         Trigger rightBumper = new JoystickButton(m_controllerDriver, XboxController.Button.kRightBumper.value);
         Trigger backButton = new JoystickButton(m_controllerDriver, XboxController.Button.kBack.value);
+        Trigger startButton = new JoystickButton(m_controllerDriver, XboxController.Button.kStart.value);
         public PhysicsSim m_PhysicsSim;
 
         public RobotContainer() {
@@ -153,6 +154,8 @@ public class RobotContainer {
                 Command cmd;
 
                 backButton.whileTrue(new RunCommand(() -> m_drivetrainSubsystem.zeroGyroscope()));
+
+                startButton.whileTrue(new RunCommand(() -> m_positioning.resetVision()));
 
                 // cmd = new DefaultDriveCommand(
                 // m_drivetrainSubsystem,
