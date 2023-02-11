@@ -7,12 +7,20 @@ package frc.util.GraphCommand;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Commands;
 
 public class GraphCommand extends CommandBase {
 
   private GraphCommandNode m_rootNode = null;
+  private GraphCommandNode m_currentNode = null;
+  private GraphCommandNode m_previousNode = null;
+  private GraphCommandNode m_targetNode = null;
+  private boolean m_isTransitioning = false;
+
+  private Command m_command = null;
 
   /** Creates a new GraphCommand. */
   public GraphCommand() {
@@ -45,6 +53,57 @@ public class GraphCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // if graph is transitioning state, skip
+    if (m_isTransitioning) {
+      return;
+    }
+
+    // if graph is at target node, skip
+    if (m_currentNode.equals(m_targetNode)) {
+      return;
+    }
+
+    // otherwise find next node
+    GraphCommandNode node = m_currentNode.getNextNodeGivenTarget(m_targetNode);
+
+    // can't get to target
+    if (node == null) {
+      return;
+    }
+    // update state
+    m_isTransitioning = true;
+    m_previousNode = m_currentNode;
+    m_currentNode = node;
+
+    // determine if waypoint or target
+    if (node.equals(m_targetNode)) {
+      // target node
+      m_command = node.m_targetCommand;
+      if (m_command == null) {
+        m_isTransitioning = false;
+        return;
+      } else {
+        if (node.m_arrivedCommand == null) {
+          m_command = m_command.andThen(Commands.runOnce(() -> m_isTransitioning = false));
+        } else {
+          m_command = m_command.andThen(Commands.runOnce(() -> m_isTransitioning = false))
+              .andThen(node.m_arrivedCommand);
+        }
+      }
+    } else {
+      // waypoint
+      m_command = node.m_waypointCommand;
+      if (m_command == null) {
+        m_command = node.m_targetCommand;
+      }
+      if (m_command == null) {
+        m_isTransitioning = false;
+        return;
+      } else {
+        m_command = m_command.andThen(Commands.runOnce(() -> m_isTransitioning = false));
+      }
+    }
+    m_command.schedule();
   }
 
   // Called once the command ends or is interrupted.
@@ -58,14 +117,82 @@ public class GraphCommand extends CommandBase {
     return false;
   }
 
+  public void setCurrentNode(GraphCommandNode node) {
+    m_currentNode = node;
+  }
+
+  public GraphCommandNode getCurrentNode() {
+    return m_currentNode;
+  }
+
+  public void setTargetNode(GraphCommandNode node) {
+    // if the graph isn't transitioning set the next node and move on
+    if (!m_isTransitioning) {
+      m_targetNode = node;
+      return;
+    }
+
+    // if we are already going there...
+    if (m_targetNode.equals(node)) {
+      return;
+    }
+
+    // see if the next node is already where we are going
+    GraphCommandNode n = m_previousNode.getNextNodeGivenTarget(node);
+
+    if (n == null) {
+      return;
+    }
+
+    if (n.equals(m_currentNode)) {
+      if (m_currentNode == m_targetNode) {
+        // doing this to get the commands recreated using waypoints, arrived, etc.
+        // correctly.
+        // in case the currentNode is the targetNode
+        m_currentNode = m_previousNode;
+        m_isTransitioning = false;
+        m_command.cancel();
+      } else {
+        // we can just keep going
+        m_targetNode = node;
+        return;
+      }
+    } else {
+      // see if we can go back to previous node
+      n = m_currentNode.getNextNodeGivenTarget(node);
+      if (n.equals(m_previousNode)) {
+        // since the previous node will be the next node we can do this...
+        m_isTransitioning = false;
+        m_command.cancel();
+        m_targetNode = node;
+      } else {
+        // can go to the node so, just finish
+        return;
+      }
+    }
+
+  }
+
+  /**
+   * Set's the root of the graph. All there must be a way to get from the root
+   * node to every other node in the graph. It can take zero, one or more
+   * waypoints to reach each node.
+   * 
+   * @param node The node to set as the root of the graph.
+   */
   public void setGraphRootNode(GraphCommandNode node) {
     m_rootNode = node;
+    m_currentNode = node;
+    m_targetNode = node;
   }
 
   public class GraphCommandNode {
     private Map<String, GraphCommandNodeLink> m_neighborLinks = new HashMap<>();
     private Map<String, GraphCommandNodeLink> m_optimizedLinks = null;
     private String m_nodeName;
+    private Command m_targetCommand;
+    private Command m_waypointCommand;
+    private Command m_arrivedCommand;
 
     /**
      * 
@@ -74,10 +201,45 @@ public class GraphCommand extends CommandBase {
      * @param targetCommand   - the command to run if the node is the target
      * @param waypointCommand - the command to run if the node is a waypoint (not
      *                        the final target)
-     * @param arrivedCommand  - the command to run when the graph is at the node
+     * @param arrivedCommand  - the command to run when the graph is at the node and
+     *                        the node was the target
      */
     public GraphCommandNode(String nodeName, Command targetCommand, Command waypointCommand, Command arrivedCommand) {
       m_nodeName = nodeName;
+      m_targetCommand = targetCommand;
+      m_waypointCommand = waypointCommand;
+      m_arrivedCommand = arrivedCommand;
+    }
+
+    public double getCost(GraphCommandNode target) {
+      assert (target != null) : " Target node cannot be null.";
+      assert (m_optimizedLinks != null) : " Graph must be optimized first.";
+
+      GraphCommandNodeLink link = m_optimizedLinks.get(target.m_nodeName);
+
+      if (link == null) {
+        // there isn't a path
+        return Double.MAX_VALUE;
+      }
+
+      return link.m_cost;
+    }
+
+    public GraphCommandNode getNextNodeGivenTarget(GraphCommandNode node) {
+      GraphCommandNodeLink link = m_optimizedLinks.get(node.m_nodeName);
+
+      // cannot get to the node
+      if (link == null) {
+        return null;
+      }
+
+      // alredy at the node
+      if (link.m_wayPointNode == null) {
+        return null;
+      }
+
+      // this is the target node
+      return link.m_wayPointNode;
     }
 
     public void getNodeMap(Map<String, GraphCommandNode> nodes) {
@@ -156,7 +318,8 @@ public class GraphCommand extends CommandBase {
      * @param cost      - the cost of using this node as
      *                  an intermediate node. Must be
      *                  positive number.
-     * @param isOneWay  - Default value is false and it will add both directions.
+     * @param isOneWay  - Default value is false and it will add both directions
+     *                  with equal cost.
      * @return
      */
     public void AddNode(GraphCommandNode childNode, double cost, boolean isOneWay) {
@@ -181,6 +344,17 @@ public class GraphCommand extends CommandBase {
       }
     }
 
+    /**
+     * Adds a node as a child to a node.
+     * 
+     * 
+     * @param childNode - Node to connect. Node cannot be connected to itself. This
+     *                  method creates a bi-directional link with equal cost.
+     * @param cost      - the cost of using this node as
+     *                  an intermediate node. Must be
+     *                  positive number.
+     * @return
+     */
     public void AddNode(GraphCommandNode childNode, double cost) {
       this.AddNode(childNode, cost, false);
     }
