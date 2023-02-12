@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems.Arm;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -72,9 +73,12 @@ public class UpperArm extends ProfiledPIDSubsystem {
     // Calculate the feedforward from the sepoint
     double feedforward = m_feedforward.calculate(setpoint.position, setpoint.velocity);
     // Add the feedforward to the PID output to get the motor output
-    m_motor.setVoltage(output + feedforward);
 
-    DataLogManager.log("output: " + output + " FF: " + feedforward + " Measurement: " + getMeasurement() + " Goal: "
+    double volts = MathUtil.clamp(output + feedforward, -5.0, 5.0);
+    m_motor.setVoltage(volts);
+
+    DataLogManager.log("volts: " + volts + " output: " + output + " FF: " + feedforward + " Measurement: "
+        + getMeasurement() + " Goal: "
         + this.m_controller.getGoal());
   }
 
