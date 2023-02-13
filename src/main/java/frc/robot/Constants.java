@@ -79,4 +79,6 @@ public final class Constants {
 
     public static final int CLIMB_WINCH = 50; // CAN ID for Climb Winch
     public static final int PDH = 51; // CAN ID for PDP
+
+    public static final int CANdle = 60; //CAN ID for CANdle
 }
