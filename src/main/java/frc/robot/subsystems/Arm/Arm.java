@@ -34,7 +34,7 @@ public class Arm extends SubsystemBase {
       new PrintCommand("Waypointing F"), new PrintCommand("Arrvided F"));
   GraphCommandNode G = m_graphCommand.new GraphCommandNode("G", new PrintCommand("Targeting G"),
       null, new PrintCommand("Arrived G"));
-  GraphCommandNode H = m_graphCommand.new GraphCommandNode("H", new PrintCommand("Targeting G"), null, null);
+  GraphCommandNode H = m_graphCommand.new GraphCommandNode("H", new PrintCommand("Targeting H"), null, null);
   GraphCommandNode Q = m_graphCommand.new GraphCommandNode("Q", new PrintCommand("Targeting Q"),
       null, new PrintCommand("Arrived Q"));
 
@@ -77,7 +77,7 @@ public class Arm extends SubsystemBase {
       m_testTimer.start();
     } else {
       if (m_testTimer.advanceIfElapsed(1.0)) {
-        m_graphCommand.setTargetNode(Q);
+        m_graphCommand.setTargetNode(H);
       }
     }
   }
