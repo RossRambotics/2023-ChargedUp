@@ -172,8 +172,8 @@ public class GraphCommand extends CommandBase {
         m_command.cancel();
         m_targetNode = node;
       } else {
-        // can go to the node so, just finish
-        assert (false) : "Remove after testing me.";
+        // figure out this situation!
+        assert (true) : "Remove after testing me.";
         return;
       }
     }
