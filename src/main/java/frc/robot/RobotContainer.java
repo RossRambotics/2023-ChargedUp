@@ -34,6 +34,7 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Positioning;
 import frc.robot.subsystems.Tracking;
 import frc.robot.subsystems.Arm.Arm;
+import frc.robot.subsystems.Arm.LowerArm;
 import frc.robot.subsystems.Arm.UpperArm;
 
 public class RobotContainer {
@@ -55,6 +56,7 @@ public class RobotContainer {
         static public final Positioning m_positioning = new Positioning();
         static public final Arm m_arm = new Arm();
         static public final UpperArm m_upperArm = new UpperArm();
+        static public final LowerArm m_lowerArm = new LowerArm();
 
         static public final Tracking m_Tracking = new Tracking();
         private static double slewLimit = 0.6;

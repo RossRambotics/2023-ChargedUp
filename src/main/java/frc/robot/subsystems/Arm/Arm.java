@@ -4,12 +4,17 @@
 
 package frc.robot.subsystems.Arm;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.Arm.LowerArmSetPoint;
+import frc.robot.commands.Arm.UpperArmSetPoint;
 import frc.util.GraphCommand.GraphCommand;
 import frc.util.GraphCommand.GraphCommand.GraphCommandNode;
 
@@ -58,6 +63,32 @@ public class Arm extends SubsystemBase {
     m_graphCommand.setCurrentNode(A);
     // m_graphCommand.initialize();
 
+  }
+
+  /**
+   * Create a new command that moves the upper and lower arm to a specific
+   * position with a tolerance
+   * 
+   * @param name             - the name of the command the factory appends the
+   *                         angles (upper, lower)
+   * @param upperArmDegrees  - the degrees the upper arm should be above (+) /
+   *                         below (-) horizontal
+   * @param lowerArmDegrees  - the degrees the lower arm should be above (+) /
+   *                         below (-) the upper arm
+   * @param toleranceDegrees - how close in degrees the command should consider
+   *                         the position obtained (zero probably will never
+   *                         finish)
+   * @return
+   */
+  final static public Command setpointCommandFactory(String name, double upperArmDegrees, double lowerArmDegrees,
+      double toleranceDegrees) {
+    Command c = new ParallelCommandGroup(
+        new UpperArmSetPoint(Units.degreesToRadians(upperArmDegrees), Units.degreesToRadians((toleranceDegrees))),
+        new LowerArmSetPoint(Units.degreesToRadians(lowerArmDegrees), Units.degreesToRadians(toleranceDegrees)));
+
+    c.setName(name + "(" + upperArmDegrees + " , " + lowerArmDegrees + ")");
+
+    return c;
   }
 
   private Timer m_testTimer = new Timer();
