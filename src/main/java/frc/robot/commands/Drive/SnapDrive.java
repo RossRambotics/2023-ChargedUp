@@ -104,7 +104,7 @@ public class SnapDrive extends CommandBase {
         // DataLogManager.log("Snap: Goal: " + m_goalDegrees + " Error: " + p + "
         // Rotation Speed: " + rotationSpeed);
 
-        if (m_timer.advanceIfElapsed(0.5)) {
+        if (m_timer.advanceIfElapsed(1.0)) {
             DataLogManager.log("SnapDrive: X: " + m_translationXSupplier.getAsDouble()
                     + " Y: " + m_translationYSupplier.getAsDouble()
                     + " Rot: " + m_goalDegrees);

@@ -140,18 +140,24 @@ public class GraphCommand extends CommandBase {
     // see if the next node is already where we are going
     GraphCommandNode n = m_previousNode.getNextNodeGivenTarget(node);
 
+    // this can be null if the new target node is the previous node
     if (n == null) {
-      return;
+      if (node.equals(m_previousNode)) {
+        n = m_previousNode;
+      } else {
+        return;
+      }
     }
 
     if (n.equals(m_currentNode)) {
-      if (m_currentNode == m_targetNode) {
+      if (m_currentNode == node) {
         // doing this to get the commands recreated using waypoints, arrived, etc.
         // correctly.
         // in case the currentNode is the targetNode
         m_currentNode = m_previousNode;
         m_isTransitioning = false;
         m_command.cancel();
+        m_targetNode = node;
       } else {
         // we can just keep going
         m_targetNode = node;
@@ -159,7 +165,7 @@ public class GraphCommand extends CommandBase {
       }
     } else {
       // see if we can go back to previous node
-      n = m_currentNode.getNextNodeGivenTarget(node);
+      n = m_currentNode.getNextNodeGivenTarget(m_previousNode);
       if (n.equals(m_previousNode)) {
         // since the previous node will be the next node we can do this...
         m_isTransitioning = false;
@@ -167,6 +173,7 @@ public class GraphCommand extends CommandBase {
         m_targetNode = node;
       } else {
         // can go to the node so, just finish
+        assert (false) : "Remove after testing me.";
         return;
       }
     }
