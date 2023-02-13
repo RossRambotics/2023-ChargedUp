@@ -173,7 +173,7 @@ public class GraphCommand extends CommandBase {
         m_targetNode = node;
       } else {
         // figure out this situation!
-        assert (true) : "Remove after testing me.";
+        assert (true) : "Should never get here.";
         return;
       }
     }
