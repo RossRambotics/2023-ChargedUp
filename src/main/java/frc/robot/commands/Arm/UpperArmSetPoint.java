@@ -12,12 +12,12 @@ public class UpperArmSetPoint extends CommandBase {
   private double m_tolerance = 0.0;
 
   /** Creates a new UpperArm. */
-  public UpperArmSetPoint(double radians, double tolerance) {
+  public UpperArmSetPoint(double radians, double toleranceRadians) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.addRequirements(RobotContainer.m_upperArm);
 
     m_radians = radians;
-    m_tolerance = tolerance;
+    m_tolerance = toleranceRadians;
   }
 
   // Called when the command is initially scheduled.
