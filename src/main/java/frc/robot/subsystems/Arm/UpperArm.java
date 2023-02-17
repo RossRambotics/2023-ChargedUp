@@ -59,8 +59,10 @@ public class UpperArm extends ProfiledPIDSubsystem {
     config.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
     // m_encoder.configAllSettings(config);
 
-    m_encoder.setPosition(0);
+    m_encoder.setPositionConversionFactor(2 * Math.PI); // change the encoder to radians
     m_motor.setInverted(true);
+    m_encoder.setPosition(Math.toRadians(-95.0));
+
     System.out.println("Upper Arm Position: " + m_encoder.getPosition()); // prints the position of the CANCoder
     System.out.println("Upper Arm absolute Position: " + m_encoder.getPosition());
 
@@ -118,10 +120,11 @@ public class UpperArm extends ProfiledPIDSubsystem {
 
     // The offset of the arm from the horizontal in its neutral position,
     // measured from the horizontal
-    public static final double kArmOffsetRads = 0.0;
+    public static final double kArmOffsetRads = -1.65;
   }
 
   public void periodic() {
+    SmartDashboard.putNumber("Upper Arm Goal", this.m_controller.getGoal().position);
     SmartDashboard.putNumber("Upper Arm Encoder", m_encoder.getPosition());
 
   }
