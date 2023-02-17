@@ -9,6 +9,7 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.sensors.CANCoderConfiguration;
@@ -40,9 +41,6 @@ public class LowerArm extends ProfiledPIDSubsystem {
                 Constants.kMaxAccelerationRadPerSecSquared)),
         0);
 
-    // Start arm at rest in neutral position
-    setGoal(Constants.kArmOffsetRads);
-
     // do all of the CANCoder initialization stuff
     CANCoderConfiguration config = new CANCoderConfiguration();
 
@@ -52,6 +50,9 @@ public class LowerArm extends ProfiledPIDSubsystem {
     config.sensorTimeBase = SensorTimeBase.PerSecond;
     config.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
     m_encoder.configAllSettings(config);
+
+    // Start arm at rest in neutral position
+    setGoal(m_encoder.getPosition());
 
     System.out.println("Lower Arm Position: " + m_encoder.getPosition()); // prints the position of the CANCoder
     System.out.println("Lower Arm absolute Position: " + m_encoder.getAbsolutePosition());
@@ -87,6 +88,11 @@ public class LowerArm extends ProfiledPIDSubsystem {
     return m_encoder.getPosition() + Constants.kArmOffsetRads;
   }
 
+  public void periodic() {
+    SmartDashboard.putNumber("Lower Arm Goal", this.m_controller.getGoal().position);
+    SmartDashboard.putNumber("Lower Arm Encoder", m_encoder.getPosition());
+  }
+
   public final class Constants {
     public static final int kMotorPort = 62;
 
@@ -104,6 +110,6 @@ public class LowerArm extends ProfiledPIDSubsystem {
 
     // The offset of the arm from the horizontal in its neutral position,
     // measured from the horizontal 154.688 degrees to center
-    public static final double kArmOffsetRads = 0.0;
+    public static final double kArmOffsetRads = 2.7;
   }
 }
