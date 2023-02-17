@@ -74,7 +74,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
     double feedforward = m_feedforward.calculate(setpoint.position, setpoint.velocity);
     // Add the feedforward to the PID output to get the motor output
 
-    double volts = MathUtil.clamp(output + feedforward, -5.0, 5.0);
+    double volts = MathUtil.clamp(output + feedforward, -2.0, 2.0);
     m_motor.setVoltage(volts);
 
     DataLogManager.log("Lower arm volts: " + volts + " output: " + output + " FF: " + feedforward + " Measurement: "
@@ -88,7 +88,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
   }
 
   public final class Constants {
-    public static final int kMotorPort = 99;
+    public static final int kMotorPort = 62;
 
     public static final double kP = 1;
 
@@ -100,10 +100,10 @@ public class LowerArm extends ProfiledPIDSubsystem {
     public static final double kMaxVelocityRadPerSecond = 1;
     public static final double kMaxAccelerationRadPerSecSquared = 1;
 
-    public static final int kEncoderPort = 99;
+    public static final int kEncoderPort = 63;
 
     // The offset of the arm from the horizontal in its neutral position,
-    // measured from the horizontal
+    // measured from the horizontal 154.688 degrees to center
     public static final double kArmOffsetRads = 0.0;
   }
 }
