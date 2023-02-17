@@ -31,6 +31,11 @@ public class GraphCommand extends CommandBase {
   @Override
   public void initialize() {
     // get a list of all of the reachable nodes
+    if (m_rootNode == null) {
+      System.err.println("Error: Root Node cannot be null");
+      return;
+    }
+
     Map<String, GraphCommandNode> m_nodes = new HashMap<>();
     m_rootNode.getNodeMap(m_nodes);
 
@@ -55,6 +60,11 @@ public class GraphCommand extends CommandBase {
   public void execute() {
     // if graph is transitioning state, skip
     if (m_isTransitioning) {
+      return;
+    }
+
+    if (m_currentNode == null) {
+      System.err.println("Error: Current Node cannot be null.  Did you set a root node?");
       return;
     }
 
