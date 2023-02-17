@@ -21,32 +21,38 @@ import frc.util.GraphCommand.GraphCommand.GraphCommandNode;
 public class Arm extends SubsystemBase {
   private GraphCommand m_graphCommand = new GraphCommand();
 
-  // GraphCommandNode A = m_graphCommand.new GraphCommandNode("A",
-  // Arm.setpointCommandFactory("A Target", 0, 0, 1),
-  // Arm.setpointCommandFactory("A Waypoint", 0, 0, 5),
-  // new PrintCommand("Arrvided A"));
-  // GraphCommandNode B = m_graphCommand.new GraphCommandNode("B",
-  // Arm.setpointCommandFactory("B Target", -45, 10, 1),
-  // Arm.setpointCommandFactory("B Waypoint", -45, 10, 5),
-  // new PrintCommand("Arrvided A"));
-  // GraphCommandNode C = m_graphCommand.new GraphCommandNode("C",
-  // Arm.setpointCommandFactory("C Target", -45, 45, 1),
-  // Arm.setpointCommandFactory("C Waypoint", -45, 45, 5),
-  // new PrintCommand("Arrvided A"));
+  GraphCommandNode A;
+  GraphCommandNode B;
+  GraphCommandNode C;
 
   /** Creates a new Arm. */
   public Arm() {
 
-    // m_graphCommand.setGraphRootNode(A);
+  }
 
-    // A.AddNode(B, 1);
-    // B.AddNode(C, 1);
+  public void initialize() {
+    A = m_graphCommand.new GraphCommandNode("A",
+        Arm.setpointCommandFactory("A Target", 0, 0, 1),
+        Arm.setpointCommandFactory("A Waypoint", 0, 0, 5),
+        new PrintCommand("Arrvided A"));
+    B = m_graphCommand.new GraphCommandNode("B",
+        Arm.setpointCommandFactory("B Target", -45, 10, 1),
+        Arm.setpointCommandFactory("B Waypoint", -45, 10, 5),
+        new PrintCommand("Arrvided A"));
+    C = m_graphCommand.new GraphCommandNode("C",
+        Arm.setpointCommandFactory("C Target", -45, 45, 1),
+        Arm.setpointCommandFactory("C Waypoint", -45, 45, 5),
+        new PrintCommand("Arrvided A"));
+
+    m_graphCommand.setGraphRootNode(A);
+
+    A.AddNode(B, 1);
+    B.AddNode(C, 1);
 
     m_graphCommand.addRequirements(this);
     this.setDefaultCommand(m_graphCommand);
-    // m_graphCommand.setCurrentNode(A);
-    // m_graphCommand.initialize();
-
+    m_graphCommand.setCurrentNode(A);
+    m_graphCommand.initialize();
   }
 
   private Timer m_testTimer = new Timer();
