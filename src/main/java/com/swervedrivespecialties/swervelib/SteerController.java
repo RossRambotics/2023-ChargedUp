@@ -1,7 +1,9 @@
 package com.swervedrivespecialties.swervelib;
 
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+
 public interface SteerController {
-    Object getSteerMotor();
+    MotorController getSteerMotor();
 
     AbsoluteEncoder getSteerEncoder();
 

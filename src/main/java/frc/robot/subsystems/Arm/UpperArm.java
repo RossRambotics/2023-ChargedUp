@@ -9,6 +9,7 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.sensors.CANCoderConfiguration;
@@ -58,8 +59,11 @@ public class UpperArm extends ProfiledPIDSubsystem {
     config.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
     // m_encoder.configAllSettings(config);
 
+    m_encoder.setPosition(0);
+    m_encoder.setInverted(true);
     System.out.println("Upper Arm Position: " + m_encoder.getPosition()); // prints the position of the CANCoder
     System.out.println("Upper Arm absolute Position: " + m_encoder.getPosition());
+
     // System.out.println("Upper Arm absolute Position: " +
     // m_encoder.getAbsolutePosition());
 
@@ -115,5 +119,10 @@ public class UpperArm extends ProfiledPIDSubsystem {
     // The offset of the arm from the horizontal in its neutral position,
     // measured from the horizontal
     public static final double kArmOffsetRads = 0.0;
+  }
+
+  public void periodic() {
+    SmartDashboard.putNumber("Upper Arm Encoder", m_encoder.getPosition());
+
   }
 }

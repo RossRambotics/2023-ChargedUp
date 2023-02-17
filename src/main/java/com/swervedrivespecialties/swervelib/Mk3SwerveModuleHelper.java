@@ -4,6 +4,10 @@ import com.swervedrivespecialties.swervelib.ctre.*;
 import com.swervedrivespecialties.swervelib.rev.*;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 
+/**
+ * @deprecated use {@link MkSwerveModuleBuilder} instead, which provides support for CANivores.
+ */
+@Deprecated(since = "2023.1.2.0", forRemoval = true)
 public final class Mk3SwerveModuleHelper {
     private Mk3SwerveModuleHelper() {
     }
@@ -496,13 +500,13 @@ public final class Mk3SwerveModuleHelper {
          */
         FAST(SdsModuleConfigurations.MK3_FAST);
 
-        private final ModuleConfiguration configuration;
+        private final MechanicalConfiguration configuration;
 
-        GearRatio(ModuleConfiguration configuration) {
+        GearRatio(MechanicalConfiguration configuration) {
             this.configuration = configuration;
         }
 
-        public ModuleConfiguration getConfiguration() {
+        public MechanicalConfiguration getConfiguration() {
             return configuration;
         }
     }

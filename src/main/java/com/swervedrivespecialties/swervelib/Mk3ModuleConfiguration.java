@@ -7,7 +7,10 @@ import java.util.Objects;
  * <p>
  * The configuration parameters here are used to customize the behavior of the Mk3 swerve module.
  * Each setting is initialized to a default that should be adequate for most use cases.
+ * 
+ * @deprecated use {@link MkModuleConfiguration} instead, which provides support for CANivores.
  */
+@Deprecated(since = "2023.1.2.0", forRemoval = true)
 public class Mk3ModuleConfiguration {
     private double nominalVoltage = 12.0;
     private double driveCurrentLimit = 80.0;

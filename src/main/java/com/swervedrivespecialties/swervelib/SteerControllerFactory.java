@@ -16,9 +16,9 @@ public interface SteerControllerFactory<Controller extends SteerController, SC> 
             ShuffleboardContainer dashboardContainer,
             SC steerConfiguration,
             String canbus,
-            ModuleConfiguration moduleConfiguration
+            MechanicalConfiguration mechConfiguration
     ) {
-        var controller = create(steerConfiguration, canbus, moduleConfiguration);
+        var controller = create(steerConfiguration, canbus, mechConfiguration);
         addDashboardEntries(dashboardContainer, controller);
 
         return controller;
@@ -27,9 +27,9 @@ public interface SteerControllerFactory<Controller extends SteerController, SC> 
     default Controller create(
             ShuffleboardContainer dashboardContainer,
             SC steerConfiguration,
-            ModuleConfiguration moduleConfiguration
+            MechanicalConfiguration mechConfiguration
     ) {
-        var controller = create(steerConfiguration, moduleConfiguration);
+        var controller = create(steerConfiguration, mechConfiguration);
         addDashboardEntries(dashboardContainer, controller);
 
         return controller;
@@ -37,10 +37,10 @@ public interface SteerControllerFactory<Controller extends SteerController, SC> 
 
     default Controller create(
             SC steerConfiguration, 
-            ModuleConfiguration moduleConfiguration
+            MechanicalConfiguration mechConfiguration
     ) {
-        return create(steerConfiguration, "", moduleConfiguration);
+        return create(steerConfiguration, "", mechConfiguration);
     }
 
-    Controller create(SC steerConfiguration, String canbus, ModuleConfiguration moduleConfiguration);
+    Controller create(SC steerConfiguration, String canbus, MechanicalConfiguration mechConfiguration);
 }
