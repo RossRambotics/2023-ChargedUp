@@ -95,7 +95,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
 
     DataLogManager.log("Upper Arm volts: " + volts + " output: " + output + " FF: " + feedforward + " Measurement: "
         + getMeasurement() + " Goal: "
-        + this.m_controller.getGoal());
+        + this.m_controller.getGoal().position);
   }
 
   @Override
@@ -124,6 +124,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
   }
 
   public void periodic() {
+    super.periodic();
     SmartDashboard.putNumber("Upper Arm Goal", this.m_controller.getGoal().position);
     SmartDashboard.putNumber("Upper Arm Encoder", m_encoder.getPosition());
 

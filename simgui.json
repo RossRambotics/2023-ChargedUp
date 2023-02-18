@@ -2,10 +2,26 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
+      "/LiveWindow/Ungrouped/PIDController[2]": "PIDController",
+      "/LiveWindow/Ungrouped/PIDController[3]": "PIDController",
+      "/LiveWindow/Ungrouped/Pigeon 2 [19]": "Gyro",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Talon FX [12]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [13]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [14]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [15]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [16]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [1]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [2]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [3]": "Motor Controller",
+      "/Shuffleboard/Arm/L Arm Test Mode": "Command",
+      "/Shuffleboard/Arm/Lower Arm": "Subsystem",
       "/Shuffleboard/Field/Field": "Field2d",
       "/Shuffleboard/Match.Auto/Autonomous": "String Chooser",
       "/Shuffleboard/Match.Auto/Commands/AutoMoceBackToPose": "Command",
       "/Shuffleboard/Match.Auto/Commands/AutoMoveConeLeft": "Command",
+      "/Shuffleboard/Match.Auto/Commands/LowerArmSetPoint": "Command",
       "/Shuffleboard/Match.Auto/Commands/SnapDriveToCargo": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Blue Cargo": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Enable Light": "Command",
@@ -33,14 +49,18 @@
         "Field": {
           "Field": {
             "open": true
-          },
-          "open": true
+          }
         },
         "Match.Auto": {
           "Commands": {
-            "open": true
+            "LowerArmSetPoint": {
+              "open": true
+            }
           }
         },
+        "open": true
+      },
+      "SmartDashboard": {
         "open": true
       }
     }

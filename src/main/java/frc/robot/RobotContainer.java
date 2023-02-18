@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DefaultDriveCommand;
+import frc.robot.commands.Arm.LowerArmSetPoint;
 import frc.robot.commands.Drive.SnapDrive;
 import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
@@ -51,6 +52,7 @@ public class RobotContainer {
 
         private ShuffleboardTab m_shuffleboardTab = Shuffleboard.getTab("Match.Auto");
         static public final ShuffleboardTab m_TuningTab = Shuffleboard.getTab("Match.Tuning");
+        static public final ShuffleboardTab m_armTab = Shuffleboard.getTab("Arm");
 
         static public final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
         static public final Positioning m_positioning = new Positioning();
@@ -332,9 +334,15 @@ public class RobotContainer {
                 m_autoChooser.addOption(autoCmd.getName(), autoCmd);
                 commands.add(autoCmd);
 
+                autoCmd = new LowerArmSetPoint(5.6, 0.0001);
+                autoCmd.setName("LowerArmSetPoint");
+                m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+                commands.add(autoCmd);
+
                 tab.add("Autonomous", m_autoChooser).withSize(2, 1);
 
                 this.m_Tracking.createShuffleBoardTab();
+                this.m_lowerArm.createShuffleBoardTab();
 
                 DataLogManager.start();
                 DataLogManager.log("Log Started.");

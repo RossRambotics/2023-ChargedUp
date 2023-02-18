@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Arm;
 
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
@@ -14,18 +15,20 @@ public class LowerArmSetPoint extends CommandBase {
   /** Creates a new UpperArm. */
   public LowerArmSetPoint(double radians, double toleranceRadians) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.addRequirements(RobotContainer.m_lowerArm);
+    // this.addRequirements(RobotContainer.m_lowerArm);
 
     m_radians = radians;
     m_tolerance = toleranceRadians;
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.m_upperArm.getController().setTolerance(m_tolerance);
-    RobotContainer.m_upperArm.setGoal(m_radians);
-    RobotContainer.m_upperArm.enable();
+    RobotContainer.m_lowerArm.getController().setTolerance(m_tolerance);
+    RobotContainer.m_lowerArm.setGoal(m_radians);
+    RobotContainer.m_lowerArm.enable();
+    DataLogManager.log("LowerArmSetPoint: " + m_radians + " Tolerance: " + m_tolerance);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -8,9 +8,23 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
+import frc.robot.RobotContainer;
+
+import java.util.Map;
+
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.CANCoderFaults;
@@ -23,11 +37,17 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /** A robot arm subsystem that moves with a motion profile. */
 public class LowerArm extends ProfiledPIDSubsystem {
+
+  private GenericEntry m_nt_angle_goal;
+  private Boolean m_testMode = false;
+
   private final CANSparkMax m_motor = new CANSparkMax(Constants.kMotorPort, MotorType.kBrushless);
   private final WPI_CANCoder m_encoder = new WPI_CANCoder(Constants.kEncoderPort);
   private final ArmFeedforward m_feedforward = new ArmFeedforward(
       Constants.kSVolts, Constants.kGVolts,
       Constants.kVVoltSecondPerRad, Constants.kAVoltSecondSquaredPerRad);
+
+  private final Joystick m_joy = new Joystick(5);
 
   /** Create a new ArmSubsystem. */
   public LowerArm() {
@@ -49,11 +69,13 @@ public class LowerArm extends ProfiledPIDSubsystem {
     config.unitString = "rad";
     config.sensorTimeBase = SensorTimeBase.PerSecond;
     config.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
-    m_encoder.configAllSettings(config);
+    config.sensorDirection = true;
+    ErrorCode e = m_encoder.configAllSettings(config, 500);
 
     // Start arm at rest in neutral position
     setGoal(m_encoder.getPosition());
 
+    System.out.println("Lower Arm Encoder Error Code: " + e);
     System.out.println("Lower Arm Position: " + m_encoder.getPosition()); // prints the position of the CANCoder
     System.out.println("Lower Arm absolute Position: " + m_encoder.getAbsolutePosition());
 
@@ -66,6 +88,8 @@ public class LowerArm extends ProfiledPIDSubsystem {
                                                                         // to 10ms
 
     // do all of the SparkMax initialization stuff
+    m_motor.setInverted(true);
+    this.setName("Lower Arm");
 
   }
 
@@ -80,7 +104,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
 
     DataLogManager.log("Lower arm volts: " + volts + " output: " + output + " FF: " + feedforward + " Measurement: "
         + getMeasurement() + " Goal: "
-        + this.m_controller.getGoal());
+        + this.m_controller.getGoal().position);
   }
 
   @Override
@@ -89,8 +113,34 @@ public class LowerArm extends ProfiledPIDSubsystem {
   }
 
   public void periodic() {
+    super.periodic();
     SmartDashboard.putNumber("Lower Arm Goal", this.m_controller.getGoal().position);
     SmartDashboard.putNumber("Lower Arm Encoder", m_encoder.getPosition());
+
+    if (m_testMode) {
+      double goal = m_nt_angle_goal.getDouble(0.0);
+      goal = Math.toRadians(goal);
+      this.setGoal(goal);
+      System.out.println("Upper Arm Test Radians: " + goal);
+      m_testMode = false;
+    }
+  }
+
+  public void createShuffleBoardTab() {
+    m_nt_angle_goal = RobotContainer.m_armTab.add("L Arm Goal deg", 0)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+        .withSize(4, 1)
+        .withPosition(3, 0).withProperties(Map.of("min", -160, "max", 160)).getEntry();
+
+    CommandBase cmd = Commands.runOnce(
+        () -> m_testMode = true,
+        this);
+    cmd.setName("L Arm Test");
+    RobotContainer.m_armTab.add(cmd)
+        .withSize(2, 1)
+        .withPosition(3, 1)
+        .withProperties(Map.of("Label position", "HIDDEN"));
+
   }
 
   public final class Constants {
@@ -106,10 +156,10 @@ public class LowerArm extends ProfiledPIDSubsystem {
     public static final double kMaxVelocityRadPerSecond = 1;
     public static final double kMaxAccelerationRadPerSecSquared = 1;
 
-    public static final int kEncoderPort = 63;
+    public static final int kEncoderPort = 33;
 
     // The offset of the arm from the horizontal in its neutral position,
     // measured from the horizontal 154.688 degrees to center
-    public static final double kArmOffsetRads = 2.7;
+    public static final double kArmOffsetRads = -2.7;
   }
 }
