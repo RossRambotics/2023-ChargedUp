@@ -135,12 +135,12 @@ public class LowerArm extends ProfiledPIDSubsystem {
   }
 
   public void createShuffleBoardTab() {
-    m_nt_angle_goal_test = RobotContainer.m_armTab.add("L Arm Goal deg", 0)
+    m_nt_angle_goal_test = RobotContainer.m_armTab.add("L Arm Test deg", 0)
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withSize(4, 1)
         .withPosition(4, 0).withProperties(Map.of("min", -160, "max", 160)).getEntry();
 
-    m_nt_angle_goal = RobotContainer.m_armTab.add("L Arm Actual deg", 0)
+    m_nt_angle_goal = RobotContainer.m_armTab.add("L Arm Goal deg", 0)
         .withSize(1, 1)
         .withPosition(6, 1).getEntry();
 
