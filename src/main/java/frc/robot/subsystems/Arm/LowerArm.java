@@ -101,7 +101,9 @@ public class LowerArm extends ProfiledPIDSubsystem {
   @Override
   public void useOutput(double output, TrapezoidProfile.State setpoint) {
     // Calculate the feedforward from the sepoint
-    double feedforward = m_feedforward.calculate(setpoint.position, setpoint.velocity);
+    // need to use lowerarm setpoint along with lower arm set point
+    double s = setpoint.position + RobotContainer.m_upperArm.getMeasurement();
+    double feedforward = m_feedforward.calculate(s, setpoint.velocity);
     // feedforward = 0;
     // Add the feedforward to the PID output to get the motor output
 
@@ -110,9 +112,9 @@ public class LowerArm extends ProfiledPIDSubsystem {
     m_motor.setVoltage(volts);
     m_nt_volts.setDouble(volts);
 
-    DataLogManager.log("Lower arm volts: " + volts + " output: " + output + " FF: " + feedforward + " Measurement: "
+    DataLogManager.log("LA V: " + volts + " output: " + output + " FF: " + feedforward + " Measurement: "
         + getMeasurement() + " Goal: "
-        + this.m_controller.getGoal().position);
+        + this.m_controller.getGoal().position + " s: " + s);
   }
 
   @Override
@@ -176,7 +178,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
     public static final double kP = 3;
 
     public static final double kSVolts = 1;
-    public static final double kGVolts = 1;
+    public static final double kGVolts = 0.20;
     public static final double kVVoltSecondPerRad = 0.5;
     public static final double kAVoltSecondSquaredPerRad = 0.1;
 
