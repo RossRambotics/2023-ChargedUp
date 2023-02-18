@@ -37,6 +37,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
   private GenericEntry m_nt_angle_goal_test;
   private GenericEntry m_nt_angle_actual;
   private GenericEntry m_nt_volts;
+  private GenericEntry m_nt_feed_forward;
 
   private Boolean m_testMode = false;
 
@@ -109,6 +110,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
     double volts = MathUtil.clamp(output + feedforward, -2.0, 2.0);
     m_motor.setVoltage(volts);
     m_nt_volts.setDouble(volts);
+    m_nt_feed_forward.setDouble(feedforward);
 
     DataLogManager.log("Upper Arm volts: " + volts + " output: " + output + " FF: " + feedforward + " Measurement: "
         + getMeasurement() + " Goal: "
@@ -175,6 +177,10 @@ public class UpperArm extends ProfiledPIDSubsystem {
     m_nt_volts = RobotContainer.m_armTab.add("U Arm Volts", 0)
         .withSize(1, 1)
         .withPosition(1, 1).getEntry();
+
+    m_nt_feed_forward = RobotContainer.m_armTab.add("FF", 0)
+        .withSize(1, 1)
+        .withPosition(1, 2).getEntry();
 
     CommandBase cmd = Commands.runOnce(
         () -> m_testMode = true,
