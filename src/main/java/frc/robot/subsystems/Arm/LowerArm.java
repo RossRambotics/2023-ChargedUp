@@ -101,6 +101,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
   public void useOutput(double output, TrapezoidProfile.State setpoint) {
     // Calculate the feedforward from the sepoint
     double feedforward = m_feedforward.calculate(setpoint.position, setpoint.velocity);
+    feedforward = 0;
     // Add the feedforward to the PID output to get the motor output
 
     double volts = MathUtil.clamp(output + feedforward, -2.0, 2.0);
@@ -121,7 +122,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
     super.periodic();
     SmartDashboard.putNumber("Lower Arm Goal", this.m_controller.getGoal().position);
     SmartDashboard.putNumber("Lower Arm Encoder", m_encoder.getPosition() + Constants.kArmOffsetRads);
-    m_nt_angle_goal.setDouble(this.m_controller.getGoal().position);
+    m_nt_angle_goal.setDouble((Math.toDegrees(this.m_controller.getGoal().position)));
     m_nt_angle_actual.setDouble(Math.toDegrees(m_encoder.getPosition() + Constants.kArmOffsetRads));
 
     if (m_testMode) {
@@ -135,7 +136,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
   }
 
   public void createShuffleBoardTab() {
-    m_nt_angle_goal_test = RobotContainer.m_armTab.add("L Arm Test deg", 0)
+    m_nt_angle_goal_test = RobotContainer.m_armTab.add("L-Arm Test deg", 0)
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withSize(4, 1)
         .withPosition(4, 0).withProperties(Map.of("min", -160, "max", 160)).getEntry();
