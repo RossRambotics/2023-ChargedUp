@@ -108,6 +108,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
 
     double volts = MathUtil.clamp(output + feedforward, -2.0, 2.0);
     m_motor.setVoltage(volts);
+    m_nt_volts.setDouble(volts);
 
     DataLogManager.log("Upper Arm volts: " + volts + " output: " + output + " FF: " + feedforward + " Measurement: "
         + getMeasurement() + " Goal: "
@@ -181,7 +182,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
     cmd.setName("U Arm Test");
     RobotContainer.m_armTab.add(cmd)
         .withSize(1, 1)
-        .withPosition(7, 1)
+        .withPosition(3, 1)
         .withProperties(Map.of("Label position", "HIDDEN"));
 
   }
