@@ -8,6 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
@@ -25,6 +26,11 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /** A robot arm subsystem that moves with a motion profile. */
 public class UpperArm extends ProfiledPIDSubsystem {
+  private GenericEntry m_nt_angle_goal;
+  private GenericEntry m_nt_angle_goal_test;
+  private GenericEntry m_nt_angle_actual;
+  private GenericEntry m_nt_volts;
+
   private final CANSparkMax m_motor = new CANSparkMax(Constants.kMotorPort, MotorType.kBrushless);
   // private final WPI_CANCoder m_encoder = new
   // WPI_CANCoder(Constants.kEncoderPort);
@@ -88,6 +94,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
   public void useOutput(double output, TrapezoidProfile.State setpoint) {
     // Calculate the feedforward from the sepoint
     double feedforward = m_feedforward.calculate(setpoint.position, setpoint.velocity);
+    feedforward = 0;
     // Add the feedforward to the PID output to get the motor output
 
     double volts = MathUtil.clamp(output + feedforward, -2.0, 2.0);
