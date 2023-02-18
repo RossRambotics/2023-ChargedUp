@@ -42,6 +42,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
   private GenericEntry m_nt_angle_goal_test;
   private GenericEntry m_nt_angle_actual;
   private GenericEntry m_nt_volts;
+  private GenericEntry m_nt_feed_forward;
 
   private Boolean m_testMode = false;
 
@@ -105,6 +106,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
     // Add the feedforward to the PID output to get the motor output
 
     double volts = MathUtil.clamp(output + feedforward, -3.0, 3.0);
+    m_nt_feed_forward.setDouble(feedforward);
     m_motor.setVoltage(volts);
     m_nt_volts.setDouble(volts);
 
@@ -152,6 +154,10 @@ public class LowerArm extends ProfiledPIDSubsystem {
     m_nt_volts = RobotContainer.m_armTab.add("L Arm Volts", 0)
         .withSize(1, 1)
         .withPosition(5, 1).getEntry();
+
+    m_nt_feed_forward = RobotContainer.m_armTab.add("L Arm FF", 0)
+        .withSize(1, 1)
+        .withPosition(5, 2).getEntry();
 
     CommandBase cmd = Commands.runOnce(
         () -> m_testMode = true,
