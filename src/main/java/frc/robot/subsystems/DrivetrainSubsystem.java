@@ -138,7 +138,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 // gets the serial number ooff of the robot
                 // Midas serial number is 031E3241
                 // GraveStone serial number is 03178474
-                if (RobotController.getSerialNumber() != "03178474") {
+                if (RobotController.getSerialNumber().equals("03178474")) {
                         this.createGraveStoneDrivetrain();
                         DataLogManager.log("%%%%%%%%%%%%%GraveStone Drive%%%%%%%%%%%%%%%%");
                 } else {
