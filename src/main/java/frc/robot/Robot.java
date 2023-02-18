@@ -40,6 +40,8 @@ public class Robot extends TimedRobot {
         m_robotContainer.createShuffleBoardTab();
 
         RobotContainer.m_Tracking.disableSearchLight();
+
+        RobotContainer.m_grabber.startCompresser();
     }
 
     /**

@@ -32,6 +32,7 @@ import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
 import frc.robot.sim.PhysicsSim;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.Positioning;
 import frc.robot.subsystems.Tracking;
 import frc.robot.subsystems.Arm.Arm;
@@ -59,6 +60,7 @@ public class RobotContainer {
         static public final Arm m_arm = new Arm();
         static public final UpperArm m_upperArm = new UpperArm();
         static public final LowerArm m_lowerArm = new LowerArm();
+        static public final Grabber m_grabber = new Grabber();
 
         static public final Tracking m_Tracking = new Tracking();
         private static double slewLimit = 0.6;
@@ -69,6 +71,9 @@ public class RobotContainer {
         Trigger rightBumper = new JoystickButton(m_controllerDriver, XboxController.Button.kRightBumper.value);
         Trigger backButton = new JoystickButton(m_controllerDriver, XboxController.Button.kBack.value);
         Trigger startButton = new JoystickButton(m_controllerDriver, XboxController.Button.kStart.value);
+        Trigger aButton = new JoystickButton(m_controllerDriver, XboxController.Button.kA.value);
+        Trigger bButton = new JoystickButton(m_controllerDriver, XboxController.Button.kB.value);
+
         public PhysicsSim m_PhysicsSim;
 
         public RobotContainer() {
@@ -164,6 +169,10 @@ public class RobotContainer {
                 backButton.whileTrue(new RunCommand(() -> m_drivetrainSubsystem.zeroGyroscope()));
 
                 startButton.whileTrue(new RunCommand(() -> m_positioning.resetVision()));
+
+                aButton.whileTrue(new RunCommand(() -> m_grabber.openJaws()));
+
+                bButton.whileTrue(new RunCommand(() -> m_grabber.closeJaws()));
 
                 // cmd = new DefaultDriveCommand(
                 // m_drivetrainSubsystem,
