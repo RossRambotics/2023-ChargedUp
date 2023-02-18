@@ -20,6 +20,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -139,8 +140,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 // GraveStone serial number is 03178474
                 if (RobotController.getSerialNumber() != "03178474") {
                         this.createGraveStoneDrivetrain();
+                        DataLogManager.log("%%%%%%%%%%%%%GraveStone Drive%%%%%%%%%%%%%%%%");
                 } else {
                         this.createMidasDrivetrain();
+                        DataLogManager.log("%%%%%%%%%%%%%%Midas Dreive%%%%%%%%%%%%%");
                 }
 
                 m_simTimer.start();
