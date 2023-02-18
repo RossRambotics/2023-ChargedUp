@@ -4,15 +4,22 @@
 
 package frc.robot.subsystems.Arm;
 
+import java.util.Map;
+
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.RobotContainer;
 import frc.robot.commands.Arm.LowerArmSetPoint;
 import frc.robot.commands.Arm.UpperArmSetPoint;
 import frc.util.GraphCommand.GraphCommand;
@@ -77,6 +84,31 @@ public class Arm extends SubsystemBase {
     // }
   }
 
+  public void createShuffleBoardTab() {
+    ShuffleboardLayout commands = RobotContainer.m_buttonBoxTab.getLayout("Commands", BuiltInLayouts.kList)
+        .withSize(2, 1)
+        .withProperties(Map.of("Label position", "HIDDEN")); // hide labels for commands
+
+    CommandBase cmd = Arm.setpointCommandFactory("Start", -100, 100, 1);
+    commands.add(cmd);
+
+    cmd = Arm.setpointCommandFactory("Midpoint", -45, 45, 1);
+    commands.add(cmd);
+
+    cmd = Arm.setpointCommandFactory("End", 0, 0, 1);
+    commands.add(cmd);
+
+    cmd = Arm.setpointCommandFactory("Pick up", -90, 80, 1);
+    commands.add(cmd);
+
+    cmd = Arm.setpointCommandFactory("Carry", -120, 110, 1);
+    commands.add(cmd);
+
+    cmd = Arm.setpointCommandFactory("hold high", 0, 45, 1);
+    commands.add(cmd);
+
+  }
+
   /**
    * Create a new command that moves the upper and lower arm to a specific
    * position with a tolerance
@@ -92,9 +124,9 @@ public class Arm extends SubsystemBase {
    *                         finish)
    * @return
    */
-  final static public Command setpointCommandFactory(String name, double upperArmDegrees, double lowerArmDegrees,
+  final static public CommandBase setpointCommandFactory(String name, double upperArmDegrees, double lowerArmDegrees,
       double toleranceDegrees) {
-    Command c = new ParallelCommandGroup(
+    CommandBase c = new ParallelCommandGroup(
         new UpperArmSetPoint(Units.degreesToRadians(upperArmDegrees), Units.degreesToRadians((toleranceDegrees))),
         new LowerArmSetPoint(Units.degreesToRadians(lowerArmDegrees), Units.degreesToRadians(toleranceDegrees)));
 

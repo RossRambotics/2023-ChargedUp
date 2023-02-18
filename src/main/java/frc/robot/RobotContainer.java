@@ -54,6 +54,7 @@ public class RobotContainer {
         private ShuffleboardTab m_shuffleboardTab = Shuffleboard.getTab("Match.Auto");
         static public final ShuffleboardTab m_TuningTab = Shuffleboard.getTab("Match.Tuning");
         static public final ShuffleboardTab m_armTab = Shuffleboard.getTab("Arm");
+        static public final ShuffleboardTab m_buttonBoxTab = Shuffleboard.getTab("Button.Box");
 
         static public final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
         static public final Positioning m_positioning = new Positioning();
@@ -353,6 +354,7 @@ public class RobotContainer {
                 this.m_Tracking.createShuffleBoardTab();
                 this.m_lowerArm.createShuffleBoardTab();
                 this.m_upperArm.createShuffleBoardTab();
+                this.m_arm.createShuffleBoardTab();
 
                 DataLogManager.start();
                 DataLogManager.log("Log Started.");
