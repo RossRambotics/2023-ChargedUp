@@ -103,7 +103,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
   public void useOutput(double output, TrapezoidProfile.State setpoint) {
     // Calculate the feedforward from the sepoint
     double feedforward = m_feedforward.calculate(setpoint.position, setpoint.velocity);
-    feedforward = 0;
+    // feedforward = 0;
     // Add the feedforward to the PID output to get the motor output
 
     double volts = MathUtil.clamp(output + feedforward, -2.0, 2.0);
