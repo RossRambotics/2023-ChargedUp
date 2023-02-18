@@ -39,6 +39,10 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class LowerArm extends ProfiledPIDSubsystem {
 
   private GenericEntry m_nt_angle_goal;
+  private GenericEntry m_nt_angle_goal_test;
+  private GenericEntry m_nt_angle_actual;
+  private GenericEntry m_nt_volts;
+
   private Boolean m_testMode = false;
 
   private final CANSparkMax m_motor = new CANSparkMax(Constants.kMotorPort, MotorType.kBrushless);
@@ -101,6 +105,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
 
     double volts = MathUtil.clamp(output + feedforward, -2.0, 2.0);
     m_motor.setVoltage(volts);
+    m_nt_volts.setDouble(volts);
 
     DataLogManager.log("Lower arm volts: " + volts + " output: " + output + " FF: " + feedforward + " Measurement: "
         + getMeasurement() + " Goal: "
@@ -115,30 +120,45 @@ public class LowerArm extends ProfiledPIDSubsystem {
   public void periodic() {
     super.periodic();
     SmartDashboard.putNumber("Lower Arm Goal", this.m_controller.getGoal().position);
-    SmartDashboard.putNumber("Lower Arm Encoder", m_encoder.getPosition());
+    SmartDashboard.putNumber("Lower Arm Encoder", m_encoder.getPosition() + Constants.kArmOffsetRads);
+    m_nt_angle_goal.setDouble(this.m_controller.getGoal().position);
+    m_nt_angle_actual.setDouble(Math.toDegrees(m_encoder.getPosition() + Constants.kArmOffsetRads));
 
     if (m_testMode) {
-      double goal = m_nt_angle_goal.getDouble(0.0);
+      double goal = m_nt_angle_goal_test.getDouble(0.0);
       goal = Math.toRadians(goal);
       this.setGoal(goal);
       System.out.println("Upper Arm Test Radians: " + goal);
       m_testMode = false;
+      this.enable();
     }
   }
 
   public void createShuffleBoardTab() {
-    m_nt_angle_goal = RobotContainer.m_armTab.add("L Arm Goal deg", 0)
+    m_nt_angle_goal_test = RobotContainer.m_armTab.add("L Arm Goal deg", 0)
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withSize(4, 1)
-        .withPosition(3, 0).withProperties(Map.of("min", -160, "max", 160)).getEntry();
+        .withPosition(4, 0).withProperties(Map.of("min", -160, "max", 160)).getEntry();
+
+    m_nt_angle_goal = RobotContainer.m_armTab.add("L Arm Actual deg", 0)
+        .withSize(1, 1)
+        .withPosition(6, 1).getEntry();
+
+    m_nt_angle_actual = RobotContainer.m_armTab.add("L Arm Actual deg", 0)
+        .withSize(1, 1)
+        .withPosition(4, 1).getEntry();
+
+    m_nt_volts = RobotContainer.m_armTab.add("L Arm Volts", 0)
+        .withSize(1, 1)
+        .withPosition(5, 1).getEntry();
 
     CommandBase cmd = Commands.runOnce(
         () -> m_testMode = true,
         this);
     cmd.setName("L Arm Test");
     RobotContainer.m_armTab.add(cmd)
-        .withSize(2, 1)
-        .withPosition(3, 1)
+        .withSize(1, 1)
+        .withPosition(7, 1)
         .withProperties(Map.of("Label position", "HIDDEN"));
 
   }
@@ -160,6 +180,6 @@ public class LowerArm extends ProfiledPIDSubsystem {
 
     // The offset of the arm from the horizontal in its neutral position,
     // measured from the horizontal 154.688 degrees to center
-    public static final double kArmOffsetRads = -2.7;
+    public static final double kArmOffsetRads = -3.7;
   }
 }
