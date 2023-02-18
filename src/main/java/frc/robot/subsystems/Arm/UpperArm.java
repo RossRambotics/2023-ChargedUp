@@ -10,8 +10,15 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
+import frc.robot.RobotContainer;
+
+import java.util.Map;
+
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.CANCoderFaults;
@@ -30,6 +37,8 @@ public class UpperArm extends ProfiledPIDSubsystem {
   private GenericEntry m_nt_angle_goal_test;
   private GenericEntry m_nt_angle_actual;
   private GenericEntry m_nt_volts;
+
+  private Boolean m_testMode = false;
 
   private final CANSparkMax m_motor = new CANSparkMax(Constants.kMotorPort, MotorType.kBrushless);
   // private final WPI_CANCoder m_encoder = new
@@ -134,6 +143,46 @@ public class UpperArm extends ProfiledPIDSubsystem {
     super.periodic();
     SmartDashboard.putNumber("Upper Arm Goal", this.m_controller.getGoal().position);
     SmartDashboard.putNumber("Upper Arm Encoder", m_encoder.getPosition());
+    m_nt_angle_goal.setDouble((Math.toDegrees(this.m_controller.getGoal().position)));
+    m_nt_angle_actual.setDouble(Math.toDegrees(m_encoder.getPosition() + Constants.kArmOffsetRads));
+
+    if (m_testMode) {
+      double goal = m_nt_angle_goal_test.getDouble(0.0);
+      goal = Math.toRadians(goal);
+      this.setGoal(goal);
+      System.out.println("Upper Arm Test Radians: " + goal);
+      m_testMode = false;
+      this.enable();
+    }
+
+  }
+
+  public void createShuffleBoardTab() {
+    m_nt_angle_goal_test = RobotContainer.m_armTab.add("U-Arm Test deg", 0)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+        .withSize(4, 1)
+        .withPosition(0, 0).withProperties(Map.of("min", -160, "max", 160)).getEntry();
+
+    m_nt_angle_goal = RobotContainer.m_armTab.add("U Arm Goal deg", 0)
+        .withSize(1, 1)
+        .withPosition(2, 1).getEntry();
+
+    m_nt_angle_actual = RobotContainer.m_armTab.add("U Arm Actual deg", 0)
+        .withSize(1, 1)
+        .withPosition(0, 1).getEntry();
+
+    m_nt_volts = RobotContainer.m_armTab.add("U Arm Volts", 0)
+        .withSize(1, 1)
+        .withPosition(1, 1).getEntry();
+
+    CommandBase cmd = Commands.runOnce(
+        () -> m_testMode = true,
+        this);
+    cmd.setName("U Arm Test");
+    RobotContainer.m_armTab.add(cmd)
+        .withSize(1, 1)
+        .withPosition(7, 1)
+        .withProperties(Map.of("Label position", "HIDDEN"));
 
   }
 }

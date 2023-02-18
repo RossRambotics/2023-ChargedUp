@@ -352,6 +352,7 @@ public class RobotContainer {
 
                 this.m_Tracking.createShuffleBoardTab();
                 this.m_lowerArm.createShuffleBoardTab();
+                this.m_upperArm.createShuffleBoardTab();
 
                 DataLogManager.start();
                 DataLogManager.log("Log Started.");
