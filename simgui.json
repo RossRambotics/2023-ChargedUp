@@ -45,6 +45,11 @@
   },
   "NetworkTables": {
     "transitory": {
+      "LiveWindow": {
+        ".status": {
+          "open": true
+        }
+      },
       "Shuffleboard": {
         "Field": {
           "Field": {
@@ -57,7 +62,9 @@
               "open": true
             }
           }
-        },
+        }
+      },
+      "SmartDashboard": {
         "open": true
       },
       "SmartDashboard": {

@@ -32,8 +32,12 @@ import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
 import frc.robot.sim.PhysicsSim;
 import frc.robot.subsystems.DrivetrainSubsystem;
+
+import frc.robot.subsystems.GridSelector;
+
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.Positioning;
+
 import frc.robot.subsystems.Tracking;
 import frc.robot.subsystems.Arm.Arm;
 import frc.robot.subsystems.Arm.LowerArm;
@@ -57,6 +61,9 @@ public class RobotContainer {
         static public final ShuffleboardTab m_buttonBoxTab = Shuffleboard.getTab("Button.Box");
 
         static public final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+
+        static public final GridSelector m_GridSelector = new GridSelector();
+
         static public final Positioning m_positioning = new Positioning();
         static public final Arm m_arm = new Arm();
         static public final UpperArm m_upperArm = new UpperArm();
