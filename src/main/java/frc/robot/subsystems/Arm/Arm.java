@@ -7,6 +7,7 @@ package frc.robot.subsystems.Arm;
 import java.util.Map;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -27,6 +28,10 @@ import frc.util.GraphCommand.GraphCommand.GraphCommandNode;
 
 public class Arm extends SubsystemBase {
   private GraphCommand m_graphCommand = new GraphCommand();
+  private GraphCommandNode m_nextNode = null;
+
+  private GenericEntry m_nt_nodeName;
+  private GenericEntry m_nt_nextNodeName;
 
   GraphCommandNode A;
   GraphCommandNode B;
@@ -38,18 +43,32 @@ public class Arm extends SubsystemBase {
   }
 
   public void initialize() {
+    // A = m_graphCommand.new GraphCommandNode("A",
+    // Arm.setpointCommandFactory("A Target", 0, 0, 1),
+    // Arm.setpointCommandFactory("A Waypoint", 0, 0, 5),
+    // Commands.runOnce(() -> m_nextNode = B));
+    // B = m_graphCommand.new GraphCommandNode("B",
+    // Arm.setpointCommandFactory("B Target", -45, 10, 1),
+    // Arm.setpointCommandFactory("B Waypoint", -45, 10, 5),
+    // Commands.runOnce(() -> m_nextNode = C));
+    // C = m_graphCommand.new GraphCommandNode("C",
+    // Arm.setpointCommandFactory("C Target", -45, 45, 1),
+    // Arm.setpointCommandFactory("C Waypoint", -45, 45, 5),
+    // Commands.runOnce(() -> m_nextNode = C));
     A = m_graphCommand.new GraphCommandNode("A",
-        Arm.setpointCommandFactory("A Target", 0, 0, 1),
-        Arm.setpointCommandFactory("A Waypoint", 0, 0, 5),
-        new PrintCommand("Arrvided A"));
+        new PrintCommand("Going to A"),
+        null,
+        Commands.runOnce(() -> m_nextNode = B));
     B = m_graphCommand.new GraphCommandNode("B",
-        Arm.setpointCommandFactory("B Target", -45, 10, 1),
-        Arm.setpointCommandFactory("B Waypoint", -45, 10, 5),
-        new PrintCommand("Arrvided A"));
+        new PrintCommand(
+            "Going to B"),
+        null,
+        Commands.runOnce(() -> m_nextNode = C));
     C = m_graphCommand.new GraphCommandNode("C",
-        Arm.setpointCommandFactory("C Target", -45, 45, 1),
-        Arm.setpointCommandFactory("C Waypoint", -45, 45, 5),
-        new PrintCommand("Arrvided A"));
+        new PrintCommand(
+            "Going to C"),
+        null,
+        Commands.runOnce(() -> m_nextNode = A));
 
     m_graphCommand.setGraphRootNode(A);
 
@@ -60,6 +79,16 @@ public class Arm extends SubsystemBase {
     this.setDefaultCommand(m_graphCommand);
     m_graphCommand.setCurrentNode(A);
     m_graphCommand.initialize();
+    m_nextNode = B;
+  }
+
+  public void goNextNode() {
+    if (m_nextNode == null) {
+      return;
+    }
+
+    this.m_graphCommand.setTargetNode(m_nextNode);
+    m_nextNode = null;
   }
 
   private Timer m_testTimer = new Timer();
@@ -71,6 +100,18 @@ public class Arm extends SubsystemBase {
     // This method will be called once per scheduler run
     if (DriverStation.isDisabled()) {
       return;
+    }
+
+    if (m_graphCommand.getCurrentNode() == null) {
+      m_nt_nodeName.setString("<none>");
+    } else {
+      m_nt_nodeName.setString(m_graphCommand.getCurrentNode().getNodeName());
+    }
+
+    if (m_nextNode == null) {
+      m_nt_nextNodeName.setString("<none>");
+    } else {
+      m_nt_nextNodeName.setString(m_nextNode.getNodeName());
     }
 
     // if (m_isFirstTime) {
@@ -85,11 +126,29 @@ public class Arm extends SubsystemBase {
   }
 
   public void createShuffleBoardTab() {
-    ShuffleboardLayout commands = RobotContainer.m_buttonBoxTab.getLayout("Commands", BuiltInLayouts.kList)
-        .withSize(2, 1)
-        .withProperties(Map.of("Label position", "HIDDEN")); // hide labels for commands
+    // this.initialize();
+    ShuffleboardLayout graph = RobotContainer.m_buttonBoxTab.getLayout("Graph", BuiltInLayouts.kGrid)
+        .withSize(7, 5)
+        .withPosition(2, 0)
+        .withProperties(Map.of("Label position", "HIDDEN", "Number of columns", 7, " Number of rows", 5));
 
-    CommandBase cmd = Arm.setpointCommandFactory("Start", -100, 100, 1);
+    ShuffleboardLayout commands = RobotContainer.m_buttonBoxTab.getLayout("Commands", BuiltInLayouts.kList)
+        .withSize(2, 7)
+        .withPosition(0, 0)
+        .withProperties(Map.of("Label position", "HIDDEN", "Number of columns", 7, " Number of rows", 5));
+
+    m_nt_nodeName = RobotContainer.m_buttonBoxTab.add("Curr Node Name", "<none>")
+        .withPosition(9, 0).getEntry();
+    m_nt_nextNodeName = RobotContainer.m_buttonBoxTab.add("Next Node Name", "<none>")
+        .withPosition(9, 1).getEntry();
+
+    CommandBase cmd = Arm.targetNodeCommandFactory(this, A);
+    graph.add(cmd).withPosition(3, 3);
+
+    cmd = Arm.targetNodeCommandFactory(this, B);
+    graph.add(cmd).withPosition(3, 3);
+
+    cmd = Arm.setpointCommandFactory("Start", -100, 100, 1);
     commands.add(cmd);
 
     cmd = Arm.setpointCommandFactory("Midpoint", -45, 45, 1);
@@ -105,6 +164,10 @@ public class Arm extends SubsystemBase {
     commands.add(cmd);
 
     cmd = Arm.setpointCommandFactory("hold high", 0, 45, 1);
+    commands.add(cmd);
+
+    cmd = Commands.runOnce(() -> this.goNextNode());
+    cmd.setName("Next Node");
     commands.add(cmd);
 
   }
@@ -133,5 +196,12 @@ public class Arm extends SubsystemBase {
     c.setName(name + "(" + upperArmDegrees + " , " + lowerArmDegrees + ")");
 
     return c;
+  }
+
+  final static public CommandBase targetNodeCommandFactory(Arm arm, GraphCommandNode node) {
+    CommandBase cmd = Commands.runOnce(() -> arm.m_graphCommand.setTargetNode(node));
+    cmd.setName(node.getNodeName());
+
+    return cmd;
   }
 }

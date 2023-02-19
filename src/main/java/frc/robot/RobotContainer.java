@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -81,6 +82,7 @@ public class RobotContainer {
         Trigger startButton = new JoystickButton(m_controllerDriver, XboxController.Button.kStart.value);
         Trigger aButton = new JoystickButton(m_controllerDriver, XboxController.Button.kA.value);
         Trigger bButton = new JoystickButton(m_controllerDriver, XboxController.Button.kB.value);
+        Trigger yButton = new JoystickButton(m_controllerDriver, XboxController.Button.kX.value);
 
         public PhysicsSim m_PhysicsSim;
 
@@ -181,6 +183,8 @@ public class RobotContainer {
                 aButton.whileTrue(new RunCommand(() -> m_grabber.openJaws()));
 
                 bButton.whileTrue(new RunCommand(() -> m_grabber.closeJaws()));
+
+                yButton.whileTrue(Commands.runOnce(() -> m_arm.goNextNode()));
 
                 // cmd = new DefaultDriveCommand(
                 // m_drivetrainSubsystem,

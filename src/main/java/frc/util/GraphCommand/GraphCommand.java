@@ -11,6 +11,7 @@ import java.util.Map;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class GraphCommand extends CommandBase {
 
@@ -60,7 +61,18 @@ public class GraphCommand extends CommandBase {
   public void execute() {
     // if graph is transitioning state, skip
     if (m_isTransitioning) {
-      return;
+      if (m_command.isScheduled()) {
+        return;
+      } else {
+        // just finished running
+        m_isTransitioning = false;
+        m_command = m_currentNode.m_arrivedCommand;
+
+        if (m_command != null) {
+          m_command.schedule();
+          m_command = null;
+        }
+      }
     }
 
     if (m_currentNode == null) {
@@ -92,13 +104,6 @@ public class GraphCommand extends CommandBase {
       if (m_command == null) {
         m_isTransitioning = false;
         return;
-      } else {
-        if (node.m_arrivedCommand == null) {
-          m_command = m_command.andThen(Commands.runOnce(() -> m_isTransitioning = false));
-        } else {
-          m_command = m_command.andThen(Commands.runOnce(() -> m_isTransitioning = false))
-              .andThen(node.m_arrivedCommand);
-        }
       }
     } else {
       // waypoint
@@ -109,8 +114,6 @@ public class GraphCommand extends CommandBase {
       if (m_command == null) {
         m_isTransitioning = false;
         return;
-      } else {
-        m_command = m_command.andThen(Commands.runOnce(() -> m_isTransitioning = false));
       }
     }
     m_command.schedule();
@@ -426,6 +429,10 @@ public class GraphCommand extends CommandBase {
         m_wayPointNode = link.m_wayPointNode;
         m_cost = link.m_cost;
       }
+    }
+
+    public String getNodeName() {
+      return m_nodeName;
     }
   }
 
