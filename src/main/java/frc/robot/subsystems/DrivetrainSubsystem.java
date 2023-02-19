@@ -9,6 +9,7 @@ import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -27,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.Positioning;
 
 import static frc.robot.Constants.*;
 
@@ -107,13 +109,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
         private SwerveModulePosition[] m_swerveModulePositions = new SwerveModulePosition[4];
 
         // adding SwerveOdometry
-        private SwerveDriveOdometry m_odometry = null;
+        private static SwerveDrivePoseEstimator m_odometry = null;
 
         private Field2d m_field = new Field2d();
 
         private double m_lastRotationSpeed;
 
+        private Timer m_Timer = new Timer();
+
         public DrivetrainSubsystem() {
+                m_Timer.start();
                 m_swerveModuleStates[0] = new SwerveModuleState();
                 m_swerveModuleStates[1] = new SwerveModuleState();
                 m_swerveModuleStates[2] = new SwerveModuleState();
@@ -124,8 +129,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 m_swerveModulePositions[2] = new SwerveModulePosition();
                 m_swerveModulePositions[3] = new SwerveModulePosition();
 
-                m_odometry = new SwerveDriveOdometry(m_kinematics, getGyroscopeRotation(),
-                                m_swerveModulePositions);
+                m_odometry = new SwerveDrivePoseEstimator(m_kinematics, getGyroscopeRotation(),
+                                m_swerveModulePositions, new Pose2d(0, 0, new Rotation2d(Math.toRadians(0))));
 
                 ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
                 ShuffleboardTab fieldtab = Shuffleboard.getTab("Field");
@@ -282,6 +287,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         public void periodic() {
                 // update odometry
                 if (!Robot.isSimulation()) {
+                        RobotContainer.m_positioning.updateVision(m_odometry);
                         m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
                 }
 
@@ -289,16 +295,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 if (Robot.isSimulation()) {
                         // This method will be called once per scheduler run during simulation only
                         // update the pose every
-                        // 0.002 seconds
+                        // 0.02 seconds
                         if (m_simTimer.advanceIfElapsed(0.02)) {
 
                                 // we need to simulate the update of the (x,y) of the robot
-                                // we will use the average speed of the modules
-                                // double ave = m_swerveModuleStates[0].speedMetersPerSecond +
-                                // m_swerveModuleStates[1].speedMetersPerSecond +
-                                // m_swerveModuleStates[2].speedMetersPerSecond +
-                                // m_swerveModuleStates[3].speedMetersPerSecond;
-                                // ave /= 4.0;
+                                // we will use the speed of the modules
                                 m_simEncoders[0] += m_swerveModuleStates[0].speedMetersPerSecond
                                                 * 0.02;
                                 m_simEncoders[1] += m_swerveModuleStates[1].speedMetersPerSecond
@@ -317,6 +318,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
                                 m_swerveModulePositions[3].distanceMeters = m_simEncoders[3];
                                 m_swerveModulePositions[3].angle = m_swerveModuleStates[3].angle;
 
+                                RobotContainer.m_positioning.updateVision(m_odometry);
                                 m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
 
                                 Pose2d simPose = new Pose2d(
@@ -332,10 +334,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
         }
 
         public Pose2d getOdometryPose() {
-                return m_odometry.getPoseMeters();
+                return m_odometry.getEstimatedPosition();
         }
 
-        public SwerveDriveOdometry getOdometry() {
+        public static SwerveDrivePoseEstimator getOdometry() {
                 return m_odometry;
         }
 
@@ -355,6 +357,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 m_simEncoders[1] = 0.0;
                 m_simEncoders[2] = 0.0;
                 m_simEncoders[3] = 0.0;
+        }
+
+        public void setOdometryPose(Pose2d botPose) {
+                m_odometry.resetPosition(getGyroHeading(), m_swerveModulePositions, botPose);
+                System.out.println("Reseting Odometry Pose. Gyro: " + getGyroHeading() + " botPose Heading: " + botPose.getRotation().getDegrees());
         }
 
 }
