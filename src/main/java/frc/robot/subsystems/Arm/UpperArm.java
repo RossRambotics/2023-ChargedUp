@@ -178,7 +178,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
         .withSize(1, 1)
         .withPosition(1, 1).getEntry();
 
-    m_nt_feed_forward = RobotContainer.m_armTab.add("FF", 0)
+    m_nt_feed_forward = RobotContainer.m_armTab.add("U Arm FF V", 0)
         .withSize(1, 1)
         .withPosition(1, 2).getEntry();
 

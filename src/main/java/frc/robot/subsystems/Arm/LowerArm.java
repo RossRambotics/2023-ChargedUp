@@ -157,7 +157,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
         .withSize(1, 1)
         .withPosition(5, 1).getEntry();
 
-    m_nt_feed_forward = RobotContainer.m_armTab.add("L Arm FF", 0)
+    m_nt_feed_forward = RobotContainer.m_armTab.add("L Arm FF V", 0)
         .withSize(1, 1)
         .withPosition(5, 2).getEntry();
 
