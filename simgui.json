@@ -29,18 +29,24 @@
   },
   "NetworkTables": {
     "transitory": {
+      "LiveWindow": {
+        ".status": {
+          "open": true
+        }
+      },
       "Shuffleboard": {
         "Field": {
           "Field": {
             "open": true
-          },
-          "open": true
+          }
         },
         "Match.Auto": {
           "Commands": {
             "open": true
           }
-        },
+        }
+      },
+      "SmartDashboard": {
         "open": true
       }
     }

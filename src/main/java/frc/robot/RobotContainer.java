@@ -31,7 +31,11 @@ import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
 import frc.robot.sim.PhysicsSim;
 import frc.robot.subsystems.DrivetrainSubsystem;
+
+import frc.robot.subsystems.GridSelector;
+
 import frc.robot.subsystems.Positioning;
+
 import frc.robot.subsystems.Tracking;
 
 public class RobotContainer {
@@ -50,7 +54,11 @@ public class RobotContainer {
         static public final ShuffleboardTab m_TuningTab = Shuffleboard.getTab("Match.Tuning");
 
         static public final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+
+        static public final GridSelector m_GridSelector = new GridSelector();
+
         static public final Positioning m_positioning = new Positioning();
+
 
         static public final Tracking m_Tracking = new Tracking();
         private static double slewLimit = 0.6;
