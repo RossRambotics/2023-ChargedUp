@@ -2,6 +2,7 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/LowerArm/Lower Arm": "Subsystem",
       "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
       "/LiveWindow/Ungrouped/PIDController[2]": "PIDController",
       "/LiveWindow/Ungrouped/PIDController[3]": "PIDController",
@@ -28,6 +29,8 @@
       "/Shuffleboard/Button.Box/Commands/hold high(0.0 , 45.0)": "Command",
       "/Shuffleboard/Button.Box/Graph/A": "Command",
       "/Shuffleboard/Button.Box/Graph/B": "Command",
+      "/Shuffleboard/Button.Box/Panel/A": "Command",
+      "/Shuffleboard/Button.Box/Panel/B": "Command",
       "/Shuffleboard/Field/Field": "Field2d",
       "/Shuffleboard/Match.Auto/Autonomous": "String Chooser",
       "/Shuffleboard/Match.Auto/Commands/AutoMoceBackToPose": "Command",
