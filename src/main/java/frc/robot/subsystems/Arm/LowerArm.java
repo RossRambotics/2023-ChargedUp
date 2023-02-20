@@ -161,6 +161,12 @@ public class LowerArm extends ProfiledPIDSubsystem {
         .withSize(1, 1)
         .withPosition(5, 2).getEntry();
 
+    ShuffleboardLayout pidLayout = RobotContainer.m_armTab.getLayout("Lower Arm", BuiltInLayouts.kList)
+        .withSize(2, 3)
+        .withPosition(4, 3)
+        .withProperties(Map.of("Label position", "HIDDEN"));
+    pidLayout.add(this.getController());
+
     CommandBase cmd = Commands.runOnce(
         () -> m_testMode = true,
         this);

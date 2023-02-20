@@ -10,7 +10,9 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -181,6 +183,13 @@ public class UpperArm extends ProfiledPIDSubsystem {
     m_nt_feed_forward = RobotContainer.m_armTab.add("U Arm FF V", 0)
         .withSize(1, 1)
         .withPosition(1, 2).getEntry();
+
+    ShuffleboardLayout pidLayout = RobotContainer.m_armTab.getLayout("Upper Arm", BuiltInLayouts.kList)
+        .withSize(2, 3)
+        .withPosition(0, 3)
+        .withProperties(Map.of("Label position", "HIDDEN"));
+
+    pidLayout.add(this.getController());
 
     CommandBase cmd = Commands.runOnce(
         () -> m_testMode = true,

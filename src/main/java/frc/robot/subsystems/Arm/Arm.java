@@ -127,7 +127,7 @@ public class Arm extends SubsystemBase {
 
   public void createShuffleBoardTab() {
     // this.initialize();
-    ShuffleboardLayout graph = RobotContainer.m_buttonBoxTab.getLayout("Graph", BuiltInLayouts.kGrid)
+    ShuffleboardLayout graph = RobotContainer.m_buttonBoxTab.getLayout("Panel", BuiltInLayouts.kGrid)
         .withSize(7, 5)
         .withPosition(2, 0)
         .withProperties(Map.of("Label position", "HIDDEN", "Number of columns", 7, " Number of rows", 5));
@@ -146,7 +146,7 @@ public class Arm extends SubsystemBase {
     graph.add(cmd).withPosition(3, 3);
 
     cmd = Arm.targetNodeCommandFactory(this, B);
-    graph.add(cmd).withPosition(3, 3);
+    graph.add(cmd).withPosition(1, 2);
 
     cmd = Arm.setpointCommandFactory("Start", -100, 100, 1);
     commands.add(cmd);
