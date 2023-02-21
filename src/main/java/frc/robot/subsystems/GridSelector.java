@@ -10,12 +10,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.Arm.Arm;
 
 /** Add your docs here. */
 public class GridSelector extends SubsystemBase {
-    private Joystick m_gridSelector = new Joystick(2);
-    private Joystick m_gridSelector2 = new Joystick(3);
+    private Joystick m_gridSelector = new Joystick(1);
+    private Joystick m_gridSelector2 = new Joystick(2);
     private int m_dial = 0;
 
     /** Creates a new GridSelector2. */
@@ -24,8 +25,9 @@ public class GridSelector extends SubsystemBase {
     }
 
     public void initialize() {
-        JoystickButton btnHoldHigh = new JoystickButton(m_gridSelector2, 2);
+        Trigger btnHoldHigh = new JoystickButton(m_gridSelector2, 2);
         CommandBase cmd = new PrintCommand("************** Button Pressed! *******************");
+        // cmd = Arm.setpointCommandFactory("hold high", 0, 45, 1);
         btnHoldHigh.onTrue(cmd);
     }
 

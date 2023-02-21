@@ -27,6 +27,7 @@
       "/Shuffleboard/Button.Box/Commands/Pick up(-90.0 , 80.0)": "Command",
       "/Shuffleboard/Button.Box/Commands/Start(-100.0 , 100.0)": "Command",
       "/Shuffleboard/Button.Box/Commands/hold high(0.0 , 45.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/safe forward(-45.0 , 120.0)": "Command",
       "/Shuffleboard/Button.Box/Graph/A": "Command",
       "/Shuffleboard/Button.Box/Graph/B": "Command",
       "/Shuffleboard/Button.Box/Panel/A": "Command",
