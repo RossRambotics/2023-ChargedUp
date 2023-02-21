@@ -303,6 +303,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 return r;
         }
 
+        public void calibrateSDSModules() {
+                m_frontLeftModule.set(0, 0);
+                m_frontRightModule.set(0, 0);
+                m_backLeftModule.set(0, 0);
+                m_backLeftModule.set(0, 0);
+        }
+
         private void updateSDSSwerveModules() {
                 m_frontLeftModule.set(
                                 m_swerveModuleStates[0].speedMetersPerSecond /
