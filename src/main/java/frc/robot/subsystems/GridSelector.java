@@ -6,16 +6,27 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.Arm.Arm;
 
 /** Add your docs here. */
 public class GridSelector extends SubsystemBase {
     private Joystick m_gridSelector = new Joystick(2);
+    private Joystick m_gridSelector2 = new Joystick(3);
     private int m_dial = 0;
 
     /** Creates a new GridSelector2. */
     public GridSelector() {
 
+    }
+
+    public void initialize() {
+        JoystickButton btnHoldHigh = new JoystickButton(m_gridSelector2, 2);
+        CommandBase cmd = new PrintCommand("************** Button Pressed! *******************");
+        btnHoldHigh.onTrue(cmd);
     }
 
     @Override

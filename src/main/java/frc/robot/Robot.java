@@ -37,6 +37,7 @@ public class Robot extends TimedRobot {
         m_robotContainer = new RobotContainer();
         RobotContainer.setTheRobot(m_robotContainer);
         RobotContainer.m_arm.initialize();
+        RobotContainer.m_GridSelector.initialize();
         m_robotContainer.createShuffleBoardTab();
 
         RobotContainer.m_Tracking.disableSearchLight();
