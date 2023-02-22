@@ -189,6 +189,10 @@ public class RobotContainer {
 
                 btnCloseJaws.whileTrue(new RunCommand(() -> m_grabber.closeJaws()));
 
+                aButton.whileTrue(new RunCommand(() -> m_grabber.openJaws()));
+
+                bButton.whileTrue(new RunCommand(() -> m_grabber.closeJaws()));
+
                 yButton.whileTrue(Commands.runOnce(() -> m_arm.goNextNode()));
 
                 // cmd = new DefaultDriveCommand(
