@@ -10,6 +10,7 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -75,6 +76,8 @@ public class RobotContainer {
         private static double slewLimit = 0.6;
 
         private final XboxController m_controllerDriver = new XboxController(0);
+        private Joystick m_gridSelector2 = new Joystick(2);
+        private Joystick m_gridSelector = new Joystick(1);
         // private final XboxController m_controllerOperator = new XboxController(1);
         Trigger leftBumper = new JoystickButton(m_controllerDriver, XboxController.Button.kLeftBumper.value);
         Trigger rightBumper = new JoystickButton(m_controllerDriver, XboxController.Button.kRightBumper.value);
@@ -83,6 +86,8 @@ public class RobotContainer {
         Trigger aButton = new JoystickButton(m_controllerDriver, XboxController.Button.kA.value);
         Trigger bButton = new JoystickButton(m_controllerDriver, XboxController.Button.kB.value);
         Trigger yButton = new JoystickButton(m_controllerDriver, XboxController.Button.kX.value);
+        Trigger btnCloseJaws = new JoystickButton(m_gridSelector2, 7);
+        Trigger btnOpenJaws = new JoystickButton(m_gridSelector, 11);
 
         public PhysicsSim m_PhysicsSim;
 
@@ -180,9 +185,9 @@ public class RobotContainer {
 
                 startButton.whileTrue(new RunCommand(() -> m_positioning.resetVision()));
 
-                aButton.whileTrue(new RunCommand(() -> m_grabber.openJaws()));
+                btnOpenJaws.whileTrue(new RunCommand(() -> m_grabber.openJaws()));
 
-                bButton.whileTrue(new RunCommand(() -> m_grabber.closeJaws()));
+                btnCloseJaws.whileTrue(new RunCommand(() -> m_grabber.closeJaws()));
 
                 yButton.whileTrue(Commands.runOnce(() -> m_arm.goNextNode()));
 
