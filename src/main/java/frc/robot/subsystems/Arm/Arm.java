@@ -30,7 +30,7 @@ public class Arm extends SubsystemBase {
 
   GraphCommandNode A;
   GraphCommandNode B;
-  GraphCommandNode C, D, E, F, G, H, I, J;
+  GraphCommandNode C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, OO, PP, QQ, NN;
 
   /** Creates a new Arm. */
   public Arm() {
@@ -38,51 +38,103 @@ public class Arm extends SubsystemBase {
   }
 
   public void initialize() {
-    A = m_graphCommand.new GraphCommandNode("Carry",
-        Arm.setpointCommandFactory("A Target", -120,
-            110, 5),
-        null,
+    A = m_graphCommand.new GraphCommandNode("A",
+        Arm.setpointCommandFactory("A Target", 0, 0, 1),
+        Arm.setpointCommandFactory("A Waypoint", 0, 0, 5),
         null);
-    B = m_graphCommand.new GraphCommandNode("Safe Forward",
-        Arm.setpointCommandFactory("B Target", -45,
-            120, 5),
-        null,
+    B = m_graphCommand.new GraphCommandNode("B",
+        Arm.setpointCommandFactory("B Target", 90, 90, 1),
+        Arm.setpointCommandFactory("B Waypoint", 90, 90, 5),
         null);
-    C = m_graphCommand.new GraphCommandNode("Hold High",
-        Arm.setpointCommandFactory("C Target", 0,
-            45, 5),
-        null,
+    C = m_graphCommand.new GraphCommandNode("C",
+        Arm.setpointCommandFactory("C Target", 30, 110, 1),
+        Arm.setpointCommandFactory("C Waypoint", 30, 110, 5),
         null);
-    D = m_graphCommand.new GraphCommandNode("End",
-        Arm.setpointCommandFactory("D Target", 0,
-            0, 5),
-        null,
+    D = m_graphCommand.new GraphCommandNode("D",
+        Arm.setpointCommandFactory("D Target", 20, 50, 1),
+        Arm.setpointCommandFactory("D Waypoint", 20, 50, 5),
         null);
-    // E = m_graphCommand.new GraphCommandNode("C",
-    // Arm.setpointCommandFactory("C Target", 50, 140, 1),
-    // Arm.setpointCommandFactory("C Waypoint", 50, 140, 5),
-    // Commands.runOnce(() -> m_nextNode = C));
-    // F = m_graphCommand.new GraphCommandNode("C",
-    // Arm.setpointCommandFactory("C Target", 20, 170, 1),
-    // Arm.setpointCommandFactory("C Waypoint", 20, 170, 5),
-    // Commands.runOnce(() -> m_nextNode = C));
-    // G = m_graphCommand.new GraphCommandNode("B",
-    // Arm.setpointCommandFactory("B Target", 100, 100, 1),
-    // Arm.setpointCommandFactory("B Waypoint", 100, 100, 5),
-    // Commands.runOnce(() -> m_nextNode = C));
-    // H = m_graphCommand.new GraphCommandNode("C",
-    // Arm.setpointCommandFactory("C Target", 80, 70, 1),
-    // Arm.setpointCommandFactory("C Waypoint", 80, 70, 5),
-    // Commands.runOnce(() -> m_nextNode = C));
-    // I = m_graphCommand.new GraphCommandNode("B",
-    // Arm.setpointCommandFactory("B Target", 150, 120, 1),
-    // Arm.setpointCommandFactory("B Waypoint", 150, 120, 5),
-    // Commands.runOnce(() -> m_nextNode = C));
-    // J = m_graphCommand.new GraphCommandNode("C",
-    // Arm.setpointCommandFactory("C Target", 120, 150, 1),
-    // Arm.setpointCommandFactory("C Waypoint", 120, 150, 5),
-    // Commands.runOnce(() -> m_nextNode = C));
-    // // A = m_graphCommand.new GraphCommandNode("A",
+    E = m_graphCommand.new GraphCommandNode("E",
+        Arm.setpointCommandFactory("E Target", 50, 140, 1),
+        Arm.setpointCommandFactory("E Waypoint", 50, 140, 5),
+        null);
+    F = m_graphCommand.new GraphCommandNode("F",
+        Arm.setpointCommandFactory("F Target", 20, 170, 1),
+        Arm.setpointCommandFactory("F Waypoint", 20, 170, 5),
+        null);
+    G = m_graphCommand.new GraphCommandNode("G",
+        Arm.setpointCommandFactory("G Target", 100, 100, 1),
+        Arm.setpointCommandFactory("G Waypoint", 100, 100, 5),
+        null);
+    H = m_graphCommand.new GraphCommandNode("H",
+        Arm.setpointCommandFactory("H Target", 80, 70, 1),
+        Arm.setpointCommandFactory("H Waypoint", 80, 70, 5),
+        null);
+    I = m_graphCommand.new GraphCommandNode("I",
+        Arm.setpointCommandFactory("I Target", 150, 120, 1),
+        Arm.setpointCommandFactory("I Waypoint", 150, 120, 5),
+        null);
+    J = m_graphCommand.new GraphCommandNode("J",
+        Arm.setpointCommandFactory("J Target", 120, 150, 1),
+        Arm.setpointCommandFactory("J Waypoint", 120, 150, 5),
+        null);
+    K = m_graphCommand.new GraphCommandNode("K",
+        Arm.setpointCommandFactory("K Target", 120, 150, 1),
+        Arm.setpointCommandFactory("K Waypoint", 120, 150, 5),
+        null);
+    L = m_graphCommand.new GraphCommandNode("L",
+        Arm.setpointCommandFactory("L Target", 120, 150, 1),
+        Arm.setpointCommandFactory("L Waypoint", 120, 150, 5),
+        null);
+    M = m_graphCommand.new GraphCommandNode("M",
+        Arm.setpointCommandFactory("M Target", 120, 150, 1),
+        Arm.setpointCommandFactory("M Waypoint", 120, 150, 5),
+        null);
+    N = m_graphCommand.new GraphCommandNode("N",
+        Arm.setpointCommandFactory("N Target", 120, 150, 1),
+        Arm.setpointCommandFactory("N Waypoint", 120, 150, 5),
+        null);
+    O = m_graphCommand.new GraphCommandNode("O",
+        Arm.setpointCommandFactory("O Target", 120, 150, 1),
+        Arm.setpointCommandFactory("O Waypoint", 120, 150, 5),
+        null);
+    P = m_graphCommand.new GraphCommandNode("P",
+        Arm.setpointCommandFactory("P Target", 120, 150, 1),
+        Arm.setpointCommandFactory("P Waypoint", 120, 150, 5),
+        null);
+    Q = m_graphCommand.new GraphCommandNode("Q",
+        Arm.setpointCommandFactory("Q Target", 120, 150, 1),
+        Arm.setpointCommandFactory("Q Waypoint", 120, 150, 5),
+        null);
+    R = m_graphCommand.new GraphCommandNode("R",
+        Arm.setpointCommandFactory("R Target", 120, 150, 1),
+        Arm.setpointCommandFactory("R Waypoint", 120, 150, 5),
+        null);
+    S = m_graphCommand.new GraphCommandNode("S",
+        Arm.setpointCommandFactory("S Target", 120, 150, 1),
+        Arm.setpointCommandFactory("S Waypoint", 120, 150, 5),
+        null);
+    T = m_graphCommand.new GraphCommandNode("T",
+        Arm.setpointCommandFactory("T Target", 120, 150, 1),
+        Arm.setpointCommandFactory("T Waypoint", 120, 150, 5),
+        null);
+    NN = m_graphCommand.new GraphCommandNode("NN",
+        Arm.setpointCommandFactory("NN Target", 120, 150, 1),
+        Arm.setpointCommandFactory("NN Waypoint", 120, 150, 5),
+        null);
+    OO = m_graphCommand.new GraphCommandNode("OO",
+        Arm.setpointCommandFactory("OO Target", 120, 150, 1),
+        Arm.setpointCommandFactory("00 Waypoint", 120, 150, 5),
+        null);
+    PP = m_graphCommand.new GraphCommandNode("PP",
+        Arm.setpointCommandFactory("PP Target", 120, 150, 1),
+        Arm.setpointCommandFactory("PP Waypoint", 120, 150, 5),
+        null);
+    QQ = m_graphCommand.new GraphCommandNode("QQ",
+        Arm.setpointCommandFactory("QQ Target", 120, 150, 1),
+        Arm.setpointCommandFactory("QQ Waypoint", 120, 150, 5),
+        null);
+    // A = m_graphCommand.new GraphCommandNode("A",
     // new PrintCommand("Going to A"),
     // null,
     // Commands.runOnce(() -> m_nextNode = B));
@@ -90,7 +142,7 @@ public class Arm extends SubsystemBase {
     // new PrintCommand(
     // "Going to B"),
     // null,
-    // Commands.runOnce(() -> m_nextNode = C));
+    // null);
     // C = m_graphCommand.new GraphCommandNode("C",
     // new PrintCommand(
     // "Going to C"),
@@ -99,7 +151,18 @@ public class Arm extends SubsystemBase {
 
     m_graphCommand.setGraphRootNode(A);
 
-    A.AddNode(B, 1);
+    A.AddNode(S, 1);
+    A.AddNode(NN, 1);
+    A.AddNode(N, 1);
+    NN.AddNode(R, 1);
+    R.AddNode(T, 1);
+    R.AddNode(OO, 1);
+    R.AddNode(PP, 1);
+    R.AddNode(QQ, 1);
+    N.AddNode(O, 1);
+    N.AddNode(P, 1);
+    N.AddNode(Q, 1);
+    N.AddNode(B, 1);
     B.AddNode(C, 1);
     C.AddNode(D, 1);
     C.setNextNode(D);

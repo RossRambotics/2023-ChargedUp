@@ -107,7 +107,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
     // feedforward = 0;
     // Add the feedforward to the PID output to get the motor output
 
-    double volts = MathUtil.clamp(output + feedforward, -3.0, 3.0);
+    double volts = MathUtil.clamp(output + feedforward, -6.0, 6.0);
     m_nt_feed_forward.setDouble(feedforward);
     m_motor.setVoltage(volts);
     m_nt_volts.setDouble(volts);
@@ -181,14 +181,14 @@ public class LowerArm extends ProfiledPIDSubsystem {
   public final class Constants {
     public static final int kMotorPort = 62;
 
-    public static final double kP = 3;
+    public static final double kP = 12;
 
     public static final double kSVolts = 0.01;
     public static final double kGVolts = 0.40;
     public static final double kVVoltSecondPerRad = 0.5;
     public static final double kAVoltSecondSquaredPerRad = 0.1;
 
-    public static final double kMaxVelocityRadPerSecond = 6;
+    public static final double kMaxVelocityRadPerSecond = 10;
     public static final double kMaxAccelerationRadPerSecSquared = 4;
 
     public static final int kEncoderPort = 33;
