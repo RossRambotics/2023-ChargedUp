@@ -1,5 +1,9 @@
-<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1101px" height="631px" viewBox="-0.5 -0.5 1101 631" content="&lt;mxfile&gt;&lt;diagram id=&quot;wM2Iweb0fnZ_gHsMV4kt&quot; name=&quot;CommandGraph&quot;&gt;7VnLcuMqEP0aL+PS07GXsTOPRTKVihdz75JI2KIGgS9CtjVffxsBlhBKJpN4klnE5XKJQ/PoPs0R4Em8Ko9fBNoVtzzHdBIF+XESX0+iaBYF8KuARgPJ3ABbQXINhR2wJj+xAa1ZTXJcOYaScyrJzgUzzhjOpIMhIfjBNdtw6o66Q1vsAesMUR/9TnJZaHSeBh3+FZNtYUcOA1NTImtsgKpAOT/0oPjTJF4JzqV+Ko8rTFXsbFx0u8+P1J4mJjCTz2kQ6QZ7RGvj21cVDD032ViHoRHEFgrLQ0EkXu9QpmoOwC5ghSwplEJ49Mc3U9pjIfGxB5n5fMG8xFI0YGJrL01smkH50IU6tPEremG2SYQMu9tT110A4MHEYDwesRePW74nbPuuEUmS9P0ikngRuSGV9OJRHUhJEVMB2XAm16YmgHJWEJrfoIbXalqVRNkPW1oWXJCfYI9suKBaSLPi48CxWKuWpk+BK7C5s1ENB9AtOjqGN6iSdjacUrSryEM7P9WwRGJL2JJLyUtj9AZZnrhZfuKqz2kywmmYPkGqGe4eRA+xLXh4Gi9KB+Mt/PFmI8PFg9EQlVgwJPGS1yyvvEw6efqs5Eq95FrVoo1qFHyDt4aXZhBd2WaJ4D/wilMuAGdc5x2hdAAhSrYMihRvVDNFDwEZvzJwSfJc9bysgGpY5Tet2XXSIfcmEgri0HxDW7UuoCGGHpY7TphsQ5Mu4QvBWgXTdJLCXFdQDrsyfJW5kCvOYPqItKmDITEPWCXnUnCJJHo4LZvfzsHk2TnYuNz+KuWGOfASGZl5TH9TVH7Q/Odpnr0hzZcezXcC7wmvqw+q34DqEVH/Y1TPPao/E4boB89vwPNpt/cWRC88oifRjCrHazCbbWXrk0YoGSJqN+hkwuy/mtuKi6rd6V2BQRjsjrqZqbcdfS+ArygYbgyCtrPA5tway5ZRxR6cBnUb5xVjGrC6dQ6xXLUC4roqffTR04ag6Jm73gDsu+gjkIPsHE67DhAlogKjrMC542e9y7UfXpAk93rRnucY9nElYXhYf/JT+/Cu7sNiYxWRhDPriqYoqLDU3qvn+qFqKonLqnVrg2qqKjNeltrVtqG2LXTzXl0L61/2Qv8B7C+E1+leTyfGZORRHRyTuDMcU6K5e/QcO6acMOeYkpxBeex9jyM9w4M4y6/UlQ6UMoqqimRuFNvTqD5PhkqcIRai+Ucp9TRczC3wbwss4PxvgGt7gNSlpl+6w4KUav1Y8Eik7nERR6asO7yM56bc9acKTa8w7O1R1ipei8x4beIAh+UttlKvIZw7d1c+sz3m0hHiLCYwRZLs3RuvJ86cd1p9T4mzcM+bEOtp5Hai/THt+ndUg66SNJymi97HzcggnAaXvdq5O4oOkTcK5AxqemZmO/CoP/HlYCEkzsUaPOgeX3oSDu3S7FKd4UPvBTe6qVJk36AHTN2ct5unDFJI5dXjstFej/S2Lu6u6Hpk/Yykp12lQ1U5XcCaASb9O84xtbkIpvFi5ubN67LRmvDNpn1nvOq2IvSvKzxGslrscW54+G1tskLSF5GnBcSqWego2S9U7FkSE/sSE/1VEhPHQ4kZvHKeKzDxfNDR8N11Lg0ZjrMInp7X0MHZmTXHv5S5t7vLv0532kOW2gnG1xfpeA7b5XkOHQpmc1eILtL3UyIodn8JafPuf7X40/8=&lt;/diagram&gt;&lt;diagram id=&quot;VcLUgpndXN1eHO79axu-&quot; name=&quot;CommandNode&quot;&gt;7Vjbbts4EP0aY9uHFLpYbvIYO2kbwM0WcYoCfSloiZa4pUiDpCq7X78zFKlL5KQJCjd9COAo4uFwODxzOJQ0iRfl7r0i2+KjzCifREG2m8QXkyhK4jO4IrBvgGn4tgFyxbIGCjtgxX5SBwYOrVhG9cDQSMkN2w7BVApBUzPAiFKyHpptJB/OuiU5HQGrlPAx+oVlpmjQ0yTo8A+U5YWfOQxcT0m8sQN0QTJZ96D4chIvlJSmuSt3C8qRO89LM+7dPb1tYIoK85gB5+lVll1vwurb7Gap03+z/HN64rz8ILxyCz43RrF1ZYD0Jmyz91zompWcCGjNN1KYlesJoJ0WjGdLspcVxqINSb/71ryQiv0Ee8KhKwQAupVxqY6DgcUKRzqfimqw+eQXGN6BPpLdwHBJtPHRSM7JVrO1jQ8HlkTlTMylMbJ0RnXBDF1tSYo2NYgXAzGlD9KusIkxRPMx3Z47qgzd9SBH/3sqS2rUHkxcb5y4IW4vRDMnjbpTVjh1WNFX1akDiVNz3vruEg43LudPyH80yv8tMEUNYK92k2iBwb4eCQHWa2welfxOF5JLBbiQjTIY53cgwlkuoMnpBochYQx22LmDS5Zl6HmuIRlM5EtrdjHtkBtHBUIShm+43UgFDKTgYb6VTBhLTTKHH5C1CN4kk+QCV5DMw64NPzRXZiEFhE+YTSYF6dQU5TNX0hBD1q2wf1slD267X0vHSSV+pFLiYwklHgtFQvsa6j38W8iyJCJ7EcqzC+WxJeVoQpmOhHIlDFWsBPCGiJy+lJa/SzFnz62Ys5FilkzjCSQ3OF32HzAksK2pcel4Uc1zqyaM/qBsrs3XQux/bK8ui5Oq/lbJahYdeHT9gA/3L2fS36eV5LlLTDLSCpxAwYl9K5MVz6iaRDOOFK7xLse7vbOgfA0Ju0dFPTa9ULBYgb8HpGLfV3ppGioAk0wqI7XLzBO0eoR3lsjnzr+zHDguTg+kcnqsVM5GqfSpq7hPnUc488j4GQRTy+AkCSpNsWrUBezGKDAFdl5jdqNg5Q4cayr+MW3/OyYIHxjg44wUKbUm1q+9KErSwvp/tZbAF/KKlXNGStyMzdWyi58rqOUVxneRKAxXv8Y23GpmmLSd8v5Ym7UDud3yx4SA+Sc0b6tkE2/jMm1BOw/d0bQy1Deb10MXgR3lD+Y3j5z8Ekg5fLSjigi6JPDHe48BvbMfZiWm5csybDdTFGyULNtFHPaO9OJiraNUahtzkwax1i4bt44FbYa8iKpcY6loQuoSYgOuyf7h9QPYl+jvHUu9wnOoyt9bew6dQEcoG0lwp2wkyahstF/GBp863iZPLhzQ7D6j2b7et8j48n8=&lt;/diagram&gt;&lt;diagram id=&quot;69cJPQtN4-P9LNNy_G0I&quot; name=&quot;Graph-old&quot;&gt;7VvbcpswEP0aP9aDJBDwmDiJ07RJ00lm0uaNGNmmg42L5Vu+vthIgJATY+KadacvCVokLufsHnYluUU6o2U39ibD28hnYQsb/rJFLloYU2wkf9eGVWowHWEYxIGfmlBueAhemTDKbrPAZ1OlI4+ikAcT1diLxmPW44rNi+NooXbrR6F614k3YJrhoeeFuvUp8PkwtTqWkduvWTAYyjsjQ5wZebKzMEyHnh8tCiZy2SKdOIp4ejRadli4xk7iko67euNs9mAxG/MqA57Ony9/R/b54PnumT1GL11/9usTMsXD8ZV8Y+YnAIjmOBon/86HfBQmLZQcsmXAfxSOfybHhji+WBYbK9kY83i1HmK0DSzbm2Ftasp2PnTTUsbeszgYMc5iYexHYy4cBa3bU+7F/GzNdWLphd50GvSk+SoI5ZPreAkIp9Es7rH3QBJ+58UDxt/pR9J+awALNxBsdFmUvES8SjrELPR4MFc9zBOOOsj65VwmB4LOPajNXu8j1KKK1Cq87iAVLH8YFH/iunMvnIk7neuEhmEihGseF8OAs4eJtwFikUixyq03naTq2A+WzN9CwpvozlnM2fJdPMRZQoTSCalHsr3IhVPq5rCgmdJ2eASdQ4hb2/oXYgBXjAEHVgy4NRnMWdtHxdJBJ8+hDYpDrOnYNWwdM01Vx7JctDEds46YpKkZmgUtBkjFGKCgYgDR5r5Ep8uhBYtD+6/n02CZMEExkVXU/7OCPTiEVd0QLSvoAs8KqJoVOA0nBaYG4C1sAK1SWoVowwhaGoJfTwtBt2EAqQbgl9MCsOnE3tYAvIENYFkEG1dBR0PwM2wELVRCsOlJMlw3rVWTqcprAJSq1Ym7qzyBsQYgJqJ2ZlniekCyLFcLjzPY4UHKAtO0RGOsAXawWCgGAoJWVkjgT8zj5WMXXL4D3OUNaC5fd7rRaO1dXKMW5NIaVV05RLCKa1x3unGfCRLAbMBaiJfPXZCkC9iSlO1ZATLXIcOrgOAlbARRudJsulZH+oTbFXAI3dJ3ETf9Xdx7r9QxtwbUWTE6hhYfWorF0PsoSJ45T6Ic3Ka2TalrYZdSYqvRVz6L1eunrysumXuJdhfTsttks9HFtA1CKCk5qHoWO+pdUqy0u2x8MUPiAzPq++52+aCjye18ma/ZO5Ynk0a5jK/vgKSxTXnbXYOWPpllFXrDxQ5Gvp5j3MGWd9p0mUNq7y2qXOoffy0QNxUVH6NCz+++nYj3inBvei2L1K749kgXtlft4GauSNUVcWBBoGfo96cVBFnRc4QouMCD18fXJ285t19sr//ycvMdbdky/R02gsQp1ThHLBO3Iojryki9xSBbKYzarrNDS46+FvSem+3UF/fQ+vJG7eNaqhPharmnfiFbLWiQY7ct9VK1a5ikmf/UKe2e/16MXP4B&lt;/diagram&gt;&lt;diagram id=&quot;1ZRLk84O88HOPQ7-dQyQ&quot; name=&quot;Page-4&quot;&gt;7V1dd5s4E/41Pmf3Ij7oE7hs4jTZNsmmm+3bjztiE4fWNl5MGqe//kWAbJBk7BCQSOz0okaAjGee0cw8GokeOpkuzyJvfn8ZjvxJD1qjZQ8NehACbFvJf6zlKWvBTt4wjoJRftG64Sb47eeN/LKHYOQvShfGYTiJg3m5cRjOZv4wLrV5URQ+li+7Cyflb517Y19quBl6E7n1SzCK77NWh1jr9nM/GN/zbwZWfmbq8YvzhsW9NwofC03otIdOojCMs0/T5Yk/YcLjcsnue7/h7OrBIn8W73JDbHkwOlv+vriZIzS99K7P3fFR3ssvb/KQ/+Arb+r34EnSeOUv4x6kk6T349so+TRmn/IfEz9xCcXsMnR8H08nSQNIPnqTYDxLPg+TJ/OjpOGXH8VBItN3+YlpMBqx248jfxH89m7TrqzkeB4GszjVGDnukQHr6yEOFxkqWNeLOAp/+ifhJEz6HczCGevlLphMhCZZOPyXJo/iLwtNubDO/HDqx9FTckl+luuNAzc/fFyjwM2b7gsAQHmbl+NuvOp3rZrkQ64dtaaOr8LTHz++noRfrO+T5c3F0ecPH1WaklSRdJPYBfv9j/dB7N/MvSE785iYpqChxTwzlrtg6Y+YCMNZnBsfsASR9pIflf4l7ePIGwWJTAVxl9WS3EDTv4YUQcuaQIRIqiAKVZC2VAElVRxnFnPSokYaECTGZUE6huWIJDmeZHKUB5lOyZEIQ4OtT45P09HFxX8/BmF4Ru4/ed9uLG/Ah4aiuEaJE8sPcxMtyMhfBvHXfMRln7+xz32SHw2WhVODJ34wS570K++AHRTuYofr29Ijfp8o/kXsRfE75piZg5h4i0Uw5M3vgwl/xI1aWoQP0dDfDqqkv7EfbzdiJqlKnUf+xIuDX+VwQKXC/NZr5sLWWEHcyJ54RETKXWQ/KL+r6L7FjigqdwRgX+gq+81SVymmVr+oPsxQAzADdUDWNYhBGWInX24nF87lp6vvztfzu8d7cjYe6oIYQeXhCNg1IUYsoSNHL8Cw5A+a9APliObubjiCjiKiSc95xLJUYc3Idm+tprwIKUubyl4EKrwIbMuLEEn6g8wbn3bbG4tRzSp1NOWOqSTI00yQg24LUgxroGVYkPaexjVVqCo6nSoz1h3XQFtAQd24BiJbc1zj7LXbAa5s5Vr9jiuJ/zz51j0mnohdNi262zDcBPOkTi8tSUPvM4d21m2HJkYGCJlO1GUS7yyT5PtuS1IMDRA0LUnFGL2/sQHH1dbggJuy7ugAuQ2xHojqZj2AzFLuU3iAgOG0FMiswGVyQx4eLOberKQL+t8Dm1A7HmbiecewPL71/rCycVb4789UaBYz2KM7bxpMnrJbpuEsXGRaXJ3PggF21povs3YWgRzlQce79DESi05P8cdYBy9EnCQliRBYazoDuDriQiGpWJKWAfvMpEuYGAhzvVuuBatrORRqdQPX3WSyX53J4jOSqiBpTGM0kv5QdrS+LdPK6rY0XmNXpAbBmkF6mAmQHedxG2ssR27sZB67sZPr6I2dsNK2PILLv42wxyCDrH8eya2/smhCrDX1F+zE2h5LzQVRZJa0i7BXp1ZyXpsbYQa3ujKN+Hg3T4UeUKE9M8D1PWtdckNcnUOFc95i3T4ufL+IgvRwBYViYxmg+XUSkjN7TEw8M8l9i9kdIatSzK1hrUG7TOddJPHH3uhDyKHQjqRge/qg5gLWroWrRI5WlfMnSE+wiondRyw7tLBtIYmPsmCf2jalLoEupciGNSNZLPRTxqelfAZdMa5BprVr4OQDxVZ0Yk3opJXoBA2hk1SiExhFp4IhzOL3v5rMxNrnnwDZzQm1xppAmcn7K5PkebclKfJPQFGNp1eS+1pzU4mr7fyTq2fQlGangACE2lU3tu7ZKU43aeGfRp7v3A3V/JPte9RX8k906Pi3dy1NTyHZ0rXyT1Dm/z5kY+bHbo+ZUl2E6TJFKDN5HzNJfui2JKXCCEWpjl5JkoP3kXG11ftATQmlNPuBmpr9sHTPfkC5mGmfvA9ULDXQ631sSf6H6ohygLDjVHRrzB6U64cuMrd22W23JgYI2HS9H5QT/ctMkhfdlqRUHqGoqdIqSQ72Q4BQxNX2AMExEyBg2lB6iqHu9BTJJU37FCAgx3B6imR64FAecSiPOJRHHMojuhS0O2JeJQ+bWssjkMzq7XV5xI7cYHv6wHUD1r4FSzErdboUtLLvvvajIJESQ8ugMuHYPjetCGRNrjytrpwAyG5mbhpWzU1jo5UTyBwTC9pB7AvSLMXSe6N1PZWVEwA3hE5UiU6jlRPIXNFZ99Dp7IhOXXU9diU6SUPorKw6Y3SBQXTK3PY7Ga9d4vmAEMbiHZfmtcfzOQ0Y+JvYk2PXFVAcdIfQqHXzltn8s/twwZ7+Okl74iCctWjtAnNoEzqkG5jD2/SfkjlscBczYbLFNjxyYJm3PUnpnC6Pv2I9pen1vFgmX5sUYNfWBtqC+BUzr1q5b6zYQO7h9nVh2PgmK1jnrkvmJ3BEDJve/QLL67T+zWIYUQlvlYt0t9dzUJ1UJJZLnvZcIwob0asROVG86fYgLyaKxPR6BfzsRJGnfQVq3HTiV5nQbc38sKbMD1YSOywnU2Rsz038oMg6wvK3qJ9B1z6Ocub3d7ftVSyFI6ajMt7xy5jbSmKn7oxWLT6ovn1zMG3lbYEe88aYmVbZ2ihk0471GBxQRh4WVyq1bKtE5gGuX5mtmiZhicwCfHpdIqTQtAhVmyxlJTPs5/fY+z14OriuHeOvJZDKyWCh3ia7f0O9zRsiZ7CQ2RLTSxeIilior1Nw0CnEptkKIrMV7cnfPFkkyp8qdpHRK38dE/rNBoZbK6vqh4Y8dulOaGj1LWtT5kew26d4Y062c+bnkj4iG6f8kNt33Y3pZdvBpI59ZBqF57YylReAE3YMnBCr4MdHNqSE7rPBaSvhxy0AWiXoOnrBKa/Tuw6GPx/mSVs2bUS9KXNRs9vFPFW9JTeJx3vCCBNL2JJa4QhXb77TwgkTmWNaafPzPMoK/i3llPa+KEkVLa6209CiJJ6Zq5R0E4z8R+9psX9a2k5fAK2191TmL/6R/XiX+IsjcWN3bLgQhMr8xd8dp7yPoDBHpdrpWa8QZcLguuNcpCxE05vsUDlD/9RxNlISIjZd10VVu54c6MjnKVVcKa2oeNTKnVC5iuDAR75UqZZhkpnqfHmTeUJSUgA2XYNJK/KwQ1a9NYzdrk29aTUfpA9pdUFLaPugpzevthWT9vueVx9h0TcpdmnUm1jzoqxiJWmT3qmFUBwIWMem16nYTbx1+s3sZMWpmq3FjjyXbntWAQjrm/kqW26D6m3lnzutYFcXO0JosNjRrr1zxX4DVNN7agGsBihtBKBONUCRUYA2sUXFa1sj/DJwcv21Dk5UDU5x3KsHTrcanNgoOA2+Fuk1j56atlABuBqg4rhXD6BgwyuWOEKJUYTKDNPVlQzat7tw3RZ5XMPkvO3WHDJA79n+zOp12Z/Zii1tjG56cSRuRwGE90i5jSx+OrIrRyXsmFz8xOeyXgTPtmvgyrhusURz95BL09bLR+IL04C8Z0oTEKUCj+JaelEoM4T/Rg+znxI23ywdKM4p70hkNUEGVpV5FhTyfZ+iCOhuMAgNYUTVFpkFfXzTp498UlnWR24AraoCiXtgaCy3qNoPsqCKr3uqCqhxn4CqzQ8Lqviyp6pQTR9pVYWOnWXbTFmq8FUMB6u282t/lz627IH/AXk1Tc0Xd+FSIoRcB5f7BXbptEvbCg6VSngNi8ieue1IfUTuumkx0MQJI6cakpZVD5IIuH0niYLdJCOmDgQCk+fCvk0t23EAAQ51Lb2IfA3rxrQhUpEyK6/T9rKiSkCuXiv6fEBWjpFs8mPN4hC3tcViVbIt14qWqtT+py8uWoU5Ylw08u+8h+xFP62GRsIeJTr3LFRqpy4DvPuMpvbAqBvGDOya3kVM75Go+5btFdRlXddeo/0dkwQP0sja4yquqStRNnKrQefUDWlIecGjVOXcNuhkTu8mDiOf1V560ZTdzt6+FoW3YdyX8Jkzr0pOVOJgFSRpAcwbGVqVI4rCh9mIuZ1qkD2D2hPcA1JUMdtaqVaZ2/u8R95aKlc27K1BMyWcTqtj87Mql2q/1akSrp0ZrtsK+Gl5uF6FlS8ernv5W/gKl6/fv4dO/w8=&lt;/diagram&gt;&lt;/mxfile&gt;">
+<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1101px" height="631px" viewBox="-0.5 -0.5 1101 631" content="&lt;mxfile&gt;&lt;diagram id=&quot;wM2Iweb0fnZ_gHsMV4kt&quot; name=&quot;CommandGraph&quot;&gt;7VnLcuMqEP0aL+PSw3LsZezMY5FMpeLF3LskEpaoQeCLkG3N199GgCyEkskknmQWcblc4kAD3ac5AjyJ1+Xxi0C74pZnmE6iIDtO4utJFM2TAH4V0GggDhIN5IJkGgpPwIb8xAY0dnlNMlw5DSXnVJKdC6acMZxKB0NC8IPbbMupO+oO5dgDNimiPvqdZLLQ6MK6pfCvmOSFHTkMTE2JbGMDVAXK+KEHxZ8m8VpwLvVTeVxjqmJn46LtPj9S201MYCafYxBpgz2itfHtqwqGnptsrMNgBLGFwupQEIk3O5SqmgOwC1ghSwqlEB798c2U9lhIfOxBZj5fMC+xFA00sbWXJjbNoHw4hTq08St6YV4YDBl2867rUwDgwcRgPB6xF49bvicsf9eIzGbJ+0Vk5kXkhlTSi0d1ICVFTAVky5ncmJoAymlBaHaDGl6raVUSpT9saVVwQX5Ce2TDBdVCmhUfB06LjbI0fQpcQZs7G9VwAN2io9PwBlXSzoZTinYVeWjnpwxLJHLCVlxKXppGb5DlMzfLO676nM5GOA2TJ0g1w92D6CGWg4fdeFEyGG/pjzcfGS4ejIaoxIIhiVe8ZlnlZVLn6bOSK/GSa12LNqpR8A3eGl6aQXRlmyWC/8BrTrkAnHGdd4TSAYQoyRkUKd4qM0UPARm/MnBJskz1vKqAaljlN22z69kJuTeRUBAH8y1t1boAQww9rHacMNmGJlnBF4K1DqbJJIG5rqEcnsrwVc2FXHMG00ekTR0MiXnAKjlXgksk0UO3bH47B2fPzsHG5fZXKTfMgZfIyNxj+pui8oPmP0/z/A1pvvRovhN4T3hdfVD9BlSPiPofo3rhUf2ZMEQ/eH4Dnrvd3lsQvfSInkRzqhyvodk8l61PGqFkiKjdoJMJ8/9qbisuqnandwUNwmB31Gam3nb0vQC+omC4MQjazgKbcxssW0YVe3Aa1DbOK8YYsLp1DrFMWQFxpyp99NHThqDombveAOy76COQg+wcTrsOECWiAqO0wJnjZ73LtB9ekCT3etGeZxj2cSVheFjf+al9eFf3YbGxikjCmXVFUxRUWGrv1XP9UDWVxGXVurVFNVWVKS9L7WprqNsW2rxX18L6l73QfwD7C+F1utfTiTEZeVQHxyTuDMeUaOEePceOKR3mHFNmZ1Aee9/jSM/wIM6yK3WlA6WUoqoiqRvF9jSqz5OhEmeIhWj+UUo9DZcLC/zbAks4/xvg2h4gdanpl+6wIKVaPxY8Eql7XMaRKesOL+OFKZ/6U4WmVxj29ihrFa9Farw2cYDDco6t1GsIZ87dlc9sj7lkhDiLCUyRJHv3xuuJM+edVt8ucZbueRNiPY3cTrQ/xq5/RzXoapaE02TZ+7gZGYTT4LJXu3BH0SHyRoGcQU2vmdkOPOpPfDlYCDPnYg0edI8vPQmHdmmeUp3hQ+8FN7qpUmTfoAdM3Zy3m6cUUkjl1eOy0V6P9LYu7q7oemT9jKSnXaVDVekuYM0Ak/4d55jaXATTeDl38+Z12Wib8O22fWe86rYi9K8rPEbSWuxxZnj4bW2yQtIXkacFxKpZ6CjZL1TsWRIT+xIT/VUSE8dDiRm8cp4rMPFi0NHw3XUuDRmOswyentfQwfmZNce/lLm3u8u/TnfaQ5baCcbXF8l4DtvleQ4dCuYLV4gukvdTIiie/hLSzU//q8Wf/gc=&lt;/diagram&gt;&lt;diagram id=&quot;VcLUgpndXN1eHO79axu-&quot; name=&quot;CommandNode&quot;&gt;7VhNb9s4EP01xraHFPqwvOkxdtI2gJst4i4W2EtBS7TEliINalTZ/fU7Q5GWFDnZBIWbHgI4ivg4HA7fPA4lTeJFuXtv2Lb4qDMuJ1GQ7Sbx5SSKZlGAVwL2LTA9d0BuRNZCYQesxA/uQG9Wi4xXA0PQWoLYDsFUK8VTGGDMGN0MzTZaDmfdspyPgFXK5Bj9R2RQtOh5EnT4By7yws8cBq6nZN7YAVXBMt30oPhqEi+M1tDelbsFl8Sd56Ud9+6e3kNghit4zICL9DrLbjZh/WV2u6zSv7L87/TMefnOZO0WfAFgxLoGJL0NG/aei6oRpWQKW/ONVrByPQG200LIbMn2uqZYKmDpN9+aF9qIH2jPJHaFCGC3AZfqOBhYrGik82l4hTaf/ALDO9BHthsYLlkFPhotJdtWYm3jo4ElM7lQcw2gS2fUFAL4astSsmlQvBQIlD5Iu8I2xpDMx3R77rgBvutBjv73XJcczB5NXG+cuCFuL0QzJ42mU1Y4dVjRV5XfNMypOT/47hKONy7nT8h/NMr/Z2SKA2KvdpNoQcG+HgkB1ws2j0Z/4wsttUFc6VYZQso7EJMiV9iUfEPDiDCBO+zCwaXIMvI8rzAZQuVLa3Y57ZBbRwVBGodvpN1IBQ7k6GG+1UKBpSaZ4w/JWgRvkklySStI5mHXxh+ZG1hoheEzYZPJUToNJ/nMjQYGbH0Q9k+r5MFt9//ScVKJH6mU+FRCicdC0di+wXqP/xa6LJnKXoTy7EJ5bEk5mVCmI6FcK+BGlAjeMpXzl9Lyeynm7XMr5u1IMUtR0QmkNzRd9hUZUtSuOLh0vKjmuVUTRr9QNjfwb6H237fXV8VZ3XypdT2Ljjy6fqCH+5cz6ffTSvLcJSYZaQVPoODMvpXpWmbcTKKZJArXdJfT3d5ZcLnGhN2joh6bXihUrNDfA1Kx7yu9NA0VQElmNejKZeYJWj3BO0vkc+ffWY4cF+dHUjk9VSpno1T61NXSp84jUnhk/AxCqRV4kgR1xalqNAXuxiiAgjpvKLtRsHIHjjVVf8Ch/51QTA4M6HFGq5RbE+vXXgxnaWH9v1pr5It4pco5YyVtxvZq2aXPFdzyiuO7SAyFW72mNt5WAoS2nfr+WNu1I7nd8seEoPknMj9UyTbe1mV6AO08fMfTGrhvtq+HLgI7yh/Mbx45+RWScvxoJxUxcsnwT/YeA3pnP87K4MCXZdhupijYGF0eFnHcO9FLi7WOUl3ZmNs0qHXlsvHZsVDBkBdVl2sqFW1IXUJswA3bP7x+BPsS/bljqVd4jlX5e2vPsRPoBGUjCe6UjSQZlY3Dl7HBp44/kycXDmx2n9FsX+9bZHz1Hw==&lt;/diagram&gt;&lt;diagram id=&quot;69cJPQtN4-P9LNNy_G0I&quot; name=&quot;Graph-old&quot;&gt;7Vvfd5owFP5rfJyHJBLgsVXbrlu77rTndOsbSorsoDhMq/avH0qChNgK6OS6s5eWXBJ+fN+9H/cmsUW648Vl7E5HN5HHwhY2vEWL9FoYU9NI/q4My9RgUpQa/DjwUlPOcB+8MWEU4/yXwGMzpSOPopAHU9U4jCYTNuSKzY3jaK52e45C9a5T12ea4X7ohrr1MfD4KLXa8rVW9isW+CN5Z2SIM2NXdhaG2cj1onnORPot0o2jiKdH40WXhSvsJC7puIt3zmYPFrMJLzPg8fyp/zuyzv2n2yf2EA0uvZdfn1BHPBxfyjdmXgKAaE6iSfLvfMTHYdJCySFbBPxH7vhncmyI494i31jKxoTHy9UQo21g2V4Pa9OObG+GrlvK2DsWB2PGWSyMz9GEC0dBq/aMuzE/W3GdWIahO5sFQ2m+CEL55DpeAsJZ9BIP2UcgCb9zY5/xD/qRtN8KwNwNBBuXLEpeIl4mHWIWujx4VT3MFY7qZ/02XCYHgs4K1Gavtw+1qCS1Cq87SAXLHwbFn7juqxu+iDud64SGYSKEKx7no4Cz+6m7BmKeSLHKrTubpur4HCyYt4WEd9F9ZTFniw/xEGcJEUonpB7J9nwjnFI3RznNlLbDI2gfQtza5r8QA7hkDNiwYsCpyeCGtSoqlg46eQ4tUBxiTceuYOtYp6PqWJaLNqZj5hGTNDVDM6HFACkZAxRUDCDa3JfodDk0YXFo/fV8GiwTHVBMZBX1/6ygAoewqhuiZQWXwLMCqmYFdsNJQUcD8AY2gGYhrUK0YQRNDcGvp4Wg0zCAVAPwy2kB2HRib2kAXsMGsCiCjaugrSH4GTaCJiog2PQkGa6b1qrJVOk1AErV6sTZVZ7AWAMQE1E7syxxPSBZlqOFxxns8CBFgWlaojHWADtYLOQDAUErKyTwJ+bx8rFzLt8F7vIGNJevO91otCoX16gFubRGZVcOEaziGtedbqwyQQKYDVgL8fK5c5LUgy1J2Z4VIHMdMrxyCPZhI4iKlWbTtTrSJ9wugEPoFL6LuOnvYuW9UsfcGlBnxegYWnxoKRZD76IgeeZNEmXjNrUsSh0TO5QSS42+4lmsXj99XXHJjZdod+mYVpusN7p0LIMQSgoOqp7FtnqXFCvtLmtfzJDYY0a96m6XPR1NbufLfM3asTyZNIplfH0HJI1tytvuGrTwySyq0DsudjDy9RzjFra806bLHFJ7b1HpUv/4a4G4qajYjwo9v/t2It4rwr3ptSxSu+KrkC5sr9rBzVyRsiviwIJAz9DvTisIsqLnCFHQw/7bw9uju3i1Bpb7PBhcf0dbtkx/h40gsQs1zhHLxK0I4royUm8xyFIKo7Zj79CSo68FfeRmO/XFObS+vFP7OKbqRLhc7qlfyFILGmRbbVO9VO0aJmlufuqUdt/8Xoz0/wA=&lt;/diagram&gt;&lt;diagram id=&quot;1ZRLk84O88HOPQ7-dQyQ&quot; name=&quot;Page-4&quot;&gt;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&lt;/diagram&gt;&lt;/mxfile&gt;">
     <defs>
+        <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="mx-gradient-808080-1-b3b3b3-1-s-0">
+            <stop offset="0%" style="stop-color: rgb(128, 128, 128); stop-opacity: 1;"/>
+            <stop offset="100%" style="stop-color: rgb(179, 179, 179); stop-opacity: 1;"/>
+        </linearGradient>
         <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="mx-gradient-ffcd28-1-ffa500-1-s-0">
             <stop offset="0%" style="stop-color: rgb(255, 205, 40); stop-opacity: 1;"/>
             <stop offset="100%" style="stop-color: rgb(255, 165, 0); stop-opacity: 1;"/>
@@ -11,10 +15,6 @@
         <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="mx-gradient-756c6c-1-b3b3b3-1-s-0">
             <stop offset="0%" style="stop-color: rgb(117, 108, 108); stop-opacity: 1;"/>
             <stop offset="100%" style="stop-color: rgb(179, 179, 179); stop-opacity: 1;"/>
-        </linearGradient>
-        <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="mx-gradient-666666-1-000000-1-s-0">
-            <stop offset="0%" style="stop-color: rgb(102, 102, 102); stop-opacity: 1;"/>
-            <stop offset="100%" style="stop-color: rgb(0, 0, 0); stop-opacity: 1;"/>
         </linearGradient>
     </defs>
     <g>
@@ -36,7 +36,7 @@
                 </text>
             </switch>
         </g>
-        <ellipse cx="735" cy="340" rx="25" ry="25" fill="#000000" stroke="#666666" pointer-events="all"/>
+        <ellipse cx="735" cy="340" rx="25" ry="25" fill="url(#mx-gradient-808080-1-b3b3b3-1-s-0)" stroke="#666666" pointer-events="all"/>
         <g transform="translate(-0.5 -0.5)">
             <switch>
                 <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
@@ -90,9 +90,9 @@
         <path d="M 963.96 62.01 L 946.04 67.99" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
         <path d="M 968.94 60.35 L 963.41 65.89 L 963.96 62.01 L 961.19 59.25 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
         <path d="M 941.06 69.65 L 946.59 64.11 L 946.04 67.99 L 948.81 70.75 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 891.46 90.16 L 868.54 99.84" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 896.29 88.11 L 891.21 94.06 L 891.46 90.16 L 888.48 87.61 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 863.71 101.89 L 868.79 95.94 L 868.54 99.84 L 871.52 102.39 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 893.62 92.86 L 738.7 309.82" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 896.67 88.59 L 895.45 96.32 L 893.62 92.86 L 889.76 92.25 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 735.65 314.09 L 736.87 306.36 L 738.7 309.82 L 742.57 310.43 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
         <ellipse cx="1010" cy="35" rx="10" ry="10" fill="url(#mx-gradient-ffcd28-1-ffa500-1-s-0)" stroke="#d79b00" pointer-events="all"/>
         <ellipse cx="915" cy="195" rx="25" ry="25" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
         <g transform="translate(-0.5 -0.5)">
@@ -225,12 +225,12 @@
                 </text>
             </switch>
         </g>
-        <path d="M 884.2 197.62 L 868.48 204.7" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 888.98 195.46 L 884.04 201.53 L 884.2 197.62 L 881.16 195.15 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 863.7 206.86 L 868.64 200.79 L 868.48 204.7 L 871.52 207.18 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 884.2 322.62 L 868.48 329.7" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 888.98 320.46 L 884.04 326.53 L 884.2 322.62 L 881.16 320.15 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 863.7 331.86 L 868.64 325.79 L 868.48 329.7 L 871.52 332.18 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 885.33 199.33 L 757.35 317.99" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 889.18 195.76 L 886.43 203.09 L 885.33 199.33 L 881.67 197.95 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 753.5 321.56 L 756.25 314.24 L 757.35 317.99 L 761.01 319.37 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 883.71 320.97 L 766.29 339.03" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 888.9 320.17 L 882.51 324.69 L 883.71 320.97 L 881.44 317.78 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 761.1 339.83 L 767.49 335.31 L 766.29 339.03 L 768.56 342.22 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
         <ellipse cx="915" cy="135" rx="25" ry="25" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
         <g transform="translate(-0.5 -0.5)">
             <switch>
@@ -400,15 +400,15 @@
                 </text>
             </switch>
         </g>
-        <path d="M 886.81 139.21 L 874.19 124.79" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 890.26 143.16 L 883.02 140.2 L 886.81 139.21 L 888.29 135.59 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 870.74 120.84 L 877.98 123.8 L 874.19 124.79 L 872.71 128.41 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 884.62 256.59 L 868.06 246.09" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 889.06 259.4 L 881.27 258.61 L 884.62 256.59 L 885.02 252.7 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 863.62 243.28 L 871.41 244.07 L 868.06 246.09 L 867.66 249.98 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 884.62 381.59 L 868.06 371.09" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 889.06 384.4 L 881.27 383.61 L 884.62 381.59 L 885.02 377.7 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 863.62 368.28 L 871.41 369.07 L 868.06 371.09 L 867.66 374.98 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 886.71 148.7 L 739.29 310.3" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 890.25 144.83 L 888.11 152.36 L 886.71 148.7 L 882.94 147.64 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 735.75 314.17 L 737.89 306.64 L 739.29 310.3 L 743.06 311.36 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 884.2 262.63 L 758.48 319.69" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 888.98 260.46 L 884.05 266.54 L 884.2 262.63 L 881.16 260.17 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 753.7 321.86 L 758.62 315.78 L 758.48 319.69 L 761.52 322.15 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 883.98 382.92 L 766.02 342.08" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 888.94 384.63 L 881.18 385.65 L 883.98 382.92 L 883.47 379.04 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 761.06 340.37 L 768.82 339.35 L 766.02 342.08 L 766.53 345.96 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
         <ellipse cx="655" cy="445" rx="25" ry="25" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
         <g transform="translate(-0.5 -0.5)">
             <switch>
@@ -553,9 +553,9 @@
                 </text>
             </switch>
         </g>
-        <path d="M 890.98 466.77 L 789.02 457.88" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 896.21 467.23 L 888.93 470.1 L 890.98 466.77 L 889.54 463.13 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 783.79 457.42 L 791.07 454.54 L 789.02 457.88 L 790.46 461.51 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 883.67 484.35 L 679.01 463.33" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 888.89 484.89 L 881.57 487.65 L 883.67 484.35 L 882.28 480.69 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 673.79 462.79 L 681.11 460.03 L 679.01 463.33 L 680.4 466.99 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
         <ellipse cx="915" cy="545" rx="25" ry="25" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
         <g transform="translate(-0.5 -0.5)">
             <switch>
@@ -629,12 +629,12 @@
             </switch>
         </g>
         <ellipse cx="930" cy="580" rx="10" ry="10" fill="url(#mx-gradient-dae8fc-1-7ea6e0-1-s-0)" stroke="#6c8ebf" pointer-events="all"/>
-        <path d="M 884.78 541.35 L 795.22 478.65" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 889.08 544.36 L 881.34 543.21 L 884.78 541.35 L 885.36 537.48 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 790.92 475.64 L 798.66 476.79 L 795.22 478.65 L 794.64 482.52 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 885.6 600.4 L 787.08 497.28" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 889.23 604.19 L 881.86 601.55 L 885.6 600.4 L 886.92 596.71 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 783.45 493.49 L 790.82 496.13 L 787.08 497.28 L 785.76 500.97 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 884.04 542.74 L 678.63 464.93" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 888.95 544.6 L 881.17 545.4 L 884.04 542.74 L 883.65 538.85 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 673.72 463.07 L 681.51 462.28 L 678.63 464.93 L 679.03 468.83 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 884.67 601.51 L 678 466.17" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 889.06 604.39 L 881.29 603.48 L 884.67 601.51 L 885.13 597.62 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 673.61 463.29 L 681.39 464.2 L 678 466.17 L 677.55 470.05 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
         <rect x="955" y="570" width="100" height="30" fill="none" stroke="none" pointer-events="all"/>
         <g transform="translate(-0.5 -0.5)">
             <switch>
@@ -913,106 +913,6 @@
                 </text>
             </switch>
         </g>
-        <ellipse cx="765" cy="475" rx="25" ry="25" fill="url(#mx-gradient-756c6c-1-b3b3b3-1-s-0)" stroke="#666666" pointer-events="all"/>
-        <g transform="translate(-0.5 -0.5)">
-            <switch>
-                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
-                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 48px; height: 1px; padding-top: 475px; margin-left: 741px;">
-                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
-                            <div style="display: inline-block; font-size: 10px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
-                                Z
-                            </div>
-                        </div>
-                    </div>
-                </foreignObject>
-                <text x="765" y="478" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="10px" text-anchor="middle">
-                    Z
-                </text>
-            </switch>
-        </g>
-        <ellipse cx="845" cy="120" rx="25" ry="25" fill="#000000" stroke="#666666" pointer-events="all"/>
-        <g transform="translate(-0.5 -0.5)">
-            <switch>
-                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
-                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 48px; height: 1px; padding-top: 120px; margin-left: 821px;">
-                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
-                            <div style="display: inline-block; font-size: 10px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
-                                Y
-                            </div>
-                        </div>
-                    </div>
-                </foreignObject>
-                <text x="845" y="123" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="10px" text-anchor="middle">
-                    Y
-                </text>
-            </switch>
-        </g>
-        <ellipse cx="845" cy="225" rx="25" ry="25" fill="#000000" stroke="#666666" pointer-events="all"/>
-        <g transform="translate(-0.5 -0.5)">
-            <switch>
-                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
-                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 48px; height: 1px; padding-top: 225px; margin-left: 821px;">
-                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
-                            <div style="display: inline-block; font-size: 10px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
-                                X
-                            </div>
-                        </div>
-                    </div>
-                </foreignObject>
-                <text x="845" y="228" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="10px" text-anchor="middle">
-                    X
-                </text>
-            </switch>
-        </g>
-        <ellipse cx="845" cy="350" rx="25" ry="25" fill="#000000" stroke="#666666" pointer-events="all"/>
-        <g transform="translate(-0.5 -0.5)">
-            <switch>
-                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
-                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 48px; height: 1px; padding-top: 350px; margin-left: 821px;">
-                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
-                            <div style="display: inline-block; font-size: 10px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
-                                W
-                            </div>
-                        </div>
-                    </div>
-                </foreignObject>
-                <text x="845" y="353" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="10px" text-anchor="middle">
-                    W
-                </text>
-            </switch>
-        </g>
-        <path d="M 813.68 349.26 L 766.15 343.67" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 818.89 349.87 L 811.53 352.53 L 813.68 349.26 L 812.35 345.58 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 760.94 343.05 L 768.3 340.39 L 766.15 343.67 L 767.48 347.35 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 817.49 230.85 L 807.51 254.15" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 819.56 226.03 L 820.02 233.84 L 817.49 230.85 L 813.59 231.08 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 805.44 258.97 L 804.98 251.16 L 807.51 254.15 L 811.41 253.92 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 815.81 124.79 L 789.19 155.21" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 819.26 120.84 L 817.29 128.41 L 815.81 124.79 L 812.02 123.8 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 785.74 159.16 L 787.71 151.59 L 789.19 155.21 L 792.98 156.2 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <ellipse cx="785" cy="185" rx="25" ry="25" fill="url(#mx-gradient-666666-1-000000-1-s-0)" stroke="#666666" pointer-events="all"/>
-        <g transform="translate(-0.5 -0.5)">
-            <switch>
-                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
-                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 48px; height: 1px; padding-top: 185px; margin-left: 761px;">
-                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
-                            <div style="display: inline-block; font-size: 10px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
-                                V
-                            </div>
-                        </div>
-                    </div>
-                </foreignObject>
-                <text x="785" y="188" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="10px" text-anchor="middle">
-                    V
-                </text>
-            </switch>
-        </g>
-        <path d="M 765.75 208.85 L 741.57 303.83" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 767.05 203.76 L 768.71 211.41 L 765.75 208.85 L 761.93 209.68 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 740.28 308.92 L 738.61 301.27 L 741.57 303.83 L 745.39 303 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 762.88 444 L 737.12 371" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 764.63 448.95 L 759 443.51 L 762.88 444 L 765.6 441.18 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 735.37 366.05 L 741 371.49 L 737.12 371 L 734.4 373.82 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
         <rect x="660" y="285" width="70" height="30" fill="none" stroke="none" pointer-events="all"/>
         <g transform="translate(-0.5 -0.5)">
             <switch>
@@ -1030,26 +930,21 @@
                 </text>
             </switch>
         </g>
-        <ellipse cx="805" cy="285" rx="25" ry="25" fill="url(#mx-gradient-666666-1-000000-1-s-0)" stroke="#666666" pointer-events="all"/>
-        <g transform="translate(-0.5 -0.5)">
-            <switch>
-                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
-                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 48px; height: 1px; padding-top: 285px; margin-left: 781px;">
-                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
-                            <div style="display: inline-block; font-size: 10px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
-                                U
-                            </div>
-                        </div>
-                    </div>
-                </foreignObject>
-                <text x="805" y="288" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="10px" text-anchor="middle">
-                    U
-                </text>
-            </switch>
-        </g>
-        <path d="M 775.07 304.03 L 757.61 318.29" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
-        <path d="M 779.13 300.71 L 775.93 307.85 L 775.07 304.03 L 771.5 302.43 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 753.54 321.61 L 756.75 314.48 L 757.61 318.29 L 761.18 319.9 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 893.93 581.93 L 756.07 363.07" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 896.73 586.38 L 890.03 582.32 L 893.93 581.93 L 895.96 578.59 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 753.27 358.62 L 759.97 362.68 L 756.07 363.07 L 754.04 366.41 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 893.19 522.48 L 756.81 362.52" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 896.6 526.47 L 889.39 523.42 L 893.19 522.48 L 894.72 518.87 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 753.4 358.53 L 760.61 361.58 L 756.81 362.52 L 755.28 366.13 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 892.25 463.48 L 757.75 361.52" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 896.43 466.65 L 888.74 465.21 L 892.25 463.48 L 892.97 459.63 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 753.57 358.35 L 761.26 359.79 L 757.75 361.52 L 757.03 365.37 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 884.3 322.85 L 675.7 427.15" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 889 320.5 L 884.3 326.76 L 884.3 322.85 L 881.17 320.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 671 429.5 L 675.7 423.24 L 675.7 427.15 L 678.83 429.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 883.75 386.22 L 678.93 426.11" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 888.9 385.21 L 882.7 389.99 L 883.75 386.22 L 881.36 383.12 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 673.78 427.11 L 679.98 422.34 L 678.93 426.11 L 681.32 429.21 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
     </g>
     <switch>
         <g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"/>
