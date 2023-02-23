@@ -11,6 +11,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
@@ -105,6 +106,7 @@ public class RobotContainer {
                 // overhead
                 // remove this line if stuff is missing from shuffleboard that we need.
                 // LiveWindow.disableAllTelemetry();
+                LiveWindow.enableAllTelemetry();
         }
 
         private SlewRateLimiter m_slewLeftY = new SlewRateLimiter(1.5);

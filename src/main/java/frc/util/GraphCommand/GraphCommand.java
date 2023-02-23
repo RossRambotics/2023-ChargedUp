@@ -213,6 +213,7 @@ public class GraphCommand extends CommandBase {
     private Command m_targetCommand;
     private Command m_waypointCommand;
     private Command m_arrivedCommand;
+    private GraphCommandNode m_nextNode = null;
 
     /**
      * 
@@ -433,6 +434,14 @@ public class GraphCommand extends CommandBase {
 
     public String getNodeName() {
       return m_nodeName;
+    }
+
+    public void setNextNode(GraphCommandNode node) {
+      m_nextNode = node;
+    }
+
+    public GraphCommandNode getNextNode() {
+      return m_nextNode;
     }
   }
 

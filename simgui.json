@@ -32,6 +32,8 @@
       "/Shuffleboard/Button.Box/Graph/B": "Command",
       "/Shuffleboard/Button.Box/Panel/A": "Command",
       "/Shuffleboard/Button.Box/Panel/B": "Command",
+      "/Shuffleboard/Button.Box/Panel/Carry": "Command",
+      "/Shuffleboard/Button.Box/Panel/Hold High": "Command",
       "/Shuffleboard/Field/Field": "Field2d",
       "/Shuffleboard/Match.Auto/Autonomous": "String Chooser",
       "/Shuffleboard/Match.Auto/Commands/AutoMoceBackToPose": "Command",
@@ -66,6 +68,12 @@
         }
       },
       "Shuffleboard": {
+        "Button.Box": {
+          "Commands": {
+            "open": true
+          },
+          "open": true
+        },
         "Field": {
           "Field": {
             "open": true
@@ -77,7 +85,8 @@
               "open": true
             }
           }
-        }
+        },
+        "open": true
       },
       "SmartDashboard": {
         "open": true
