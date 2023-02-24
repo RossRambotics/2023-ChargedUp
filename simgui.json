@@ -2,6 +2,7 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/GridSelector": "Subsystem",
       "/LiveWindow/LowerArm/Lower Arm": "Subsystem",
       "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
       "/LiveWindow/Ungrouped/PIDController[2]": "PIDController",
@@ -32,6 +33,7 @@
       "/Shuffleboard/Button.Box/Graph/B": "Command",
       "/Shuffleboard/Button.Box/Panel/A": "Command",
       "/Shuffleboard/Button.Box/Panel/B": "Command",
+      "/Shuffleboard/Button.Box/Panel/C": "Command",
       "/Shuffleboard/Button.Box/Panel/Carry": "Command",
       "/Shuffleboard/Button.Box/Panel/Hold High": "Command",
       "/Shuffleboard/Field/Field": "Field2d",
@@ -48,7 +50,6 @@
     },
     "windows": {
       "/Shuffleboard/Field/Field": {
-        "image": "/Users/hollisms/Data/FRC/2023/2023-ChargedUp/2023-field.png",
         "window": {
           "visible": true
         }

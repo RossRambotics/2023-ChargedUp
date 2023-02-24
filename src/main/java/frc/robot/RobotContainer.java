@@ -89,6 +89,11 @@ public class RobotContainer {
         Trigger yButton = new JoystickButton(m_controllerDriver, XboxController.Button.kX.value);
         Trigger btnCloseJaws = new JoystickButton(m_gridSelector2, 7);
         Trigger btnOpenJaws = new JoystickButton(m_gridSelector, 11);
+        Trigger btnResetVision = new JoystickButton(m_gridSelector, 12);
+        Trigger btnHuman = new JoystickButton(m_gridSelector2, 1);
+        Trigger btn3rdFloor = new JoystickButton(m_gridSelector2, 10);
+        Trigger btn2ndFloor = new JoystickButton(m_gridSelector2, 11);
+        Trigger btn1stFloor = new JoystickButton(m_gridSelector2, 12);
 
         public PhysicsSim m_PhysicsSim;
 

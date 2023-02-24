@@ -18,6 +18,9 @@ public class GridSelector extends SubsystemBase {
     private Joystick m_gridSelector = new Joystick(1);
     private Joystick m_gridSelector2 = new Joystick(2);
     private int m_dial = 0;
+    private int m_leftSwitch = 0;
+    private int m_midSwitch = 0;
+    private int m_rightSwitch = 0;
 
     /** Creates a new GridSelector2. */
     public GridSelector() {
@@ -78,5 +81,35 @@ public class GridSelector extends SubsystemBase {
         }
 
         SmartDashboard.putNumber("Grid Dial", m_dial);
+
+        if (m_gridSelector.getRawAxis(0) > -.5) {
+            // Red and Blue switch on Red
+            m_leftSwitch = 2;
+        } else if (m_gridSelector.getRawAxis(0) < -.5) {
+            // Red and Blue switch on Blue
+            m_leftSwitch = 1;
+        }
+
+        SmartDashboard.putNumber("Left Switch", m_leftSwitch);
+
+        if (m_gridSelector.getRawAxis(1) < -.5) {
+            // Cube and Cone switch on Cube
+            m_midSwitch = 2;
+        } else if (m_gridSelector.getRawAxis(0) > -.5) {
+            // Cube and Cone switch on Cone
+            m_midSwitch = 1;
+        }
+
+        SmartDashboard.putNumber("Mid Switch", m_midSwitch);
+
+        if (m_gridSelector2.getRawAxis(1) > .5) {
+            // Tracking is on Grid
+            m_rightSwitch = 2;
+        } else if (m_gridSelector.getRawAxis(0) < .5) {
+            // Tracking is on Game Piece
+            m_rightSwitch = 1;
+        }
+
+        SmartDashboard.putNumber("Right Switch", m_rightSwitch);
     }
 }
