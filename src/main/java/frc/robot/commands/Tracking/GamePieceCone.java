@@ -7,16 +7,17 @@ package frc.robot.commands.Tracking;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class RedCargo extends CommandBase {
+public class GamePieceCone extends CommandBase {
     /** Creates a new RedCargo. */
-    public RedCargo() {
+    public GamePieceCone() {
         // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(RobotContainer.m_Tracking);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        RobotContainer.m_Tracking.redAlliance();
+        RobotContainer.m_Tracking.GamePieceCone();
     }
 
     // Called every time the scheduler runs while the command is scheduled.

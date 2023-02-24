@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -36,58 +37,39 @@ public class Tracking extends SubsystemBase {
     private boolean m_isLightOn = false;
 
     private boolean m_isTesting = false;
-    private final int kBLUE_PIPELINE = 1;
-    private final int kRED_PIPELINE = 0;
+    private final int kCUBE = 1;
+    private final int kCone = 2;
     // set to -1
     private int m_currentPipeline = -1;
 
     /** Creates a new Tracking. */
     public Tracking() {
-        // create the camera
-        // https://docs.photonvision.org/en/latest/docs/programming/photonlib/creating-photon-camera.html
-        // TODO Chester!
-        // something like
-        m_camera = new PhotonCamera("ballcam");
+
+        m_camera = new PhotonCamera("Game_Piece");
         m_PDH = new PowerDistribution(Constants.PDH, ModuleType.kRev);
         m_camera.setDriverMode(true);
-
-        // set the appropriate pipeline for the color of the ball based
-        // createShuffleBoardTab();
-
     }
 
-    public void blueAlliance() {
-        m_currentPipeline = kBLUE_PIPELINE;
+    public void GamePieceCube() {
+        m_currentPipeline = kCUBE;
         m_camera.setPipelineIndex(m_currentPipeline);
-        DataLogManager.log("Tracking: We are BLUE alliance.");
+        DataLogManager.log("Tracking: Tracking Cube.");
     }
 
-    public void redAlliance() {
-        m_currentPipeline = kRED_PIPELINE;
+    public void GamePieceCone() {
+        m_currentPipeline = kCone;
         m_camera.setPipelineIndex(m_currentPipeline);
-        DataLogManager.log("Tracking: We are RED alliance.");
+        DataLogManager.log("Tracking: Tracking Cone.");
     }
 
     @Override
     public void periodic() {
-        // MOVED TO ROBOT AUTO INIT
-        // make sure we are using the appropriate vision pipeline
-        // if not connected to FMS default to red alliance
-        // if (DriverStation.getMatchType() == MatchType.None &&
-        // m_currentPipeline == -1) {
-        // this.blueAlliance();
-        // DataLogManager.log("Tracking: not FMS match");
-        // }
-        // if (DriverStation.getAlliance() != DriverStation.Alliance.Invalid &&
-        // m_currentPipeline == -1) {
-        // if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-        // this.blueAlliance();
-        // } else {
-        // this.redAlliance();
-        // }
-        // }
+
+        SmartDashboard.putNumber("PhotonVisionX", this.getXOffset());
+        SmartDashboard.putNumber("PhotonVisionPipeline", this.m_currentPipeline);
 
         // stop error message for now
+
         if (true)
             return;
 
@@ -106,16 +88,9 @@ public class Tracking extends SubsystemBase {
             return m_testTargetYaw - m_currentYaw;
         }
 
-        // TODO Chester fix this! this!
-
-        // Get yaw from tracking camera
-        // https://docs.photonvision.org/en/latest/docs/programming/photonlib/creating-photon-camera.html
-        // Use yaw & gyro to calculate target gyro reading
-        // return the difference between current gyro reading and target gyro reading
         double yaw = 0;
 
         // set yaw equal to yaw from photonvision
-        // something like
         PhotonPipelineResult result = m_camera.getLatestResult();
 
         if (result.hasTargets()) {
@@ -179,19 +154,19 @@ public class Tracking extends SubsystemBase {
                 .withProperties(Map.of("Label position", "HIDDEN")); // hide labels for commands
 
         CommandBase c = new frc.robot.commands.Tracking.UpdatePIDF();
-        c.setName("Update PIDF");
+        c.setName("Update PIDF T");
         commands.add(c);
 
         c = new frc.robot.commands.Tracking.EnableTestMode();
         c.setName("Test Mode");
         commands.add(c);
 
-        c = new frc.robot.commands.Tracking.RedCargo();
-        c.setName("Red Cargo");
+        c = new frc.robot.commands.Tracking.GamePieceCone();
+        c.setName("Cone");
         commands.add(c);
 
-        c = new frc.robot.commands.Tracking.BlueCargo();
-        c.setName("Blue Cargo");
+        c = new frc.robot.commands.Tracking.GamePieceCube();
+        c.setName("Cube");
         commands.add(c);
 
         c = new frc.robot.commands.Tracking.EnableLight();

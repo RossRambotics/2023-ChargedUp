@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.Arm.LowerArmSetPoint;
 import frc.robot.commands.Drive.SnapDrive;
+import frc.robot.commands.Drive.SnapDriveToCargo;
 import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
 import frc.robot.sim.PhysicsSim;
@@ -80,13 +81,14 @@ public class RobotContainer {
         private Joystick m_gridSelector2 = new Joystick(2);
         private Joystick m_gridSelector = new Joystick(1);
         // private final XboxController m_controllerOperator = new XboxController(1);
+        Trigger xButton = new JoystickButton(m_controllerDriver, XboxController.Button.kX.value);
         Trigger leftBumper = new JoystickButton(m_controllerDriver, XboxController.Button.kLeftBumper.value);
         Trigger rightBumper = new JoystickButton(m_controllerDriver, XboxController.Button.kRightBumper.value);
         Trigger backButton = new JoystickButton(m_controllerDriver, XboxController.Button.kBack.value);
         Trigger startButton = new JoystickButton(m_controllerDriver, XboxController.Button.kStart.value);
         Trigger aButton = new JoystickButton(m_controllerDriver, XboxController.Button.kA.value);
         Trigger bButton = new JoystickButton(m_controllerDriver, XboxController.Button.kB.value);
-        Trigger yButton = new JoystickButton(m_controllerDriver, XboxController.Button.kX.value);
+        Trigger yButton = new JoystickButton(m_controllerDriver, XboxController.Button.kY.value);
         Trigger btnCloseJaws = new JoystickButton(m_gridSelector2, 7);
         Trigger btnOpenJaws = new JoystickButton(m_gridSelector, 11);
 
@@ -297,6 +299,18 @@ public class RobotContainer {
 
                 // new POVButton(m_controllerOperator, 270)
                 // .whenHeld(cmd);
+
+                // map button for tracking cargo
+                // create tracking cargo drive command
+                cmd = new SnapDrive(m_drivetrainSubsystem,
+                                () -> -getInputLeftY(),
+                                () -> -getInputLeftX(),
+                                () -> m_Tracking.getXOffset());
+
+                cmd.setName("SnapDriveToCargo");
+                xButton.whileTrue(cmd);
+                // new Button(m_controllerDriver::getXButtonPressed)
+                // .whileTrue(cmd);
 
         }
 

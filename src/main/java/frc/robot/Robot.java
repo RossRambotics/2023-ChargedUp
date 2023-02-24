@@ -87,13 +87,13 @@ public class Robot extends TimedRobot {
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
         if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-            RobotContainer.m_Tracking.blueAlliance();
+            RobotContainer.m_Tracking.GamePieceCube();
         } else if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-            RobotContainer.m_Tracking.redAlliance();
+            RobotContainer.m_Tracking.GamePieceCone();
         } else {
             DataLogManager.log("ALERT!  No alliance from drive station!");
             // RobotContainer.m_Tracking.redAlliance();
-            RobotContainer.m_Tracking.blueAlliance();
+            RobotContainer.m_Tracking.GamePieceCube();
 
         }
 
