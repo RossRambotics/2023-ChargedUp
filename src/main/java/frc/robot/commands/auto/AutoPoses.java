@@ -7,14 +7,16 @@ package frc.robot.commands.auto;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.commands.Drive.SnapDriveToPoseField;
 
 /** Add your docs here. */
 public class AutoPoses {
         public final static Pose2d Tag1 = new Pose2d(15.10, 1.25, new Rotation2d(Math.toRadians(0)));
         public final static Pose2d Tag1ConeLeft = new Pose2d(15.10, .5, new Rotation2d(Math.toRadians(0)));
-        public final static Pose2d Tag1ConeRight= new Pose2d(14.59, 1.65, new Rotation2d(Math.toRadians(0)));
+        public final static Pose2d Tag1ConeRight = new Pose2d(14.59, 1.65, new Rotation2d(Math.toRadians(0)));
         public final static Pose2d Tag2 = new Pose2d(14.59, 2.75, new Rotation2d(Math.toRadians(0)));
         public final static Pose2d Tag2ConeLeft = new Pose2d(14.59, 2.2, new Rotation2d(Math.toRadians(0)));
         public final static Pose2d Tag2ConeRight = new Pose2d(14.59, 3.33, new Rotation2d(Math.toRadians(0)));
@@ -75,5 +77,14 @@ public class AutoPoses {
                 DataLogManager.log(
                                 "Setting Start Pose: Odometry Updated Pose: "
                                                 + RobotContainer.m_drivetrainSubsystem.getOdometryPose());
+        }
+
+        public static CommandBase DriveToPose(Pose2d pose) {
+                CommandBase cmd = new SnapDriveToPoseField(
+                                RobotContainer.m_drivetrainSubsystem,
+                                pose,
+                                0.05);
+
+                return cmd;
         }
 }

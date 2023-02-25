@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -123,34 +124,6 @@ public class Tracking extends SubsystemBase {
         return (kP * yaw) + 6.5 + RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees();
     }
 
-    public double getXOffset() {
-        if (m_isTesting) {
-            return m_testTargetYaw - m_currentYaw;
-        }
-
-        double yaw = 0;
-        double pitch = 0;
-        double x = 0;
-
-        // set yaw equal to yaw from photonvision
-        // something like
-        PhotonPipelineResult result = m_camera.getLatestResult();
-
-        if (result.hasTargets()) {
-            pitch = result.getBestTarget().getPitch();
-            yaw = result.getBestTarget().getYaw();
-
-            pitch += 22.0;
-
-            // approximate the distance
-            double distance = 2.738 * pitch;
-            x = distance * Math.tan(Math.toRadians(yaw));
-        }
-
-        return x;
-
-    }
-
     // used only for testing
     private Rotation2d m_testTarget = new Rotation2d();
 
@@ -175,24 +148,26 @@ public class Tracking extends SubsystemBase {
         ShuffleboardLayout commands = tab.getLayout("Commands", BuiltInLayouts.kList).withSize(2, 4)
                 .withProperties(Map.of("Label position", "HIDDEN")); // hide labels for commands
 
-        CommandBase c = new frc.robot.commands.Tracking.UpdatePIDF();
-        c.setName("Update PIDF T");
-        commands.add(c);
+        CommandBase c;
 
         c = new frc.robot.commands.Tracking.EnableTestMode();
         c.setName("Test Mode");
         commands.add(c);
 
-        c = new frc.robot.commands.Tracking.GamePieceCone();
+        c = new frc.robot.commands.Tracking.TrackCone();
         c.setName("Cone");
         commands.add(c);
 
-        c = new frc.robot.commands.Tracking.GamePieceCube();
+        c = new frc.robot.commands.Tracking.TrackCube();
         c.setName("Cube");
         commands.add(c);
 
         c = new frc.robot.commands.Tracking.EnableLight();
         c.setName("Enable Light");
+        commands.add(c);
+
+        c = Commands.runOnce(() -> m_camera.setDriverMode(false));
+        c.setName("Driver Mode Off");
         commands.add(c);
 
         // m_testTargetYaw = m_shuffleboardTab.add("Test Target Yaw",
