@@ -45,6 +45,7 @@
       "/Shuffleboard/Sub.Tracking/Commands/Blue Cargo": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Cone": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Cube": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Driver Mode Off": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Enable Light": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Red Cargo": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Test Mode": "Command",

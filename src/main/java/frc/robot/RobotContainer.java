@@ -7,12 +7,10 @@ package frc.robot;
 import java.util.Map;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
@@ -24,16 +22,12 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.Button;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.Arm.LowerArmSetPoint;
 import frc.robot.commands.Drive.SnapDrive;
 import frc.robot.commands.Drive.SnapDriveGamePiece;
-import frc.robot.commands.Drive.SnapDriveToCargo;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
@@ -365,11 +359,6 @@ public class RobotContainer {
                                 .withProperties(Map.of("Label position", "HIDDEN")); // hide labels for commands
 
                 CommandBase cmd;
-
-                cmd = new frc.robot.commands.Drive.SnapDriveToCargo(
-                                RobotContainer.m_drivetrainSubsystem,
-                                new Rotation2d(0));
-                commands.add(cmd);
 
                 // Add auto routines
                 CommandBase autoCmd = null;
