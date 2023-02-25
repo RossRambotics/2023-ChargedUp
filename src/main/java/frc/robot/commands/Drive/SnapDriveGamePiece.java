@@ -110,18 +110,27 @@ public class SnapDriveGamePiece extends CommandBase {
                     + " Rot: " + m_goalDegrees);
         }
 
-        if (Math.abs(RobotContainer.m_Tracking.getYawOffset()) > 2.0) {
+        if (m_translationXSupplier.getAsDouble() == 0 && m_translationYSupplier.getAsDouble() == 0) {
+            if (Math.abs(RobotContainer.m_Tracking.getYawOffset()) > 5.0) {
+                System.out.println("***************** STAGE 1 *****************");
+                m_drivetrainSubsystem.drive(
+                        new ChassisSpeeds(-0.4, 0.0, rotationSpeed),
+                        rotationSpeed);
+            } else {
+                System.out.println("***************** STAGE 2 *****************");
+                m_drivetrainSubsystem.drive(new ChassisSpeeds(-0.6, 0.0, rotationSpeed),
+                        rotationSpeed);
+            }
+        } else {
+            double kP_Joy = 0.35;
+            double kP_Rot = 1.50;
             m_drivetrainSubsystem.drive(
                     ChassisSpeeds.fromFieldRelativeSpeeds(
-                            m_translationXSupplier.getAsDouble(),
-                            m_translationYSupplier.getAsDouble(),
-                            rotationSpeed,
+                            m_translationXSupplier.getAsDouble() * kP_Joy,
+                            m_translationYSupplier.getAsDouble() * kP_Joy,
+                            rotationSpeed * kP_Rot,
                             m_drivetrainSubsystem.getGyroscopeRotation()),
-                    rotationSpeed);
-        } else {
-            m_drivetrainSubsystem.drive(
-                    new ChassisSpeeds(-0.2, 0.0, rotationSpeed),
-                    rotationSpeed);
+                    rotationSpeed * kP_Joy);
         }
     }
 
