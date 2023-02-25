@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -31,7 +32,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.Arm.LowerArmSetPoint;
 import frc.robot.commands.Drive.SnapDrive;
+import frc.robot.commands.Drive.SnapDriveGamePiece;
 import frc.robot.commands.Drive.SnapDriveToCargo;
+import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
 import frc.robot.sim.PhysicsSim;
@@ -118,7 +121,7 @@ public class RobotContainer {
                 // overhead
                 // remove this line if stuff is missing from shuffleboard that we need.
                 // LiveWindow.disableAllTelemetry();
-                LiveWindow.enableAllTelemetry();
+                // LiveWindow.enableAllTelemetry();
         }
 
         private SlewRateLimiter m_slewLeftY = new SlewRateLimiter(1.5);
@@ -307,16 +310,15 @@ public class RobotContainer {
 
                 // map button for tracking cargo
                 // create tracking cargo drive command
-                cmd = new SnapDrive(m_drivetrainSubsystem,
-                                () -> -getInputLeftY(),
-                                () -> -getInputLeftX(),
-                                () -> m_Tracking.getXOffset());
+                cmd = new ParallelCommandGroup(
+                                new SnapDriveGamePiece(m_drivetrainSubsystem,
+                                                () -> -getInputLeftY(),
+                                                () -> -getInputLeftX(),
+                                                () -> m_Tracking.getTargetHeading()),
+                                new EnableLight());
 
-                cmd.setName("SnapDriveToCargo");
+                cmd.setName("SnapDriveToGamePiece");
                 xButton.whileTrue(cmd);
-                // new Button(m_controllerDriver::getXButtonPressed)
-                // .whileTrue(cmd);
-
         }
 
         /**

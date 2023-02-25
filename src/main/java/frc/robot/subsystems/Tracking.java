@@ -37,8 +37,9 @@ public class Tracking extends SubsystemBase {
     private boolean m_isLightOn = false;
 
     private boolean m_isTesting = false;
-    private final int kCUBE = 1;
-    private final int kCone = 2;
+    private final int kCUBE = 0;
+    private final int kCone = 1;
+    private double kP = 0.75;
     // set to -1
     private int m_currentPipeline = -1;
 
@@ -65,7 +66,8 @@ public class Tracking extends SubsystemBase {
     @Override
     public void periodic() {
 
-        SmartDashboard.putNumber("PhotonVisionX", this.getXOffset());
+        SmartDashboard.putNumber("PhotonVisionOffset", this.getYawOffset());
+        SmartDashboard.putNumber("PhotonVisionTargetYaw", this.getTargetHeading());
         SmartDashboard.putNumber("PhotonVisionPipeline", this.m_currentPipeline);
 
         // stop error message for now
@@ -75,7 +77,7 @@ public class Tracking extends SubsystemBase {
 
         m_currentYaw = RobotContainer.m_drivetrainSubsystem.getGyroHeading()
                 .getDegrees();
-        m_goalYaw = m_currentYaw + getHeadingOffset();
+        m_goalYaw = m_currentYaw + getTargetHeading();
         this.setTestTarget(m_testTargetYaw);
 
         if (m_isTesting) {
@@ -83,7 +85,7 @@ public class Tracking extends SubsystemBase {
         }
     }
 
-    public double getHeadingOffset() {
+    public double getYawOffset() {
         if (m_isTesting) {
             return m_testTargetYaw - m_currentYaw;
         }
@@ -95,10 +97,30 @@ public class Tracking extends SubsystemBase {
 
         if (result.hasTargets()) {
             yaw = result.getBestTarget().getYaw();
+        } else {
+            return 0;
         }
 
-        return yaw;
+        return (yaw) + 6.5;
+    }
 
+    public double getTargetHeading() {
+        if (m_isTesting) {
+            return m_testTargetYaw - m_currentYaw;
+        }
+
+        double yaw = 0;
+
+        // set yaw equal to yaw from photonvision
+        PhotonPipelineResult result = m_camera.getLatestResult();
+
+        if (result.hasTargets()) {
+            yaw = result.getBestTarget().getYaw();
+        } else {
+            return RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees();
+        }
+
+        return (kP * yaw) + 6.5 + RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees();
     }
 
     public double getXOffset() {

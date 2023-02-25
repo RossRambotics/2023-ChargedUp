@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
@@ -373,6 +374,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         @Override
         public void periodic() {
+
+                SmartDashboard.putNumber("Gyro Heading (Yaw)", this.getGyroHeading().getDegrees());
                 // update odometry
                 if (!Robot.isSimulation()) {
                         RobotContainer.m_positioning.updateVision(m_odometry);

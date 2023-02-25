@@ -43,10 +43,13 @@
       "/Shuffleboard/Match.Auto/Commands/LowerArmSetPoint": "Command",
       "/Shuffleboard/Match.Auto/Commands/SnapDriveToCargo": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Blue Cargo": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Cone": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Cube": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Enable Light": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Red Cargo": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Test Mode": "Command",
-      "/Shuffleboard/Sub.Tracking/Commands/Update PIDF": "Command"
+      "/Shuffleboard/Sub.Tracking/Commands/Update PIDF": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Update PIDF T": "Command"
     },
     "windows": {
       "/Shuffleboard/Field/Field": {
