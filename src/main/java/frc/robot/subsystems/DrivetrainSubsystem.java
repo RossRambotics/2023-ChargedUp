@@ -376,6 +376,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         public void periodic() {
 
                 SmartDashboard.putNumber("Gyro Heading (Yaw)", this.getGyroHeading().getDegrees());
+                SmartDashboard.putNumber("Gyro Pitch", this.getPitch());
                 // update odometry
                 if (!Robot.isSimulation()) {
                         RobotContainer.m_positioning.updateVision(m_odometry);
@@ -454,6 +455,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 m_odometry.resetPosition(getGyroHeading(), m_swerveModulePositions, botPose);
                 System.out.println("Reseting Odometry Pose. Gyro: " + getGyroHeading() + " botPose Heading: "
                                 + botPose.getRotation().getDegrees());
+        }
+
+        public double getPitch() {
+                return m_pigeon.getRoll();
         }
 
 }

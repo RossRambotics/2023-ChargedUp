@@ -254,10 +254,10 @@ public class Arm extends SubsystemBase {
     cmd = Arm.setpointCommandFactory("Midpoint", -45, 45, 1);
     commands.add(cmd);
 
-    cmd = Arm.setpointCommandFactory("End", 0, 0, 1);
+    cmd = Arm.setpointCommandFactory("End", 0, 10, 1);
     commands.add(cmd);
 
-    cmd = Arm.setpointCommandFactory("Pick up", -90, 80, 1);
+    cmd = Arm.setpointCommandFactory("Pick up", -80, 53, 1);
     commands.add(cmd);
 
     cmd = Arm.setpointCommandFactory("Carry", -120, 110, 1);

@@ -195,6 +195,6 @@ public class LowerArm extends ProfiledPIDSubsystem {
 
     // The offset of the arm from the horizontal in its neutral position,
     // measured from the horizontal 154.688 degrees to center
-    public static final double kArmOffsetRads = -3.7;
+    public static final double kArmOffsetRads = 0.61;
   }
 }
