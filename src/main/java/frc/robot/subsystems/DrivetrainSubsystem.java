@@ -271,6 +271,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
                                 .withSteerEncoderPort(BACK_RIGHT_MODULE_STEER_ENCODER, CANBUS_DRIVETRAIN_MIDAS)
                                 .withSteerOffset(BACK_RIGHT_MODULE_STEER_OFFSET_MIDAS)
                                 .build();
+
+                Timer.delay(1.0);
+                m_frontLeftModule.resetToAbsolute();
+                m_frontRightModule.resetToAbsolute();
+                m_backLeftModule.resetToAbsolute();
+                m_backRightModule.resetToAbsolute();
         }
 
         /**

@@ -256,5 +256,12 @@ public final class Falcon500SteerControllerFactoryBuilder {
 
             return motorAngleRadians;
         }
+
+        @Override
+        public void resetToAbsolute() {
+            resetIteration = 0;
+            double absoluteAngle = absoluteEncoder.getAbsoluteAngle();
+            motor.setSelectedSensorPosition(absoluteAngle / motorEncoderPositionCoefficient);
+        }
     }
 }
