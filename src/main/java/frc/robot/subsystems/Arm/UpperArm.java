@@ -109,7 +109,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
     // feedforward = 0;
     // Add the feedforward to the PID output to get the motor output
 
-    double volts = MathUtil.clamp(output + feedforward, -10.0, 10.0);
+    double volts = MathUtil.clamp(output + feedforward, -6.0, 6.0);
     m_motor.setVoltage(volts);
     m_nt_volts.setDouble(volts);
     m_nt_feed_forward.setDouble(feedforward);
