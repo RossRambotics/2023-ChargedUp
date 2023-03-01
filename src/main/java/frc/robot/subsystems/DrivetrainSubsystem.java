@@ -147,6 +147,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
                         DataLogManager.log("%%%%%%%%%%%%%%Midas Dreive%%%%%%%%%%%%%");
                 }
 
+                Timer.delay(1.0);
+                m_frontLeftModule.resetToAbsolute();
+                m_frontRightModule.resetToAbsolute();
+                m_backLeftModule.resetToAbsolute();
+                m_backRightModule.resetToAbsolute();
                 m_simTimer.start();
 
                 m_odometry = new SwerveDrivePoseEstimator(m_kinematics, getGyroscopeRotation(),
@@ -272,11 +277,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
                                 .withSteerOffset(BACK_RIGHT_MODULE_STEER_OFFSET_MIDAS)
                                 .build();
 
-                Timer.delay(1.0);
-                m_frontLeftModule.resetToAbsolute();
-                m_frontRightModule.resetToAbsolute();
-                m_backLeftModule.resetToAbsolute();
-                m_backRightModule.resetToAbsolute();
         }
 
         /**

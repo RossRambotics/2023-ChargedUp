@@ -34,11 +34,18 @@
       "/Shuffleboard/Sub.Tracking/Commands/Red Cargo": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Test Mode": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Update PIDF": "Command"
+    },
+    "windows": {
+      "/Shuffleboard/Match.Auto/Commands/DriveUpChargeStation": {
+        "window": {
+          "visible": true
+        }
+      }
     }
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
-    "serverTeam": "localhost"
+    "serverTeam": "3201"
   },
   "Plots": {
     "Plot <0>": {

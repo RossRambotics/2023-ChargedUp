@@ -4,8 +4,10 @@
 
 package frc.robot.commands.Drive;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.RobotContainer;
@@ -13,11 +15,33 @@ import frc.robot.RobotContainer;
 public class DriveUpChargeStation extends CommandBase {
 
   private CommandBase m_cmd;
+  private Boolean m_isAway = false;
+  private Boolean m_isBursted = false;
+
+  private CommandBase cmdAwayBurst = new SnapDrive(RobotContainer.m_drivetrainSubsystem,
+      () -> {
+        return -0.6;
+      },
+      () -> {
+        return -0.0;
+      },
+      0)
+      .withTimeout(0.4);
+
+  private CommandBase cmdTowardsBurst = new SnapDrive(RobotContainer.m_drivetrainSubsystem,
+      () -> {
+        return 0.6;
+      },
+      () -> {
+        return -0.0;
+      },
+      0)
+      .withTimeout(0.4);
 
   /** Creates a new DriveUpChargeStation. */
   public DriveUpChargeStation() {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.addRequirements(RobotContainer.m_drivetrainSubsystem);
+    // this.addRequirements(RobotContainer.m_drivetrainSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -36,7 +60,8 @@ public class DriveUpChargeStation extends CommandBase {
             () -> {
               return -0.0;
             },
-            0))
+            0),
+        new PrintCommand("******** Initialize Phase 1"))
         .andThen(new WaitCommand(0.2)).andThen(new ParallelDeadlineGroup(
             new WaitUntilCommand(() -> {
               if (RobotContainer.m_drivetrainSubsystem.getPitch() < 10.0)
@@ -50,9 +75,10 @@ public class DriveUpChargeStation extends CommandBase {
                 () -> {
                   return -0.0;
                 },
-                0)));
+                0),
+            new PrintCommand("******** Initialize Phase 2")));
 
-    m_cmd.setName("Drive Up Charge Station");
+    m_cmd.setName("Inititalize");
     m_cmd.schedule();
 
   }
@@ -61,18 +87,36 @@ public class DriveUpChargeStation extends CommandBase {
   @Override
   public void execute() {
 
-    if (!m_cmd.isFinished()) {
+    // SmartDashboard.putString("BalanceMsg", "Running command: " +
+    // m_cmd.getName());
+    System.out.println("*********Running command: " + m_cmd.getName());
+
+    if (m_cmd.isScheduled()) {
       return;
+    }
+
+    if (!m_isBursted) {
+      // do burst the other way
+      m_isBursted = true;
+      if (m_isAway) {
+        m_cmd = cmdTowardsBurst;
+        m_cmd.schedule();
+      } else {
+        m_cmd = cmdAwayBurst;
+        m_cmd.schedule();
+      }
     }
 
     // Check if Balanced
     double pitch = RobotContainer.m_drivetrainSubsystem.getPitch();
-    if (Math.abs(pitch) < 2.0) {
+    if (Math.abs(pitch) < 5.0) {
       return;
     }
 
-    // need to go away from charge station...?
+    // need to go away from grid...?
     if (pitch < -2.0) {
+      m_isAway = true;
+      m_isBursted = false;
       m_cmd = new ParallelDeadlineGroup(
           new WaitUntilCommand(() -> {
             if (RobotContainer.m_drivetrainSubsystem.getPitch() > 0.0)
@@ -87,10 +131,13 @@ public class DriveUpChargeStation extends CommandBase {
                 return -0.0;
               },
               0))
-          .andThen(new WaitCommand(0.1))
+          .andThen(new WaitCommand(0.5))
           .withTimeout(0.2);
+      m_cmd.setName("Balance Away from Grid");
       m_cmd.schedule();
     } else {
+      m_isAway = false;
+      m_isBursted = false;
       m_cmd = new ParallelDeadlineGroup(
           new WaitUntilCommand(() -> {
             if (RobotContainer.m_drivetrainSubsystem.getPitch() < 0.0)
@@ -105,8 +152,9 @@ public class DriveUpChargeStation extends CommandBase {
                 return -0.0;
               },
               0))
-          .andThen(new WaitCommand(0.1))
+          .andThen(new WaitCommand(0.5))
           .withTimeout(0.2);
+      m_cmd.setName("Balance Towards Grid");
       m_cmd.schedule();
     }
 
