@@ -129,15 +129,15 @@ public class UpperArm extends ProfiledPIDSubsystem {
   public final class Constants {
     public static final int kMotorPort = 60;
 
-    public static final double kP = 6;
+    public static final double kP = 1;
 
     public static final double kSVolts = 0.05;
     public static final double kGVolts = 1.0;
     public static final double kVVoltSecondPerRad = 0.03;
     public static final double kAVoltSecondSquaredPerRad = 0.1;
 
-    public static final double kMaxVelocityRadPerSecond = 10;
-    public static final double kMaxAccelerationRadPerSecSquared = 5;
+    public static final double kMaxVelocityRadPerSecond = 1;
+    public static final double kMaxAccelerationRadPerSecSquared = 1;
 
     public static final int kEncoderPort = 32;
 
@@ -263,7 +263,10 @@ public class UpperArm extends ProfiledPIDSubsystem {
     m_motor.setVoltage(0);
     m_testTimer.stop();
 
-    double kV = (Math.abs(m_testStartRad - testEndRad) / m_testTimer.get()) / m_testVolts;
+    // double kV = (Math.abs(m_testStartRad - testEndRad) / m_testTimer.get()) /
+    // m_testVolts;
+    double kV = (m_testTimer.get() * m_testVolts) / Math.abs(m_testStartRad - testEndRad);
+
     System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     System.out.println("Start Rad: " + m_testStartRad);
     System.out.println("End Rad: " + testEndRad);
