@@ -10,12 +10,14 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
 import frc.robot.RobotContainer;
 
@@ -44,9 +46,8 @@ public class UpperArm extends ProfiledPIDSubsystem {
   private Boolean m_testMode = false;
 
   private final CANSparkMax m_motor = new CANSparkMax(Constants.kMotorPort, MotorType.kBrushless);
-  // private final WPI_CANCoder m_encoder = new
-  // WPI_CANCoder(Constants.kEncoderPort);
-  private final RelativeEncoder m_encoder = m_motor.getEncoder();
+  private final WPI_CANCoder m_encoder = new WPI_CANCoder(Constants.kEncoderPort);
+  // private final RelativeEncoder m_encoder = m_motor.getEncoder();
 
   private final ArmFeedforward m_feedforward = new ArmFeedforward(
       Constants.kSVolts, Constants.kGVolts,
@@ -75,26 +76,27 @@ public class UpperArm extends ProfiledPIDSubsystem {
     config.unitString = "rad";
     config.sensorTimeBase = SensorTimeBase.PerSecond;
     config.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
-    // m_encoder.configAllSettings(config);
+    config.sensorDirection = true;
+    m_encoder.configAllSettings(config);
 
-    m_encoder.setPositionConversionFactor((2 * Math.PI) / 277); // change the encoder to radians
+    // m_encoder.setPositionConversionFactor((2 * Math.PI) / 277); // change the
+    // encoder to radians
     m_motor.setInverted(true);
-    m_encoder.setPosition(Math.toRadians(-110.0));
+    // m_encoder.setPosition(Math.toRadians(-110.0));
 
     System.out.println("Upper Arm Position: " + m_encoder.getPosition()); // prints the position of the CANCoder
     System.out.println("Upper Arm absolute Position: " + m_encoder.getPosition());
 
-    // System.out.println("Upper Arm absolute Position: " +
-    // m_encoder.getAbsolutePosition());
+    System.out.println("Upper Arm absolute Position: " + m_encoder.getAbsolutePosition());
 
     // ErrorCode error = m_encoder.getLastError(); // gets the last error generated
     // by the CANCoder
-    // CANCoderFaults faults = new CANCoderFaults();
-    // ErrorCode faultsError = m_encoder.getFaults(faults); // fills faults with the
+    CANCoderFaults faults = new CANCoderFaults();
+    ErrorCode faultsError = m_encoder.getFaults(faults); // fills faults with the
     // current CANCoder faults; returns the
     // last error generated
 
-    // m_encoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 10); //
+    m_encoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 10); //
     // changes the period of the sensor data frame
     // to 10ms
 
@@ -131,17 +133,17 @@ public class UpperArm extends ProfiledPIDSubsystem {
 
     public static final double kSVolts = 0.05;
     public static final double kGVolts = 1.0;
-    public static final double kVVoltSecondPerRad = 2;
+    public static final double kVVoltSecondPerRad = 0.03;
     public static final double kAVoltSecondSquaredPerRad = 0.1;
 
     public static final double kMaxVelocityRadPerSecond = 10;
     public static final double kMaxAccelerationRadPerSecSquared = 5;
 
-    public static final int kEncoderPort = 99;
+    public static final int kEncoderPort = 32;
 
     // The offset of the arm from the horizontal in its neutral position,
     // measured from the horizontal
-    public static final double kArmOffsetRads = 0;
+    public static final double kArmOffsetRads = -2.163;
   }
 
   public void periodic() {
@@ -200,5 +202,74 @@ public class UpperArm extends ProfiledPIDSubsystem {
         .withPosition(3, 1)
         .withProperties(Map.of("Label position", "HIDDEN"));
 
+    cmd = new FunctionalCommand(() -> this.kVTestStart(2.0), //
+        () -> {
+        }, //
+        (b) -> this.kVTestStop(), //
+        () -> {
+          return false;
+        }) //
+        .withTimeout(0.5);
+    cmd.setName("U kV Test 2V, 0.5s");
+
+    RobotContainer.m_armTab.add(cmd)
+        .withSize(1, 1)
+        .withPosition(3, 2);
+
+    cmd = new FunctionalCommand(() -> this.kVTestStart(3.0), //
+        () -> {
+        }, //
+        (b) -> this.kVTestStop(), //
+        () -> {
+          return false;
+        }) //
+        .withTimeout(0.5);
+    cmd.setName("U kV Test 3V, 0.5s");
+
+    RobotContainer.m_armTab.add(cmd)
+        .withSize(1, 1)
+        .withPosition(3, 3);
+
+    cmd = new FunctionalCommand(() -> this.kVTestStart(4.0), //
+        () -> {
+        }, //
+        (b) -> this.kVTestStop(), //
+        () -> {
+          return false;
+        }) //
+        .withTimeout(0.5);
+    cmd.setName("U kV Test 4V, 0.5s");
+    RobotContainer.m_armTab.add(cmd)
+        .withSize(1, 1)
+        .withPosition(3, 4);
+  }
+
+  private Timer m_testTimer = new Timer();
+  private double m_testStartRad = 0.0;
+  private double m_testVolts = 0.0;
+
+  public void kVTestStart(double volts) {
+    this.disable();
+    m_testVolts = volts;
+
+    m_testStartRad = m_encoder.getPosition();
+    m_testTimer.start();
+    m_motor.setVoltage(m_testVolts);
+  }
+
+  public void kVTestStop() {
+
+    double testEndRad = m_encoder.getPosition();
+    m_motor.setVoltage(0);
+    m_testTimer.stop();
+
+    double kV = (Math.abs(m_testStartRad - testEndRad) / m_testTimer.get()) / m_testVolts;
+    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    System.out.println("Start Rad: " + m_testStartRad);
+    System.out.println("End Rad: " + testEndRad);
+    System.out.println("Time: " + m_testTimer.get());
+    System.out.println("Volts: " + m_testVolts);
+    System.out.println("kV: " + kV);
+    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   }
 }
