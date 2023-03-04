@@ -52,7 +52,7 @@ public final class Constants {
     public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 1; // FIXME Set front right drive motor ID
     public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 16; // FIXME Set front right steer motor ID
     public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 4; // FIXME Set front right steer encoder ID
-    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET_GRAVESTONE = -Math.toRadians(319.82);
+    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET_GRAVESTONE = -Math.toRadians(284.602);
     public static final double FRONT_RIGHT_MODULE_STEER_OFFSET_MIDAS = -Math.toRadians(46.142);
 
     // front
