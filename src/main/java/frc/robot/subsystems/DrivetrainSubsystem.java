@@ -306,7 +306,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // clockwise rotoation is a positive change in angle
         public Rotation2d getGyroHeading() {
                 Rotation2d r = new Rotation2d();
-                r = Rotation2d.fromDegrees(-m_pigeon.getYaw());
+                r = Rotation2d.fromDegrees(m_pigeon.getYaw());
                 return r;
         }
 

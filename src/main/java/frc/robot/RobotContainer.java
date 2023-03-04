@@ -158,7 +158,7 @@ public class RobotContainer {
         }
 
         private double snapAngle() {
-                double x = m_controllerDriver.getRightX();
+                double x = -m_controllerDriver.getRightX();
                 double y = -m_controllerDriver.getRightY();
 
                 if (Math.abs(x) < 0.1 && Math.abs(y) < 0.1) {
@@ -267,7 +267,7 @@ public class RobotContainer {
                                 m_drivetrainSubsystem,
                                 () -> -getInputLeftY(),
                                 () -> -getInputLeftX(),
-                                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() - 10);
+                                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() + 10);
 
                 leftBumper.whileTrue(cmd);
 
@@ -276,7 +276,7 @@ public class RobotContainer {
                                 m_drivetrainSubsystem,
                                 () -> -getInputLeftY(),
                                 () -> -getInputLeftX(),
-                                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() + 10);
+                                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() - 10);
 
                 rightBumper.whileTrue(cmd);
 
