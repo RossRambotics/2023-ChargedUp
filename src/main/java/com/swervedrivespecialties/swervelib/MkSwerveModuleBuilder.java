@@ -4,6 +4,8 @@ import com.swervedrivespecialties.swervelib.ctre.*;
 import com.swervedrivespecialties.swervelib.rev.*;
 
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 
 public class MkSwerveModuleBuilder {
 
@@ -14,7 +16,8 @@ public class MkSwerveModuleBuilder {
                 .build();
     }
 
-    private static SteerControllerFactory<?, SteerConfiguration<CanCoderAbsoluteConfiguration>> getFalcon500SteerFactory(MkModuleConfiguration configuration) {
+    private static SteerControllerFactory<?, SteerConfiguration<CanCoderAbsoluteConfiguration>> getFalcon500SteerFactory(
+            MkModuleConfiguration configuration) {
         return new Falcon500SteerControllerFactoryBuilder()
                 .withVoltageCompensation(configuration.getNominalVoltage())
                 .withPidConstants(configuration.getSteerKP(), configuration.getSteerKI(), configuration.getSteerKD())
@@ -33,7 +36,8 @@ public class MkSwerveModuleBuilder {
                 .build();
     }
 
-    private static SteerControllerFactory<?, SteerConfiguration<CanCoderAbsoluteConfiguration>> getNeoSteerFactory(MkModuleConfiguration configuration) {
+    private static SteerControllerFactory<?, SteerConfiguration<CanCoderAbsoluteConfiguration>> getNeoSteerFactory(
+            MkModuleConfiguration configuration) {
         return new NeoSteerControllerFactoryBuilder()
                 .withVoltageCompensation(configuration.getNominalVoltage())
                 .withPidConstants(configuration.getSteerKP(), configuration.getSteerKI(), configuration.getSteerKD())
@@ -74,7 +78,8 @@ public class MkSwerveModuleBuilder {
      * <p>
      * Recommended values to pass in are
      * {@link MkModuleConfiguration#getDefaultSteerFalcon500()} or
-     * {@link MkModuleConfiguration#getDefaultSteerNEO()}, but you can use any custom module
+     * {@link MkModuleConfiguration#getDefaultSteerNEO()}, but you can use any
+     * custom module
      * values by instantiating a new {@link MkModuleConfiguration}.
      * 
      * @param configuration configured values for the module
@@ -112,8 +117,8 @@ public class MkSwerveModuleBuilder {
     /**
      * Specify details about the drive motor.
      * 
-     * @param motorType the {@link MotorType} of the motor
-     * @param motorPort the CAN ID of the motor
+     * @param motorType   the {@link MotorType} of the motor
+     * @param motorPort   the CAN ID of the motor
      * @param motorCanbus the canbus of the motor, "" for the roboRIO bus
      * @return the builder
      */
@@ -148,8 +153,8 @@ public class MkSwerveModuleBuilder {
     /**
      * Specify details about the steer motor.
      * 
-     * @param motorType the {@link MotorType} of the motor
-     * @param motorPort the CAN ID of the motor
+     * @param motorType   the {@link MotorType} of the motor
+     * @param motorPort   the CAN ID of the motor
      * @param motorCanbus the canbus of the motor, "" for the roboRIO bus
      * @return the builder
      */
@@ -192,7 +197,7 @@ public class MkSwerveModuleBuilder {
      * Specify details about the module's absolute encoder.
      * 
      * @param encoderPort the CAN ID of the encoder
-     * @param canbus the canbus of the encoder, "" for the roboRIO bus
+     * @param canbus      the canbus of the encoder, "" for the roboRIO bus
      * @return the builder
      */
     public MkSwerveModuleBuilder withSteerEncoderPort(int encoderPort, String canbus) {
@@ -202,7 +207,7 @@ public class MkSwerveModuleBuilder {
     }
 
     /**
-     * Specify details about the module's absolute encoder. The encoder must 
+     * Specify details about the module's absolute encoder. The encoder must
      * be on the roboRIO canbus.
      * 
      * @param encoderPort the CAN ID of the encoer
@@ -215,7 +220,8 @@ public class MkSwerveModuleBuilder {
     /**
      * Specify the module's absolute encoder offset.
      * 
-     * @param offset the offset, in radians, to apply to the absolute encoder's position
+     * @param offset the offset, in radians, to apply to the absolute encoder's
+     *               position
      * @return the builder
      */
     public MkSwerveModuleBuilder withSteerOffset(double offset) {
@@ -254,50 +260,49 @@ public class MkSwerveModuleBuilder {
         }
 
         SwerveModuleFactory<Integer, SteerConfiguration<CanCoderAbsoluteConfiguration>> factory = new SwerveModuleFactory<>(
-                mechConfig, 
-                driveFactory, 
-                steerFactory
-        );
+                mechConfig,
+                driveFactory,
+                steerFactory);
 
         SteerConfiguration<CanCoderAbsoluteConfiguration> steerConfig;
 
         if (steerMotorType == MotorType.FALCON) {
             steerConfig = new SteerConfiguration<>(
-                    steerMotorPort, 
+                    steerMotorPort,
                     new CanCoderAbsoluteConfiguration(
-                            steerEncoderPort, 
+                            steerEncoderPort,
                             steerOffset,
-                            steerEncoderCanbus
-                    )
-            );
+                            steerEncoderCanbus));
         } else if (steerMotorType == MotorType.NEO) {
             steerConfig = new SteerConfiguration<>(
-                    steerMotorPort, 
+                    steerMotorPort,
                     new CanCoderAbsoluteConfiguration(
-                            steerEncoderPort, 
+                            steerEncoderPort,
                             steerOffset,
-                            steerEncoderCanbus
-                    )
-            );
+                            steerEncoderCanbus));
         } else {
             throw new RuntimeException("Steer Motor Type should not be null!");
         }
 
         if (container == null) {
-            return factory.create(
-                    driveMotorPort, 
-                    driveCanbus, 
-                    steerConfig, 
-                    steerCanbus
-            );
+            SwerveModule m = factory.create(
+                    driveMotorPort,
+                    driveCanbus,
+                    steerConfig,
+                    steerCanbus);
+            new ScheduleCommand(Commands.waitSeconds(1.0))
+                    .andThen(Commands.run(() -> m.resetToAbsolute()));
+            return m;
         } else {
-            return factory.create(
-                    container, 
-                    driveMotorPort, 
-                    driveCanbus, 
-                    steerConfig, 
-                    steerCanbus
-            );
+            SwerveModule m = factory.create(
+                    container,
+                    driveMotorPort,
+                    driveCanbus,
+                    steerConfig,
+                    steerCanbus);
+            new ScheduleCommand(Commands.waitSeconds(1.0))
+                    .andThen(Commands.run(() -> m.resetToAbsolute()));
+            return m;
         }
     }
 }

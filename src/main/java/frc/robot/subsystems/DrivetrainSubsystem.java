@@ -147,6 +147,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
                         DataLogManager.log("%%%%%%%%%%%%%%Midas Dreive%%%%%%%%%%%%%");
                 }
 
+                Timer.delay(1.0);
+                m_frontLeftModule.resetToAbsolute();
+                m_frontRightModule.resetToAbsolute();
+                m_backLeftModule.resetToAbsolute();
+                m_backRightModule.resetToAbsolute();
                 m_simTimer.start();
 
                 m_odometry = new SwerveDrivePoseEstimator(m_kinematics, getGyroscopeRotation(),
@@ -271,6 +276,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
                                 .withSteerEncoderPort(BACK_RIGHT_MODULE_STEER_ENCODER, CANBUS_DRIVETRAIN_MIDAS)
                                 .withSteerOffset(BACK_RIGHT_MODULE_STEER_OFFSET_MIDAS)
                                 .build();
+
         }
 
         /**
@@ -376,6 +382,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         public void periodic() {
 
                 SmartDashboard.putNumber("Gyro Heading (Yaw)", this.getGyroHeading().getDegrees());
+                SmartDashboard.putNumber("Gyro Pitch", this.getPitch());
                 // update odometry
                 if (!Robot.isSimulation()) {
                         RobotContainer.m_positioning.updateVision(m_odometry);
@@ -454,6 +461,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 m_odometry.resetPosition(getGyroHeading(), m_swerveModulePositions, botPose);
                 System.out.println("Reseting Odometry Pose. Gyro: " + getGyroHeading() + " botPose Heading: "
                                 + botPose.getRotation().getDegrees());
+        }
+
+        public double getPitch() {
+                return m_pigeon.getRoll();
         }
 
 }

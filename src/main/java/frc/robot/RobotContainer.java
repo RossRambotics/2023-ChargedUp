@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Arm.LowerArmSetPoint;
+import frc.robot.commands.Drive.DriveUpChargeStation;
 import frc.robot.commands.Drive.SnapDrive;
 import frc.robot.commands.Drive.SnapDriveGamePiece;
 import frc.robot.commands.Tracking.EnableLight;
@@ -373,6 +374,10 @@ public class RobotContainer {
 
                 autoCmd = new AutoMoveBackToPose();
                 autoCmd.setName("AutoMoceBackToPose");
+                m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+                commands.add(autoCmd);
+
+                autoCmd = new DriveUpChargeStation();
                 m_autoChooser.addOption(autoCmd.getName(), autoCmd);
                 commands.add(autoCmd);
 

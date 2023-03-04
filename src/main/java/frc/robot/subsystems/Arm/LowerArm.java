@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
 import frc.robot.RobotContainer;
@@ -96,6 +98,35 @@ public class LowerArm extends ProfiledPIDSubsystem {
     m_motor.setInverted(true);
     this.setName("Lower Arm");
 
+  }
+
+  private Timer m_testTimer = new Timer();
+  private double m_testStartRad = 0.0;
+  private double m_testVolts = 0.0;
+
+  public void kVTestStart(double volts) {
+    this.disable();
+    m_testVolts = volts;
+
+    m_testStartRad = m_encoder.getPosition();
+    m_testTimer.start();
+    m_motor.setVoltage(m_testVolts);
+  }
+
+  public void kVTestStop() {
+
+    double testEndRad = m_encoder.getPosition();
+    m_motor.setVoltage(0);
+    m_testTimer.stop();
+
+    double kV = (m_testTimer.get() * m_testVolts) / Math.abs(m_testStartRad - testEndRad);
+    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    System.out.println("Start Rad: " + m_testStartRad);
+    System.out.println("End Rad: " + testEndRad);
+    System.out.println("Time: " + m_testTimer.get());
+    System.out.println("Volts: " + m_testVolts);
+    System.out.println("kV: " + kV);
+    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   }
 
   @Override
@@ -176,25 +207,66 @@ public class LowerArm extends ProfiledPIDSubsystem {
         .withPosition(7, 1)
         .withProperties(Map.of("Label position", "HIDDEN"));
 
+    cmd = new FunctionalCommand(() -> this.kVTestStart(2.0), //
+        () -> {
+        }, //
+        (b) -> this.kVTestStop(), //
+        () -> {
+          return false;
+        }) //
+        .withTimeout(1.0);
+    cmd.setName("kV Test 2V, 1.0s");
+
+    RobotContainer.m_armTab.add(cmd)
+        .withSize(1, 1)
+        .withPosition(7, 2);
+
+    cmd = new FunctionalCommand(() -> this.kVTestStart(3.0), //
+        () -> {
+        }, //
+        (b) -> this.kVTestStop(), //
+        () -> {
+          return false;
+        }) //
+        .withTimeout(1.0);
+    cmd.setName("kV Test 3V, 1.0s");
+
+    RobotContainer.m_armTab.add(cmd)
+        .withSize(1, 1)
+        .withPosition(7, 3);
+
+    cmd = new FunctionalCommand(() -> this.kVTestStart(4.0), //
+        () -> {
+        }, //
+        (b) -> this.kVTestStop(), //
+        () -> {
+          return false;
+        }) //
+        .withTimeout(1.0);
+    cmd.setName("kV Test 4V, 1.0s");
+    RobotContainer.m_armTab.add(cmd)
+        .withSize(1, 1)
+        .withPosition(7, 4);
+
   }
 
   public final class Constants {
     public static final int kMotorPort = 62;
 
-    public static final double kP = 12;
+    public static final double kP = 1;
 
     public static final double kSVolts = 0.01;
     public static final double kGVolts = 0.40;
-    public static final double kVVoltSecondPerRad = 0.5;
+    public static final double kVVoltSecondPerRad = 0.31;
     public static final double kAVoltSecondSquaredPerRad = 0.1;
 
-    public static final double kMaxVelocityRadPerSecond = 10;
-    public static final double kMaxAccelerationRadPerSecSquared = 4;
+    public static final double kMaxVelocityRadPerSecond = 1;
+    public static final double kMaxAccelerationRadPerSecSquared = 1;
 
     public static final int kEncoderPort = 33;
 
     // The offset of the arm from the horizontal in its neutral position,
     // measured from the horizontal 154.688 degrees to center
-    public static final double kArmOffsetRads = -3.7;
+    public static final double kArmOffsetRads = 0.61;
   }
 }

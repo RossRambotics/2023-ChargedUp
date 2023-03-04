@@ -116,6 +116,11 @@ public class SwerveModuleFactory<DC, SC> {
         }
 
         @Override
+        public void resetToAbsolute() {
+            steerController.resetToAbsolute();
+        }
+
+        @Override
         public void set(double driveVoltage, double steerAngle) {
             steerAngle %= (2.0 * Math.PI);
             if (steerAngle < 0.0) {

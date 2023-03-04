@@ -121,7 +121,14 @@ public class Tracking extends SubsystemBase {
             return RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees();
         }
 
-        return (kP * yaw) + 6.5 + RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees();
+        yaw = (kP * yaw); // stop yaw from overshooting
+        double kS = 5.0;
+
+        if (Math.abs(yaw) <= kS) {
+            yaw = Math.signum(yaw) * kS;
+        }
+
+        return yaw + 6.5 + RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees();
     }
 
     // used only for testing

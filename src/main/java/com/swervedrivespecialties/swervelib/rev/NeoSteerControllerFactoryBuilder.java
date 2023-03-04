@@ -182,5 +182,12 @@ public final class NeoSteerControllerFactoryBuilder {
 
             return motorAngleRadians;
         }
+
+        @Override
+        public void resetToAbsolute() {
+            resetIteration = 0;
+            double absoluteAngle = absoluteEncoder.getAbsoluteAngle();
+            motorEncoder.setPosition(absoluteAngle);
+        }
     }
 }
