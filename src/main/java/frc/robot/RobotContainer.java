@@ -170,7 +170,7 @@ public class RobotContainer {
                 double angle = Math.toDegrees(Math.atan2(x, y));
 
                 if ((angle > 360) || (angle < -360)) {
-                        return 360;
+                        angle = 360;
                 }
 
                 m_lastSnapAngle = angle;
@@ -200,7 +200,7 @@ public class RobotContainer {
 
                 bButton.whileTrue(new RunCommand(() -> m_grabber.closeJaws()));
 
-                yButton.whileTrue(Commands.runOnce(() -> m_arm.goNextNode()));
+                yButton.whileTrue(new RunCommand(() -> m_arm.goNextNode()));
 
                 // cmd = new DefaultDriveCommand(
                 // m_drivetrainSubsystem,

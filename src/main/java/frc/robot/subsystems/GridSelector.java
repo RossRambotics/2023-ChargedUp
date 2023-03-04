@@ -35,30 +35,33 @@ public class GridSelector extends SubsystemBase {
     }
 
     public void initialize() {
-        Trigger btnHoldHigh = new JoystickButton(m_gridSelector2, 2);
-        CommandBase cmd = new PrintCommand("************** Button Pressed! *******************");
-        cmd = Arm.setpointCommandFactory("hold high", 0, 45, 1);
-        btnHoldHigh.onTrue(cmd);
+        CommandBase cmd;
 
-        Trigger btnMidpoint = new JoystickButton(m_gridSelector2, 5);
-        cmd = Arm.setpointCommandFactory("Midpoint", -45, 45, 1);
-        btnMidpoint.onTrue(cmd);
+        Trigger btnHighArm = new JoystickButton(m_gridSelector2, 2);
+        // CommandBase cmd = new PrintCommand("************** Button Pressed!
+        // *******************");
+        cmd = Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.Z);
+        btnHighArm.onTrue(cmd);
 
-        Trigger btnPickUp = new JoystickButton(m_gridSelector2, 8);
-        cmd = Arm.setpointCommandFactory("Pick up", -90, 80, 1);
-        btnPickUp.onTrue(cmd);
-
-        Trigger btnCarry = new JoystickButton(m_gridSelector2, 6);
-        cmd = Arm.setpointCommandFactory("Carry", -120, 110, 1);
+        Trigger btnCarry = new JoystickButton(m_gridSelector2, 5);
+        cmd = Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.A);
         btnCarry.onTrue(cmd);
 
-        Trigger btnEnd = new JoystickButton(m_gridSelector2, 3);
-        cmd = Arm.setpointCommandFactory("End", 0, 0, 1);
-        btnEnd.onTrue(cmd);
+        Trigger btnThirdFloor = new JoystickButton(m_gridSelector2, 10);
+        cmd = Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.B);
+        btnThirdFloor.onTrue(cmd);
 
-        Trigger btnSafeForward = new JoystickButton(m_gridSelector2, 4);
-        cmd = Arm.setpointCommandFactory("safe forward", -45, 120, 1);
-        btnSafeForward.onTrue(cmd);
+        Trigger btnTrunk = new JoystickButton(m_gridSelector2, 4);
+        cmd = Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.S);
+        btnTrunk.onTrue(cmd);
+
+        Trigger btnSecondFloor = new JoystickButton(m_gridSelector2, 11);
+        cmd = Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.D);
+        btnSecondFloor.onTrue(cmd);
+
+        Trigger btnLowArm = new JoystickButton(m_gridSelector2, 8);
+        cmd = Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.O);
+        btnLowArm.onTrue(cmd);
 
     }
 
