@@ -109,6 +109,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
     m_testVolts = volts;
 
     m_testStartRad = m_encoder.getPosition();
+    m_testTimer.reset();
     m_testTimer.start();
     m_motor.setVoltage(m_testVolts);
   }
@@ -143,9 +144,10 @@ public class LowerArm extends ProfiledPIDSubsystem {
     m_motor.setVoltage(volts);
     m_nt_volts.setDouble(volts);
 
-    DataLogManager.log("LA V: " + volts + " output: " + output + " FF: " + feedforward + " Measurement: "
-        + getMeasurement() + " Goal: "
-        + this.m_controller.getGoal().position + " s: " + s);
+    // DataLogManager.log("LA V: " + volts + " output: " + output + " FF: " +
+    // feedforward + " Measurement: "
+    // + getMeasurement() + " Goal: "
+    // + this.m_controller.getGoal().position + " s: " + s);
   }
 
   @Override
@@ -253,15 +255,15 @@ public class LowerArm extends ProfiledPIDSubsystem {
   public final class Constants {
     public static final int kMotorPort = 62;
 
-    public static final double kP = 1;
+    public static final double kP = 6;
 
     public static final double kSVolts = 0.01;
     public static final double kGVolts = 0.40;
-    public static final double kVVoltSecondPerRad = 0.31;
+    public static final double kVVoltSecondPerRad = 3.0;
     public static final double kAVoltSecondSquaredPerRad = 0.1;
 
-    public static final double kMaxVelocityRadPerSecond = 1;
-    public static final double kMaxAccelerationRadPerSecSquared = 1;
+    public static final double kMaxVelocityRadPerSecond = 5;
+    public static final double kMaxAccelerationRadPerSecSquared = 3;
 
     public static final int kEncoderPort = 33;
 
@@ -270,3 +272,35 @@ public class LowerArm extends ProfiledPIDSubsystem {
     public static final double kArmOffsetRads = 0.61;
   }
 }
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// Start Rad: -0.1579997017979622
+// End Rad: 0.49854274839162827
+// Time: 1.001186999999998
+// Volts: 2.0
+// kV: 3.0498774289792965
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// Start Rad: -0.6565424501895905
+// End Rad: -0.026077620685100555
+// Time: 1.000199999999997
+// Volts: 2.0
+// kV: 3.172897053705909
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// Start Rad: -0.704095758497715
+// End Rad: -0.06442706286907196
+// Time: 1.0213899999999994
+// Volts: 2.0
+// kV: 3.193496905444824
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// Start Rad: -0.6227949410676956
+// End Rad: 0.8574935272336006
+// Time: 1.0200390000000188
+// Volts: 4.0
+// kV: 2.7563249240752747
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

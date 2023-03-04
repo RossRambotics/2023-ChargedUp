@@ -170,7 +170,7 @@ public class RobotContainer {
                 double angle = Math.toDegrees(Math.atan2(x, y));
 
                 if ((angle > 360) || (angle < -360)) {
-                        return 360;
+                        angle = 360;
                 }
 
                 m_lastSnapAngle = angle;

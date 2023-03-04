@@ -116,9 +116,10 @@ public class UpperArm extends ProfiledPIDSubsystem {
     m_nt_volts.setDouble(volts);
     m_nt_feed_forward.setDouble(feedforward);
 
-    DataLogManager.log("Upper Arm volts: " + volts + " output: " + output + " FF: " + feedforward + " Measurement: "
-        + getMeasurement() + " Goal: "
-        + this.m_controller.getGoal().position);
+    // DataLogManager.log("Upper Arm volts: " + volts + " output: " + output + " FF:
+    // " + feedforward + " Measurement: "
+    // + getMeasurement() + " Goal: "
+    // + this.m_controller.getGoal().position);
   }
 
   @Override
@@ -129,21 +130,21 @@ public class UpperArm extends ProfiledPIDSubsystem {
   public final class Constants {
     public static final int kMotorPort = 60;
 
-    public static final double kP = 1;
+    public static final double kP = 9;
 
     public static final double kSVolts = 0.05;
     public static final double kGVolts = 1.0;
-    public static final double kVVoltSecondPerRad = 0.03;
+    public static final double kVVoltSecondPerRad = 6.5;
     public static final double kAVoltSecondSquaredPerRad = 0.1;
 
-    public static final double kMaxVelocityRadPerSecond = 1;
-    public static final double kMaxAccelerationRadPerSecSquared = 1;
+    public static final double kMaxVelocityRadPerSecond = 5;
+    public static final double kMaxAccelerationRadPerSecSquared = 3;
 
     public static final int kEncoderPort = 32;
 
     // The offset of the arm from the horizontal in its neutral position,
     // measured from the horizontal
-    public static final double kArmOffsetRads = -2.163;
+    public static final double kArmOffsetRads = -4.270;
   }
 
   public void periodic() {
@@ -253,6 +254,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
     m_testVolts = volts;
 
     m_testStartRad = m_encoder.getPosition();
+    m_testTimer.reset();
     m_testTimer.start();
     m_motor.setVoltage(m_testVolts);
   }
