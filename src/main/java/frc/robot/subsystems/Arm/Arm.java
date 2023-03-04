@@ -278,7 +278,7 @@ public class Arm extends SubsystemBase {
         graph.add(cmd).withPosition(1, 2);
 
         cmd = Arm.targetNodeCommandFactory(this, A);
-        cmd.setName("Forward Low");
+        cmd.setName("Carry");
         graph.add(cmd).withPosition(1, 4);
 
         cmd = Arm.targetNodeCommandFactory(this, T);
