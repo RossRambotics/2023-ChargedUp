@@ -200,7 +200,7 @@ public class RobotContainer {
 
                 bButton.whileTrue(new RunCommand(() -> m_grabber.closeJaws()));
 
-                yButton.whileTrue(Commands.runOnce(() -> m_arm.goNextNode()));
+                yButton.onTrue(Commands.runOnce(() -> m_arm.goNextNode()));
 
                 // cmd = new DefaultDriveCommand(
                 // m_drivetrainSubsystem,
