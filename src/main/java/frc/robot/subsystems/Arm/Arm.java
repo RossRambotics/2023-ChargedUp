@@ -62,7 +62,7 @@ public class Arm extends SubsystemBase {
                 null,
                 null);
         D = m_graphCommand.new GraphCommandNode("D",
-                Arm.setpointCommandFactory("D Target", -60, 118, tolerance),
+                Arm.setpointCommandFactory("D Target", -45, 118, tolerance),
                 null,
                 null);
         E = m_graphCommand.new GraphCommandNode("E",
@@ -107,7 +107,7 @@ public class Arm extends SubsystemBase {
                         wp_tolerance),
                 null);
         O = m_graphCommand.new GraphCommandNode("O",
-                Arm.setpointCommandFactory("Low Arm", -94, 78, tolerance),
+                Arm.setpointCommandFactory("Low Arm", -94, 82, tolerance),
                 null,
                 null);
 

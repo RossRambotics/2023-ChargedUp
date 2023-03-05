@@ -188,17 +188,17 @@ public class RobotContainer {
         private void configureButtonBindings() {
                 Command cmd;
 
-                backButton.onTrue(new RunCommand(() -> m_drivetrainSubsystem.zeroGyroscope()));
+                backButton.whileTrue(new RunCommand(() -> m_drivetrainSubsystem.zeroGyroscope()));
 
-                startButton.onTrue(new RunCommand(() -> m_positioning.resetVision()));
+                startButton.whileTrue(new RunCommand(() -> m_positioning.resetVision()));
 
                 btnOpenJaws.whileTrue(new RunCommand(() -> m_grabber.openJaws()));
 
                 btnCloseJaws.whileTrue(new RunCommand(() -> m_grabber.closeJaws()));
 
-                aButton.onTrue(new RunCommand(() -> m_grabber.openJaws()));
+                aButton.whileTrue(new RunCommand(() -> m_grabber.openJaws()));
 
-                bButton.onTrue(new RunCommand(() -> m_grabber.closeJaws()));
+                bButton.whileTrue(new RunCommand(() -> m_grabber.closeJaws()));
 
                 yButton.onTrue(Commands.runOnce(() -> m_arm.goNextNode()));
 
