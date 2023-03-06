@@ -7,19 +7,45 @@
     },
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/Arm/L Arm Test": "Command",
+      "/Shuffleboard/Arm/U Arm Test": "Command",
+      "/Shuffleboard/Button.Box/Commands/Carry(-120.0 , 110.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/End(0.0 , 10.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/Midpoint(-45.0 , 45.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/Next Node": "Command",
+      "/Shuffleboard/Button.Box/Commands/Pick up(-80.0 , 53.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/Start(-100.0 , 100.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/hold high(0.0 , 45.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/safe forward(-45.0 , 120.0)": "Command",
+      "/Shuffleboard/Button.Box/Panel/A": "Command",
+      "/Shuffleboard/Button.Box/Panel/C": "Command",
       "/Shuffleboard/Field/Field": "Field2d",
       "/Shuffleboard/Match.Auto/Autonomous": "String Chooser",
+      "/Shuffleboard/Match.Auto/Commands/AutoMoceBackToPose": "Command",
+      "/Shuffleboard/Match.Auto/Commands/AutoMoveConeLeft": "Command",
+      "/Shuffleboard/Match.Auto/Commands/DriveUpChargeStation": "Command",
+      "/Shuffleboard/Match.Auto/Commands/LowerArmSetPoint": "Command",
       "/Shuffleboard/Match.Auto/Commands/SnapDriveToCargo": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Blue Cargo": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Cone": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Cube": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Driver Mode Off": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Enable Light": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Red Cargo": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Test Mode": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Update PIDF": "Command"
+    },
+    "windows": {
+      "/Shuffleboard/Match.Auto/Commands/DriveUpChargeStation": {
+        "window": {
+          "visible": true
+        }
+      }
     }
   },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
-    "serverTeam": "localhost"
+    "serverTeam": "3201"
   },
   "Plots": {
     "Plot <0>": {

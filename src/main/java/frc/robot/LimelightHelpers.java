@@ -37,7 +37,7 @@ public class LimelightHelpers {
         private double[] robotPose_FieldSpace;
 
         @JsonProperty("t6r_ts")
-        private  double[] robotPose_TargetSpace;
+        private double[] robotPose_TargetSpace;
 
         @JsonProperty("t6t_cs")
         private double[] targetPose_CameraSpace;
@@ -45,45 +45,43 @@ public class LimelightHelpers {
         @JsonProperty("t6t_rs")
         private double[] targetPose_RobotSpace;
 
-        public Pose3d getCameraPose_TargetSpace()
-        {
+        public Pose3d getCameraPose_TargetSpace() {
             return toPose3D(cameraPose_TargetSpace);
         }
-        public Pose3d getRobotPose_FieldSpace()
-        {
+
+        public Pose3d getRobotPose_FieldSpace() {
             return toPose3D(robotPose_FieldSpace);
         }
-        public Pose3d getRobotPose_TargetSpace()
-        {
+
+        public Pose3d getRobotPose_TargetSpace() {
             return toPose3D(robotPose_TargetSpace);
         }
-        public Pose3d getTargetPose_CameraSpace()
-        {
+
+        public Pose3d getTargetPose_CameraSpace() {
             return toPose3D(targetPose_CameraSpace);
         }
-        public Pose3d getTargetPose_RobotSpace()
-        {
+
+        public Pose3d getTargetPose_RobotSpace() {
             return toPose3D(targetPose_RobotSpace);
         }
 
-        public Pose2d getCameraPose_TargetSpace2D()
-        {
+        public Pose2d getCameraPose_TargetSpace2D() {
             return toPose2D(cameraPose_TargetSpace);
         }
-        public Pose2d getRobotPose_FieldSpace2D()
-        {
+
+        public Pose2d getRobotPose_FieldSpace2D() {
             return toPose2D(robotPose_FieldSpace);
         }
-        public Pose2d getRobotPose_TargetSpace2D()
-        {
+
+        public Pose2d getRobotPose_TargetSpace2D() {
             return toPose2D(robotPose_TargetSpace);
         }
-        public Pose2d getTargetPose_CameraSpace2D()
-        {
+
+        public Pose2d getTargetPose_CameraSpace2D() {
             return toPose2D(targetPose_CameraSpace);
         }
-        public Pose2d getTargetPose_RobotSpace2D()
-        {
+
+        public Pose2d getTargetPose_RobotSpace2D() {
             return toPose2D(targetPose_RobotSpace);
         }
 
@@ -138,48 +136,46 @@ public class LimelightHelpers {
         @JsonProperty("t6t_rs")
         private double[] targetPose_RobotSpace;
 
-        public Pose3d getCameraPose_TargetSpace()
-        {
+        public Pose3d getCameraPose_TargetSpace() {
             return toPose3D(cameraPose_TargetSpace);
         }
-        public Pose3d getRobotPose_FieldSpace()
-        {
+
+        public Pose3d getRobotPose_FieldSpace() {
             return toPose3D(robotPose_FieldSpace);
         }
-        public Pose3d getRobotPose_TargetSpace()
-        {
+
+        public Pose3d getRobotPose_TargetSpace() {
             return toPose3D(robotPose_TargetSpace);
         }
-        public Pose3d getTargetPose_CameraSpace()
-        {
+
+        public Pose3d getTargetPose_CameraSpace() {
             return toPose3D(targetPose_CameraSpace);
         }
-        public Pose3d getTargetPose_RobotSpace()
-        {
+
+        public Pose3d getTargetPose_RobotSpace() {
             return toPose3D(targetPose_RobotSpace);
         }
 
-        public Pose2d getCameraPose_TargetSpace2D()
-        {
+        public Pose2d getCameraPose_TargetSpace2D() {
             return toPose2D(cameraPose_TargetSpace);
         }
-        public Pose2d getRobotPose_FieldSpace2D()
-        {
+
+        public Pose2d getRobotPose_FieldSpace2D() {
             return toPose2D(robotPose_FieldSpace);
         }
-        public Pose2d getRobotPose_TargetSpace2D()
-        {
+
+        public Pose2d getRobotPose_TargetSpace2D() {
             return toPose2D(robotPose_TargetSpace);
         }
-        public Pose2d getTargetPose_CameraSpace2D()
-        {
+
+        public Pose2d getTargetPose_CameraSpace2D() {
             return toPose2D(targetPose_CameraSpace);
         }
-        public Pose2d getTargetPose_RobotSpace2D()
-        {
+
+        public Pose2d getTargetPose_RobotSpace2D() {
             return toPose2D(targetPose_RobotSpace);
         }
-        
+
         @JsonProperty("ta")
         public double ta;
 
@@ -197,7 +193,7 @@ public class LimelightHelpers {
 
         @JsonProperty("ts")
         public double ts;
-        
+
         public LimelightTarget_Fiducial() {
             cameraPose_TargetSpace = new double[6];
             robotPose_FieldSpace = new double[6];
@@ -237,7 +233,7 @@ public class LimelightHelpers {
         @JsonProperty("typ")
         public double ty_pixels;
 
-        public  LimelightTarget_Classifier() {
+        public LimelightTarget_Classifier() {
         }
     }
 
@@ -306,11 +302,11 @@ public class LimelightHelpers {
         public Pose3d getBotPose3d() {
             return toPose3D(botpose);
         }
-    
+
         public Pose3d getBotPose3d_wpiRed() {
             return toPose3D(botpose_wpired);
         }
-    
+
         public Pose3d getBotPose3d_wpiBlue() {
             return toPose3D(botpose_wpiblue);
         }
@@ -318,11 +314,11 @@ public class LimelightHelpers {
         public Pose2d getBotPose2d() {
             return toPose2D(botpose);
         }
-    
+
         public Pose2d getBotPose2d_wpiRed() {
             return toPose2D(botpose_wpired);
         }
-    
+
         public Pose2d getBotPose2d_wpiBlue() {
             return toPose2D(botpose_wpiblue);
         }
@@ -378,21 +374,19 @@ public class LimelightHelpers {
         return name;
     }
 
-    private static Pose3d toPose3D(double[] inData){
-        if(inData.length < 6)
-        {
+    private static Pose3d toPose3D(double[] inData) {
+        if (inData.length < 6) {
             System.err.println("Bad LL 3D Pose Data!");
             return new Pose3d();
         }
         return new Pose3d(
-            new Translation3d(inData[0], inData[1], inData[2]),
-            new Rotation3d(Units.degreesToRadians(inData[3]), Units.degreesToRadians(inData[4]),
-                    Units.degreesToRadians(inData[5])));
+                new Translation3d(inData[0], inData[1], inData[2]),
+                new Rotation3d(Units.degreesToRadians(inData[3]), Units.degreesToRadians(inData[4]),
+                        Units.degreesToRadians(inData[5])));
     }
 
-    private static Pose2d toPose2D(double[] inData){
-        if(inData.length < 6)
-        {
+    private static Pose2d toPose2D(double[] inData) {
+        if (inData.length < 6) {
             System.err.println("Bad LL 2D Pose Data!");
             return new Pose2d();
         }
@@ -549,37 +543,58 @@ public class LimelightHelpers {
 
     public static Pose3d getBotPose3d(String limelightName) {
         double[] poseArray = getLimelightNTDoubleArray(limelightName, "botpose");
-        return toPose3D(poseArray);
+        return new Pose3d(
+                new Translation3d(poseArray[0], poseArray[1], poseArray[2]),
+                new Rotation3d(Units.degreesToRadians(poseArray[3]), Units.degreesToRadians(poseArray[4]),
+                        Units.degreesToRadians(poseArray[5])));
     }
 
     public static Pose3d getBotPose3d_wpiRed(String limelightName) {
         double[] poseArray = getLimelightNTDoubleArray(limelightName, "botpose_wpired");
-        return toPose3D(poseArray);
+        return new Pose3d(
+                new Translation3d(poseArray[0], poseArray[1], poseArray[2]),
+                new Rotation3d(Units.degreesToRadians(poseArray[3]), Units.degreesToRadians(poseArray[4]),
+                        Units.degreesToRadians(poseArray[5])));
     }
 
     public static Pose3d getBotPose3d_wpiBlue(String limelightName) {
         double[] poseArray = getLimelightNTDoubleArray(limelightName, "botpose_wpiblue");
-        return toPose3D(poseArray);
+        return new Pose3d(
+                new Translation3d(poseArray[0], poseArray[1], poseArray[2]),
+                new Rotation3d(Units.degreesToRadians(poseArray[3]), Units.degreesToRadians(poseArray[4]),
+                        Units.degreesToRadians(poseArray[5])));
     }
 
     public static Pose3d getBotPose3d_TargetSpace(String limelightName) {
         double[] poseArray = getLimelightNTDoubleArray(limelightName, "botpose_targetspace");
-        return toPose3D(poseArray);
+        return new Pose3d(
+                new Translation3d(poseArray[0], poseArray[1], poseArray[2]),
+                new Rotation3d(Units.degreesToRadians(poseArray[3]), Units.degreesToRadians(poseArray[4]),
+                        Units.degreesToRadians(poseArray[5])));
     }
 
     public static Pose3d getCameraPose3d_TargetSpace(String limelightName) {
         double[] poseArray = getLimelightNTDoubleArray(limelightName, "camerapose_targetspace");
-        return toPose3D(poseArray);
+        return new Pose3d(
+                new Translation3d(poseArray[0], poseArray[1], poseArray[2]),
+                new Rotation3d(Units.degreesToRadians(poseArray[3]), Units.degreesToRadians(poseArray[4]),
+                        Units.degreesToRadians(poseArray[5])));
     }
 
     public static Pose3d getTargetPose3d_CameraSpace(String limelightName) {
         double[] poseArray = getLimelightNTDoubleArray(limelightName, "targetpose_cameraspace");
-        return toPose3D(poseArray);
+        return new Pose3d(
+                new Translation3d(poseArray[0], poseArray[1], poseArray[2]),
+                new Rotation3d(Units.degreesToRadians(poseArray[3]), Units.degreesToRadians(poseArray[4]),
+                        Units.degreesToRadians(poseArray[5])));
     }
 
     public static Pose3d getTargetPose3d_RobotSpace(String limelightName) {
         double[] poseArray = getLimelightNTDoubleArray(limelightName, "targetpose_robotspace");
-        return toPose3D(poseArray);
+        return new Pose3d(
+                new Translation3d(poseArray[0], poseArray[1], poseArray[2]),
+                new Rotation3d(Units.degreesToRadians(poseArray[3]), Units.degreesToRadians(poseArray[4]),
+                        Units.degreesToRadians(poseArray[5])));
     }
 
     /**
@@ -592,7 +607,11 @@ public class LimelightHelpers {
     public static Pose2d getBotPose2d_wpiBlue(String limelightName) {
 
         double[] result = getBotPose_wpiBlue(limelightName);
-        return toPose2D(result);
+        Translation2d tran2d = new Translation2d(result[0], result[1]);
+        Rotation2d r2d = new Rotation2d(Units.degreesToRadians(result[5]));
+
+        return new Pose2d(tran2d, r2d);
+
     }
 
     /**
@@ -605,7 +624,10 @@ public class LimelightHelpers {
     public static Pose2d getBotPose2d_wpiRed(String limelightName) {
 
         double[] result = getBotPose_wpiRed(limelightName);
-        return toPose2D(result);
+        Translation2d tran2d = new Translation2d(result[0], result[1]);
+        Rotation2d r2d = new Rotation2d(Units.degreesToRadians(result[5]));
+
+        return new Pose2d(tran2d, r2d);
 
     }
 
@@ -619,7 +641,10 @@ public class LimelightHelpers {
     public static Pose2d getBotPose2d(String limelightName) {
 
         double[] result = getBotPose(limelightName);
-        return toPose2D(result);
+        Translation2d tran2d = new Translation2d(result[0], result[1]);
+        Rotation2d r2d = new Rotation2d(Units.degreesToRadians(result[5]));
+
+        return new Pose2d(tran2d, r2d);
 
     }
 

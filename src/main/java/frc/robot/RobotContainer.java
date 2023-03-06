@@ -7,9 +7,9 @@ package frc.robot;
 import java.util.Map;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -18,15 +18,18 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.Button;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.DefaultDriveCommand;
+import frc.robot.commands.Arm.LowerArmSetPoint;
+import frc.robot.commands.Drive.DriveUpChargeStation;
 import frc.robot.commands.Drive.SnapDrive;
+import frc.robot.commands.Drive.SnapDriveGamePiece;
+import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
 import frc.robot.sim.PhysicsSim;
@@ -34,9 +37,13 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 
 import frc.robot.subsystems.GridSelector;
 
+import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.Positioning;
 
 import frc.robot.subsystems.Tracking;
+import frc.robot.subsystems.Arm.Arm;
+import frc.robot.subsystems.Arm.LowerArm;
+import frc.robot.subsystems.Arm.UpperArm;
 
 public class RobotContainer {
 
@@ -52,23 +59,42 @@ public class RobotContainer {
 
         private ShuffleboardTab m_shuffleboardTab = Shuffleboard.getTab("Match.Auto");
         static public final ShuffleboardTab m_TuningTab = Shuffleboard.getTab("Match.Tuning");
+        static public final ShuffleboardTab m_armTab = Shuffleboard.getTab("Arm");
+        static public final ShuffleboardTab m_buttonBoxTab = Shuffleboard.getTab("Button.Box");
 
         static public final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
 
         static public final GridSelector m_GridSelector = new GridSelector();
 
         static public final Positioning m_positioning = new Positioning();
-
+        static public final Arm m_arm = new Arm();
+        static public final UpperArm m_upperArm = new UpperArm();
+        static public final LowerArm m_lowerArm = new LowerArm();
+        static public final Grabber m_grabber = new Grabber();
 
         static public final Tracking m_Tracking = new Tracking();
         private static double slewLimit = 0.6;
 
         private final XboxController m_controllerDriver = new XboxController(0);
+        private Joystick m_gridSelector2 = new Joystick(2);
+        private Joystick m_gridSelector = new Joystick(1);
         // private final XboxController m_controllerOperator = new XboxController(1);
+        Trigger xButton = new JoystickButton(m_controllerDriver, XboxController.Button.kX.value);
         Trigger leftBumper = new JoystickButton(m_controllerDriver, XboxController.Button.kLeftBumper.value);
         Trigger rightBumper = new JoystickButton(m_controllerDriver, XboxController.Button.kRightBumper.value);
         Trigger backButton = new JoystickButton(m_controllerDriver, XboxController.Button.kBack.value);
         Trigger startButton = new JoystickButton(m_controllerDriver, XboxController.Button.kStart.value);
+        Trigger aButton = new JoystickButton(m_controllerDriver, XboxController.Button.kA.value);
+        Trigger bButton = new JoystickButton(m_controllerDriver, XboxController.Button.kB.value);
+        Trigger yButton = new JoystickButton(m_controllerDriver, XboxController.Button.kY.value);
+        Trigger btnCloseJaws = new JoystickButton(m_gridSelector2, 7);
+        Trigger btnOpenJaws = new JoystickButton(m_gridSelector, 11);
+        Trigger btnResetVision = new JoystickButton(m_gridSelector, 12);
+        Trigger btnHuman = new JoystickButton(m_gridSelector2, 1);
+        Trigger btn3rdFloor = new JoystickButton(m_gridSelector2, 10);
+        Trigger btn2ndFloor = new JoystickButton(m_gridSelector2, 11);
+        Trigger btn1stFloor = new JoystickButton(m_gridSelector2, 12);
+
         public PhysicsSim m_PhysicsSim;
 
         public RobotContainer() {
@@ -90,6 +116,7 @@ public class RobotContainer {
                 // overhead
                 // remove this line if stuff is missing from shuffleboard that we need.
                 // LiveWindow.disableAllTelemetry();
+                // LiveWindow.enableAllTelemetry();
         }
 
         private SlewRateLimiter m_slewLeftY = new SlewRateLimiter(1.5);
@@ -131,7 +158,7 @@ public class RobotContainer {
         }
 
         private double snapAngle() {
-                double x = m_controllerDriver.getRightX();
+                double x = -m_controllerDriver.getRightX();
                 double y = -m_controllerDriver.getRightY();
 
                 if (Math.abs(x) < 0.1 && Math.abs(y) < 0.1) {
@@ -143,7 +170,7 @@ public class RobotContainer {
                 double angle = Math.toDegrees(Math.atan2(x, y));
 
                 if ((angle > 360) || (angle < -360)) {
-                        return 360;
+                        angle = 360;
                 }
 
                 m_lastSnapAngle = angle;
@@ -163,7 +190,20 @@ public class RobotContainer {
 
                 backButton.whileTrue(new RunCommand(() -> m_drivetrainSubsystem.zeroGyroscope()));
 
-                startButton.whileTrue(new RunCommand(() -> m_positioning.resetVision()));
+                startButton.onTrue(Commands.runOnce(() -> {
+                        m_positioning.resetVision();
+                        m_drivetrainSubsystem.resetSteerEncoders();
+                }));
+
+                btnOpenJaws.whileTrue(new RunCommand(() -> m_grabber.openJaws()));
+
+                btnCloseJaws.whileTrue(new RunCommand(() -> m_grabber.closeJaws()));
+
+                aButton.whileTrue(new RunCommand(() -> m_grabber.openJaws()));
+
+                bButton.whileTrue(new RunCommand(() -> m_grabber.closeJaws()));
+
+                yButton.onTrue(Commands.runOnce(() -> m_arm.goNextNode()));
 
                 // cmd = new DefaultDriveCommand(
                 // m_drivetrainSubsystem,
@@ -230,7 +270,7 @@ public class RobotContainer {
                                 m_drivetrainSubsystem,
                                 () -> -getInputLeftY(),
                                 () -> -getInputLeftX(),
-                                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() - 10);
+                                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() + 10);
 
                 leftBumper.whileTrue(cmd);
 
@@ -239,7 +279,7 @@ public class RobotContainer {
                                 m_drivetrainSubsystem,
                                 () -> -getInputLeftY(),
                                 () -> -getInputLeftX(),
-                                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() + 10);
+                                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() - 10);
 
                 rightBumper.whileTrue(cmd);
 
@@ -266,6 +306,17 @@ public class RobotContainer {
                 // new POVButton(m_controllerOperator, 270)
                 // .whenHeld(cmd);
 
+                // map button for tracking cargo
+                // create tracking cargo drive command
+                cmd = new ParallelCommandGroup(
+                                new SnapDriveGamePiece(m_drivetrainSubsystem,
+                                                () -> -getInputLeftY(),
+                                                () -> -getInputLeftX(),
+                                                () -> m_Tracking.getTargetHeading()),
+                                new EnableLight());
+
+                cmd.setName("SnapDriveToGamePiece");
+                xButton.whileTrue(cmd);
         }
 
         /**
@@ -313,11 +364,6 @@ public class RobotContainer {
 
                 CommandBase cmd;
 
-                cmd = new frc.robot.commands.Drive.SnapDriveToCargo(
-                                RobotContainer.m_drivetrainSubsystem,
-                                new Rotation2d(0));
-                commands.add(cmd);
-
                 // Add auto routines
                 CommandBase autoCmd = null;
                 autoCmd = new InstantCommand();
@@ -334,9 +380,21 @@ public class RobotContainer {
                 m_autoChooser.addOption(autoCmd.getName(), autoCmd);
                 commands.add(autoCmd);
 
+                autoCmd = new DriveUpChargeStation();
+                m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+                commands.add(autoCmd);
+
+                autoCmd = new LowerArmSetPoint(5.6, 0.0001);
+                autoCmd.setName("LowerArmSetPoint");
+                m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+                commands.add(autoCmd);
+
                 tab.add("Autonomous", m_autoChooser).withSize(2, 1);
 
                 this.m_Tracking.createShuffleBoardTab();
+                this.m_lowerArm.createShuffleBoardTab();
+                this.m_upperArm.createShuffleBoardTab();
+                this.m_arm.createShuffleBoardTab();
 
                 DataLogManager.start();
                 DataLogManager.log("Log Started.");

@@ -2,20 +2,82 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/GridSelector": "Subsystem",
+      "/LiveWindow/LowerArm/Lower Arm": "Subsystem",
+      "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
+      "/LiveWindow/Ungrouped/PIDController[2]": "PIDController",
+      "/LiveWindow/Ungrouped/PIDController[3]": "PIDController",
+      "/LiveWindow/Ungrouped/Pigeon 2 [19]": "Gyro",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Talon FX [12]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [13]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [14]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [15]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [16]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [1]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [2]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [3]": "Motor Controller",
+      "/Shuffleboard/Arm/L Arm Test": "Command",
+      "/Shuffleboard/Arm/L Arm Test Mode": "Command",
+      "/Shuffleboard/Arm/Lower Arm": "Subsystem",
+      "/Shuffleboard/Arm/U Arm Test": "Command",
+      "/Shuffleboard/Button.Box/Commands/Carry(-120.0 , 110.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/End(0.0 , 0.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/End(0.0 , 10.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/Midpoint(-45.0 , 45.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/Next Node": "Command",
+      "/Shuffleboard/Button.Box/Commands/Pick up(-80.0 , 53.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/Pick up(-90.0 , 80.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/Start(-100.0 , 100.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/hold high(0.0 , 45.0)": "Command",
+      "/Shuffleboard/Button.Box/Commands/safe forward(-45.0 , 120.0)": "Command",
+      "/Shuffleboard/Button.Box/Graph/A": "Command",
+      "/Shuffleboard/Button.Box/Graph/B": "Command",
+      "/Shuffleboard/Button.Box/Panel/1st Floor": "Command",
+      "/Shuffleboard/Button.Box/Panel/2nd Floor": "Command",
+      "/Shuffleboard/Button.Box/Panel/3rd Floor": "Command",
+      "/Shuffleboard/Button.Box/Panel/A": "Command",
+      "/Shuffleboard/Button.Box/Panel/B": "Command",
+      "/Shuffleboard/Button.Box/Panel/C": "Command",
+      "/Shuffleboard/Button.Box/Panel/Carry": "Command",
+      "/Shuffleboard/Button.Box/Panel/Close": "Command",
+      "/Shuffleboard/Button.Box/Panel/Forward High": "Command",
+      "/Shuffleboard/Button.Box/Panel/Forward High Arm": "Command",
+      "/Shuffleboard/Button.Box/Panel/Forward Low": "Command",
+      "/Shuffleboard/Button.Box/Panel/Forward Store": "Command",
+      "/Shuffleboard/Button.Box/Panel/Forward Store Arm": "Command",
+      "/Shuffleboard/Button.Box/Panel/High Back CODE": "Command",
+      "/Shuffleboard/Button.Box/Panel/High Back NO": "Command",
+      "/Shuffleboard/Button.Box/Panel/High Back No": "Command",
+      "/Shuffleboard/Button.Box/Panel/Hold High": "Command",
+      "/Shuffleboard/Button.Box/Panel/Human": "Command",
+      "/Shuffleboard/Button.Box/Panel/Human NO": "Command",
+      "/Shuffleboard/Button.Box/Panel/Left Switch": "Command",
+      "/Shuffleboard/Button.Box/Panel/Mid Switch": "Command",
+      "/Shuffleboard/Button.Box/Panel/Open": "Command",
+      "/Shuffleboard/Button.Box/Panel/Right Switch": "Command",
+      "/Shuffleboard/Button.Box/Panel/Store back": "Command",
+      "/Shuffleboard/Button.Box/Panel/Trunk": "Command",
+      "/Shuffleboard/Button.Box/Panel/Vision Reset": "Command",
       "/Shuffleboard/Field/Field": "Field2d",
       "/Shuffleboard/Match.Auto/Autonomous": "String Chooser",
       "/Shuffleboard/Match.Auto/Commands/AutoMoceBackToPose": "Command",
       "/Shuffleboard/Match.Auto/Commands/AutoMoveConeLeft": "Command",
+      "/Shuffleboard/Match.Auto/Commands/DriveUpChargeStation": "Command",
+      "/Shuffleboard/Match.Auto/Commands/LowerArmSetPoint": "Command",
       "/Shuffleboard/Match.Auto/Commands/SnapDriveToCargo": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Blue Cargo": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Cone": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Cube": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Driver Mode Off": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Enable Light": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Red Cargo": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Test Mode": "Command",
-      "/Shuffleboard/Sub.Tracking/Commands/Update PIDF": "Command"
+      "/Shuffleboard/Sub.Tracking/Commands/Update PIDF": "Command",
+      "/Shuffleboard/Sub.Tracking/Commands/Update PIDF T": "Command"
     },
     "windows": {
       "/Shuffleboard/Field/Field": {
-        "image": "/Users/hollisms/Data/FRC/2023/2023-ChargedUp/2023-field.png",
         "window": {
           "visible": true
         }
@@ -35,6 +97,12 @@
         }
       },
       "Shuffleboard": {
+        "Button.Box": {
+          "Commands": {
+            "open": true
+          },
+          "open": true
+        },
         "Field": {
           "Field": {
             "open": true
@@ -42,9 +110,12 @@
         },
         "Match.Auto": {
           "Commands": {
-            "open": true
+            "LowerArmSetPoint": {
+              "open": true
+            }
           }
-        }
+        },
+        "open": true
       },
       "SmartDashboard": {
         "open": true

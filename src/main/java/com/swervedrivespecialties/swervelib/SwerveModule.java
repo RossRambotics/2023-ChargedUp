@@ -3,11 +3,12 @@ package com.swervedrivespecialties.swervelib;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 public interface SwerveModule {
-    Object getDriveMotor();
+    MotorController getDriveMotor();
 
-    Object getSteerMotor();
+    MotorController getSteerMotor();
 
     AbsoluteEncoder getSteerEncoder();
 
@@ -39,6 +40,11 @@ public interface SwerveModule {
     default SwerveModulePosition getPosition() {
         return new SwerveModulePosition(getDriveDistance(), Rotation2d.fromRadians(getSteerAngle()));
     }
+
+    /**
+     * Reset motor or encoder position to the absolute position. May take a little bit.
+     */
+    void resetToAbsolute();
 
     void set(double driveVoltage, double steerAngle);
 }
