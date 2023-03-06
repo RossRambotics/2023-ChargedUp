@@ -77,7 +77,7 @@ public class RobotContainer {
         private static double slewLimit = 0.6;
 
         // LED subsystem
-        static public final LEDPanel m_Led_Panel = new LEDPanel();
+        static public final LEDPanel m_LEDPanel = new LEDPanel();
 
         private final XboxController m_controllerDriver = new XboxController(0);
         private Joystick m_gridSelector2 = new Joystick(2);
