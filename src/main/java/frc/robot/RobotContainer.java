@@ -44,6 +44,7 @@ import frc.robot.subsystems.Tracking;
 import frc.robot.subsystems.Arm.Arm;
 import frc.robot.subsystems.Arm.LowerArm;
 import frc.robot.subsystems.Arm.UpperArm;
+import frc.robot.subsystems.LEDs.LEDPanel;
 
 public class RobotContainer {
 
@@ -74,6 +75,9 @@ public class RobotContainer {
 
         static public final Tracking m_Tracking = new Tracking();
         private static double slewLimit = 0.6;
+
+        // LED subsystem
+        static public final LEDPanel m_Led_Panel = new LEDPanel();
 
         private final XboxController m_controllerDriver = new XboxController(0);
         private Joystick m_gridSelector2 = new Joystick(2);
