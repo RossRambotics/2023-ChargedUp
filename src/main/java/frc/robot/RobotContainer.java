@@ -190,7 +190,10 @@ public class RobotContainer {
 
                 backButton.whileTrue(new RunCommand(() -> m_drivetrainSubsystem.zeroGyroscope()));
 
-                startButton.whileTrue(new RunCommand(() -> m_positioning.resetVision()));
+                startButton.onTrue(Commands.runOnce(() -> {
+                        m_positioning.resetVision();
+                        m_drivetrainSubsystem.resetSteerEncoders();
+                }));
 
                 btnOpenJaws.whileTrue(new RunCommand(() -> m_grabber.openJaws()));
 

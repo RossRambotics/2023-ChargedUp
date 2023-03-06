@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -71,11 +72,16 @@ public class Robot extends TimedRobot {
     /** This function is called once each time the robot enters Disabled mode. */
     @Override
     public void disabledInit() {
+        m_encoderTimer.start();
     }
+
+    private Timer m_encoderTimer = new Timer();
 
     @Override
     public void disabledPeriodic() {
-        RobotContainer.m_drivetrainSubsystem.calibrateSDSModules();
+        if (m_encoderTimer.advanceIfElapsed(5.0)) {
+            RobotContainer.m_drivetrainSubsystem.resetSteerEncoders();
+        }
     }
 
     /**

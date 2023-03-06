@@ -144,18 +144,22 @@ public class DrivetrainSubsystem extends SubsystemBase {
                         DataLogManager.log("%%%%%%%%%%%%%GraveStone Drive%%%%%%%%%%%%%%%%");
                 } else {
                         this.createMidasDrivetrain();
-                        DataLogManager.log("%%%%%%%%%%%%%%Midas Dreive%%%%%%%%%%%%%");
+                        DataLogManager.log("%%%%%%%%%%%%%%Midas Drive%%%%%%%%%%%%%");
                 }
 
                 Timer.delay(1.0);
-                m_frontLeftModule.resetToAbsolute();
-                m_frontRightModule.resetToAbsolute();
-                m_backLeftModule.resetToAbsolute();
-                m_backRightModule.resetToAbsolute();
+                this.resetSteerEncoders();
                 m_simTimer.start();
 
                 m_odometry = new SwerveDrivePoseEstimator(m_kinematics, getGyroscopeRotation(),
                                 m_swerveModulePositions, new Pose2d(0, 0, new Rotation2d(Math.toRadians(0))));
+        }
+
+        public void resetSteerEncoders() {
+                m_frontLeftModule.resetToAbsolute();
+                m_frontRightModule.resetToAbsolute();
+                m_backLeftModule.resetToAbsolute();
+                m_backRightModule.resetToAbsolute();
         }
 
         private void createGraveStoneDrivetrain() {
