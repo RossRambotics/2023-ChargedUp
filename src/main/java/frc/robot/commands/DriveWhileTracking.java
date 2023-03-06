@@ -55,7 +55,7 @@ public class DriveWhileTracking extends CommandBase {
             // since we are tracking a target use the targets Yaw to spin the robot towards
             // the target
             // gets the offset in degrees
-            double p = RobotContainer.m_Tracking.getHeadingOffset();
+            double p = RobotContainer.m_Tracking.getTargetHeading();
 
             // convert p from degrees to motor power
             double rotationSpeed = -m_PIDTracking.calculate(p, 0);

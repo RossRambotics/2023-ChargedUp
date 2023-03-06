@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class SnapDrive extends CommandBase {
+public class SnapDriveGamePiece extends CommandBase {
     private final DrivetrainSubsystem m_drivetrainSubsystem;
     private final DoubleSupplier m_translationXSupplier;
     private final DoubleSupplier m_translationYSupplier;
@@ -26,7 +26,7 @@ public class SnapDrive extends CommandBase {
     private Timer m_timer = new Timer();
 
     /** Creates a new DriveWhileTracking. */
-    public SnapDrive(DrivetrainSubsystem drivetrainSubsystem,
+    public SnapDriveGamePiece(DrivetrainSubsystem drivetrainSubsystem,
             DoubleSupplier translationXSupplier,
             DoubleSupplier translationYSupplier,
             double goalDegrees) {
@@ -40,7 +40,7 @@ public class SnapDrive extends CommandBase {
         addRequirements(drivetrainSubsystem);
     }
 
-    public SnapDrive(DrivetrainSubsystem drivetrainSubsystem,
+    public SnapDriveGamePiece(DrivetrainSubsystem drivetrainSubsystem,
             DoubleSupplier translationXSupplier,
             DoubleSupplier translationYSupplier,
             DoubleSupplier goalSupplier) {
@@ -110,13 +110,28 @@ public class SnapDrive extends CommandBase {
                     + " Rot: " + m_goalDegrees);
         }
 
-        m_drivetrainSubsystem.drive(
-                ChassisSpeeds.fromFieldRelativeSpeeds(
-                        m_translationXSupplier.getAsDouble(),
-                        m_translationYSupplier.getAsDouble(),
-                        rotationSpeed,
-                        m_drivetrainSubsystem.getGyroscopeRotation()),
-                rotationSpeed);
+        if (m_translationXSupplier.getAsDouble() == 0 && m_translationYSupplier.getAsDouble() == 0) {
+            if (Math.abs(RobotContainer.m_Tracking.getYawOffset()) > 5.0) {
+                System.out.println("***************** STAGE 1 *****************");
+                m_drivetrainSubsystem.drive(
+                        new ChassisSpeeds(-0.4, 0.0, rotationSpeed),
+                        rotationSpeed);
+            } else {
+                System.out.println("***************** STAGE 2 *****************");
+                m_drivetrainSubsystem.drive(new ChassisSpeeds(-0.6, 0.0, rotationSpeed),
+                        rotationSpeed);
+            }
+        } else {
+            double kP_Joy = 0.35;
+            double kP_Rot = 1.50;
+            m_drivetrainSubsystem.drive(
+                    ChassisSpeeds.fromFieldRelativeSpeeds(
+                            m_translationXSupplier.getAsDouble() * kP_Joy,
+                            m_translationYSupplier.getAsDouble() * kP_Joy,
+                            rotationSpeed * kP_Rot,
+                            m_drivetrainSubsystem.getGyroscopeRotation()),
+                    rotationSpeed * kP_Joy);
+        }
     }
 
     // Called once the command ends or is interrupted.

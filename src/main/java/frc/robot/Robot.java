@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -36,9 +37,13 @@ public class Robot extends TimedRobot {
         // autonomous chooser on the dashboard.
         m_robotContainer = new RobotContainer();
         RobotContainer.setTheRobot(m_robotContainer);
+        RobotContainer.m_arm.initialize();
+        RobotContainer.m_GridSelector.initialize();
         m_robotContainer.createShuffleBoardTab();
 
         RobotContainer.m_Tracking.disableSearchLight();
+
+        RobotContainer.m_grabber.startCompresser();
     }
 
     /**
@@ -67,10 +72,16 @@ public class Robot extends TimedRobot {
     /** This function is called once each time the robot enters Disabled mode. */
     @Override
     public void disabledInit() {
+        m_encoderTimer.start();
     }
+
+    private Timer m_encoderTimer = new Timer();
 
     @Override
     public void disabledPeriodic() {
+        if (m_encoderTimer.advanceIfElapsed(5.0)) {
+            RobotContainer.m_drivetrainSubsystem.resetSteerEncoders();
+        }
     }
 
     /**
@@ -82,13 +93,13 @@ public class Robot extends TimedRobot {
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
         if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-            RobotContainer.m_Tracking.blueAlliance();
+            RobotContainer.m_Tracking.GamePieceCube();
         } else if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-            RobotContainer.m_Tracking.redAlliance();
+            RobotContainer.m_Tracking.GamePieceCone();
         } else {
             DataLogManager.log("ALERT!  No alliance from drive station!");
             // RobotContainer.m_Tracking.redAlliance();
-            RobotContainer.m_Tracking.blueAlliance();
+            RobotContainer.m_Tracking.GamePieceCube();
 
         }
 

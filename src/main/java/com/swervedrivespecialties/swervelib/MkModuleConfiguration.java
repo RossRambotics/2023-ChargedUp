@@ -3,15 +3,12 @@ package com.swervedrivespecialties.swervelib;
 import java.util.Objects;
 
 /**
- * Additional Mk4 module configuration parameters.
+ * Additional swerve module configuration parameters.
  * <p>
- * The configuration parameters here are used to customize the behavior of the Mk4 swerve module.
+ * The configuration parameters here are used to customize the behavior of the swerve module.
  * Each setting is initialized to a default that should be adequate for most use cases.
- * 
- * @deprecated use {@link MkModuleConfiguration} instead
  */
-@Deprecated(since = "2023.1.2.0", forRemoval = true)
-public class Mk4ModuleConfiguration {
+public class MkModuleConfiguration {
     private double nominalVoltage = 12.0;
     private double driveCurrentLimit = 80.0;
     private double steerCurrentLimit = 20.0;
@@ -88,7 +85,7 @@ public class Mk4ModuleConfiguration {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Mk4ModuleConfiguration that = (Mk4ModuleConfiguration) o;
+        MkModuleConfiguration that = (MkModuleConfiguration) o;
         return     Double.compare(that.getNominalVoltage(), getNominalVoltage()) == 0
                 && Double.compare(that.getDriveCurrentLimit(), getDriveCurrentLimit()) == 0
                 && Double.compare(that.getSteerCurrentLimit(), getSteerCurrentLimit()) == 0
@@ -117,7 +114,7 @@ public class Mk4ModuleConfiguration {
 
     @Override
     public String toString() {
-        return "Mk4ModuleConfiguration{" +
+        return "MkModuleConfiguration{" +
                 "nominalVoltage=" + getNominalVoltage() +
                 ", driveCurrentLimit=" + getDriveCurrentLimit() +
                 ", steerCurrentLimit=" + getSteerCurrentLimit() +
@@ -130,14 +127,14 @@ public class Mk4ModuleConfiguration {
                 '}';
     }
 
-    public static Mk4ModuleConfiguration getDefaultSteerFalcon500() {
-        Mk4ModuleConfiguration config = new Mk4ModuleConfiguration();
+    public static MkModuleConfiguration getDefaultSteerFalcon500() {
+        MkModuleConfiguration config = new MkModuleConfiguration();
         config.setSteerPID(0.2, 0.0, 0.1);
         return config;
     }
 
-    public static Mk4ModuleConfiguration getDefaultSteerNEO() {
-        Mk4ModuleConfiguration config = new Mk4ModuleConfiguration();
+    public static MkModuleConfiguration getDefaultSteerNEO() {
+        MkModuleConfiguration config = new MkModuleConfiguration();
         config.setSteerPID(1.0, 0.0, 0.1);
         return config;
     }

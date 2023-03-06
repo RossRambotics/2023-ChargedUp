@@ -1,16 +1,17 @@
 package com.swervedrivespecialties.swervelib;
 
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 
 public class SwerveModuleFactory<DC, SC> {
-    private final ModuleConfiguration moduleConfiguration;
+    private final MechanicalConfiguration mechConfiguration;
     private final DriveControllerFactory<?, DC> driveControllerFactory;
     private final SteerControllerFactory<?, SC> steerControllerFactory;
 
-    public SwerveModuleFactory(ModuleConfiguration moduleConfiguration,
+    public SwerveModuleFactory(MechanicalConfiguration mechConfiguration,
                                DriveControllerFactory<?, DC> driveControllerFactory,
                                SteerControllerFactory<?, SC> steerControllerFactory) {
-        this.moduleConfiguration = moduleConfiguration;
+        this.mechConfiguration = mechConfiguration;
         this.driveControllerFactory = driveControllerFactory;
         this.steerControllerFactory = steerControllerFactory;
     }
@@ -19,12 +20,12 @@ public class SwerveModuleFactory<DC, SC> {
         var driveController = driveControllerFactory.create(
                 driveConfiguration, 
                 driveCanbus,
-                moduleConfiguration
+                mechConfiguration
         );
         var steerController = steerControllerFactory.create(
                 steerConfiguration, 
                 steerCanbus,
-                moduleConfiguration
+                mechConfiguration
         );
 
         return new ModuleImplementation(driveController, steerController);
@@ -33,11 +34,11 @@ public class SwerveModuleFactory<DC, SC> {
     public SwerveModule create(DC driveConfiguration, SC steerConfiguration) {
         var driveController = driveControllerFactory.create(
                 driveConfiguration, 
-                moduleConfiguration
+                mechConfiguration
         );
         var steerController = steerControllerFactory.create(
                 steerConfiguration, 
-                moduleConfiguration
+                mechConfiguration
         );
 
         return new ModuleImplementation(driveController, steerController);
@@ -48,13 +49,13 @@ public class SwerveModuleFactory<DC, SC> {
                 container,
                 driveConfiguration,
                 driveCanbus,
-                moduleConfiguration
+                mechConfiguration
         );
         var steerContainer = steerControllerFactory.create(
                 container,
                 steerConfiguration,
                 steerCanbus,
-                moduleConfiguration
+                mechConfiguration
         );
 
         return new ModuleImplementation(driveController, steerContainer);
@@ -64,12 +65,12 @@ public class SwerveModuleFactory<DC, SC> {
         var driveController = driveControllerFactory.create(
                 container,
                 driveConfiguration,
-                moduleConfiguration
+                mechConfiguration
         );
         var steerContainer = steerControllerFactory.create(
                 container,
                 steerConfiguration,
-                moduleConfiguration
+                mechConfiguration
         );
 
         return new ModuleImplementation(driveController, steerContainer);
@@ -85,12 +86,12 @@ public class SwerveModuleFactory<DC, SC> {
         }
 
         @Override
-        public Object getDriveMotor() {
+        public MotorController getDriveMotor() {
             return driveController.getDriveMotor();
         }
 
         @Override
-        public Object getSteerMotor() {
+        public MotorController getSteerMotor() {
             return steerController.getSteerMotor();
         }
 
@@ -112,6 +113,11 @@ public class SwerveModuleFactory<DC, SC> {
         @Override
         public double getSteerAngle() {
             return steerController.getStateAngle();
+        }
+
+        @Override
+        public void resetToAbsolute() {
+            steerController.resetToAbsolute();
         }
 
         @Override
