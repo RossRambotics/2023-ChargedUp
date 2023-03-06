@@ -9,7 +9,6 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -31,12 +30,11 @@ import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenix.sensors.SensorTimeBase;
 import com.ctre.phoenix.sensors.WPI_CANCoder;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /** A robot arm subsystem that moves with a motion profile. */
 public class UpperArm extends ProfiledPIDSubsystem {
+  private TrapezoidProfile.State m_lastSetPoint = new TrapezoidProfile.State(0, 0);
   private GenericEntry m_nt_angle_goal;
   private GenericEntry m_nt_angle_goal_test;
   private GenericEntry m_nt_angle_actual;
@@ -105,7 +103,19 @@ public class UpperArm extends ProfiledPIDSubsystem {
   }
 
   @Override
+  public void enable() {
+    // do super enable
+    super.enable();
+
+    // now do redo reset with the last set point
+    super.getController().reset(m_lastSetPoint);
+  }
+
+  @Override
   public void useOutput(double output, TrapezoidProfile.State setpoint) {
+    // save last setpoint to blend set points together
+    m_lastSetPoint = setpoint;
+
     // Calculate the feedforward from the sepoint
     double feedforward = m_feedforward.calculate(setpoint.position, setpoint.velocity);
     // feedforward = 0;

@@ -8,6 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
@@ -103,6 +104,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
   private Timer m_testTimer = new Timer();
   private double m_testStartRad = 0.0;
   private double m_testVolts = 0.0;
+  private State m_lastSetPoint = new State(0, 0);
 
   public void kVTestStart(double volts) {
     this.disable();
@@ -131,7 +133,19 @@ public class LowerArm extends ProfiledPIDSubsystem {
   }
 
   @Override
+  public void enable() {
+    // do super enable
+    super.enable();
+
+    // now do redo reset with the last set point
+    super.getController().reset(m_lastSetPoint);
+  }
+
+  @Override
   public void useOutput(double output, TrapezoidProfile.State setpoint) {
+    // save last setpoint to blend set points together
+    m_lastSetPoint = setpoint;
+
     // Calculate the feedforward from the sepoint
     // need to use lowerarm setpoint along with lower arm set point
     double s = setpoint.position + RobotContainer.m_upperArm.getMeasurement();
