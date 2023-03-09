@@ -89,4 +89,6 @@ public final class Constants {
 
     public static final String CANBUS_DRIVETRAIN_GRAVESTONE = "";
     public static final String CANBUS_DRIVETRAIN_MIDAS = "usb";
+
+    public static final int GRABBER_SENSOR = 1;
 }
