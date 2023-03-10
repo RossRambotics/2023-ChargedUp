@@ -4,14 +4,20 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.AnalogInput;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Grabber extends SubsystemBase {
+  public edu.wpi.first.wpilibj.AnalogInput m_Sensor_Grabber = new edu.wpi.first.wpilibj.AnalogInput(
+      Constants.GRABBER_SENSOR);
   Compressor m_compressor = new Compressor(frc.robot.Constants.PNEUMATIC_HUB, PneumaticsModuleType.REVPH);
   DoubleSolenoid m_grabDoubleSolenoid = new DoubleSolenoid(frc.robot.Constants.PNEUMATIC_HUB,
       PneumaticsModuleType.REVPH, 0, 1);
@@ -35,6 +41,19 @@ public class Grabber extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Grabber Sensor", this.m_Sensor_Grabber.getValue());
     // This method will be called once per scheduler run
+  }
+
+  public boolean getSensorGrabber() {
+    if (m_Sensor_Grabber.getValue() < 10) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public void createShuffleBoardTab() {
+
   }
 }
