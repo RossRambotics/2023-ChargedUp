@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -40,6 +41,7 @@ public class Grabber extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Grabber Sensor", this.m_Sensor_Grabber.getValue());
     // This method will be called once per scheduler run
   }
 

@@ -67,6 +67,10 @@ public class GridSelector extends SubsystemBase {
         cmd = Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.YY);
         btnPortal.onTrue(cmd);
 
+        Trigger btnFirstFloor = new JoystickButton(m_gridSelector2, 12);
+        cmd = Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.L);
+        btnFirstFloor.onTrue(cmd);
+
     }
 
     @Override
