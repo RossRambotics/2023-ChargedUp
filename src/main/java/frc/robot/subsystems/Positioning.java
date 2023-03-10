@@ -25,6 +25,7 @@ public class Positioning extends SubsystemBase {
   public Positioning() {
 
     m_timer.start();
+    LimelightHelpers.setStreamMode_PiPSecondary("");
   }
 
   public void resetVision() {
@@ -33,6 +34,7 @@ public class Positioning extends SubsystemBase {
     }
 
     Pose2d botPose = LimelightHelpers.getBotPose2d_wpiBlue("");
+
     // Pose2d botPose = new Pose2d(14.0, 2.0, new Rotation2d());
 
     DataLogManager.log("Updating pose in odometry from Vision. botPose: " + botPose);
