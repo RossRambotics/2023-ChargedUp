@@ -84,7 +84,7 @@ public final class Constants {
     public static final int CLIMB_WINCH = 50; // CAN ID for Climb Winch
     public static final int PDH = 51; // CAN ID for PDP
 
-    public static final int CANdle = 60; // CAN ID for CANdle
+    public static final int CANdle = 59; // CAN ID for CANdle
     public static final int PNEUMATIC_HUB = 52; // CAN ID for Pheumatic Hub
 
     public static final String CANBUS_DRIVETRAIN_GRAVESTONE = "";
