@@ -32,6 +32,7 @@ import frc.robot.commands.Drive.SnapDriveGamePiece;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
+import frc.robot.commands.auto.AutoRedNine;
 import frc.robot.sim.PhysicsSim;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
@@ -203,9 +204,9 @@ public class RobotContainer {
 
                 btnCloseJaws.whileTrue(new RunCommand(() -> m_grabber.closeJaws()));
 
-                aButton.whileTrue(new RunCommand(() -> m_grabber.openJaws()));
+                aButton.onTrue(Commands.runOnce(() -> m_grabber.openJaws()));
 
-                bButton.whileTrue(new RunCommand(() -> m_grabber.closeJaws()));
+                bButton.onTrue(Commands.runOnce(() -> m_grabber.closeJaws()));
 
                 yButton.onTrue(Commands.runOnce(() -> m_arm.goNextNode()));
 
@@ -385,6 +386,10 @@ public class RobotContainer {
                 commands.add(autoCmd);
 
                 autoCmd = new DriveUpChargeStation();
+                m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+                commands.add(autoCmd);
+
+                autoCmd = new AutoRedNine();
                 m_autoChooser.addOption(autoCmd.getName(), autoCmd);
                 commands.add(autoCmd);
 

@@ -20,23 +20,23 @@ public class DriveUpChargeStation extends CommandBase {
 
   private CommandBase cmdAwayBurst = new SnapDrive(RobotContainer.m_drivetrainSubsystem,
       () -> {
-        return -0.6;
+        return 0.3;
       },
       () -> {
         return -0.0;
       },
-      0)
-      .withTimeout(0.4);
+      180)
+      .withTimeout(0.2);
 
   private CommandBase cmdTowardsBurst = new SnapDrive(RobotContainer.m_drivetrainSubsystem,
       () -> {
-        return 0.6;
+        return -0.3;
       },
       () -> {
         return -0.0;
       },
-      0)
-      .withTimeout(0.4);
+      180)
+      .withTimeout(0.2);
 
   /** Creates a new DriveUpChargeStation. */
   public DriveUpChargeStation() {
@@ -55,12 +55,12 @@ public class DriveUpChargeStation extends CommandBase {
         }),
         new SnapDrive(RobotContainer.m_drivetrainSubsystem,
             () -> {
-              return -0.5;
+              return 0.5;
             },
             () -> {
               return -0.0;
             },
-            0),
+            180),
         new PrintCommand("******** Initialize Phase 1"))
         .andThen(new WaitCommand(0.2)).andThen(new ParallelDeadlineGroup(
             new WaitUntilCommand(() -> {
@@ -70,12 +70,12 @@ public class DriveUpChargeStation extends CommandBase {
             }),
             new SnapDrive(RobotContainer.m_drivetrainSubsystem,
                 () -> {
-                  return 0.30;
+                  return -0.30;
                 },
                 () -> {
                   return -0.0;
                 },
-                0),
+                180),
             new PrintCommand("******** Initialize Phase 2")));
 
     m_cmd.setName("Inititalize");
@@ -125,13 +125,13 @@ public class DriveUpChargeStation extends CommandBase {
           }),
           new SnapDrive(RobotContainer.m_drivetrainSubsystem,
               () -> {
-                return -0.3;
+                return 0.3;
               },
               () -> {
                 return -0.0;
               },
-              0))
-          .andThen(new WaitCommand(0.5))
+              180))
+          .andThen(new WaitCommand(1))
           .withTimeout(0.2);
       m_cmd.setName("Balance Away from Grid");
       m_cmd.schedule();
@@ -146,13 +146,13 @@ public class DriveUpChargeStation extends CommandBase {
           }),
           new SnapDrive(RobotContainer.m_drivetrainSubsystem,
               () -> {
-                return 0.3;
+                return -0.3;
               },
               () -> {
                 return -0.0;
               },
-              0))
-          .andThen(new WaitCommand(0.5))
+              180))
+          .andThen(new WaitCommand(1))
           .withTimeout(0.2);
       m_cmd.setName("Balance Towards Grid");
       m_cmd.schedule();

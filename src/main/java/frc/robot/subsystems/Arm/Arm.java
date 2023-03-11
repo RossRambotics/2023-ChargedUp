@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 import frc.robot.commands.Arm.LowerArmSetPoint;
 import frc.robot.commands.Arm.UpperArmSetPoint;
+import frc.robot.commands.Grabber.AutoGrab;
 import frc.util.GraphCommand.GraphCommand;
 import frc.util.GraphCommand.GraphCommand.GraphCommandNode;
 
@@ -38,7 +39,7 @@ public class Arm extends SubsystemBase {
 
         public GraphCommandNode A, AO;
         public GraphCommandNode B;
-        public GraphCommandNode C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, OO, PP, QQ, NN, Z, X, Y, YY;
+        public GraphCommandNode C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, OO, PP, QQ, NN, Z, X, Y, YY, W;
 
         /** Creates a new Arm. */
         public Arm() {
@@ -109,7 +110,7 @@ public class Arm extends SubsystemBase {
                 O = m_graphCommand.new GraphCommandNode("O",
                                 Arm.setpointCommandFactory("Low Arm", -94, 82, tolerance),
                                 null,
-                                null);
+                                new AutoGrab());
 
                 AO = m_graphCommand.new GraphCommandNode("AO",
                                 Arm.setpointCommandFactory("Low Arm", -96, 105, tolerance),
@@ -151,6 +152,10 @@ public class Arm extends SubsystemBase {
                                 Arm.setpointCommandFactory("QQ Target", 120, 150, tolerance),
                                 Arm.setpointCommandFactory("QQ Waypoint", 120, 150, tolerance),
                                 null);
+                W = m_graphCommand.new GraphCommandNode("W",
+                                Arm.setpointCommandFactory("W Target", -124.5, 120, tolerance),
+                                null,
+                                new AutoGrab());
                 Z = m_graphCommand.new GraphCommandNode("Z",
                                 Arm.setpointCommandFactory("Z Target", -35, 120, tolerance),
                                 Arm.setpointCommandFactory("Z Target", -35, 120,
@@ -167,7 +172,7 @@ public class Arm extends SubsystemBase {
                 YY = m_graphCommand.new GraphCommandNode("YY",
                                 Arm.setpointCommandFactory("YY Target", -87, 146, tolerance),
                                 null,
-                                null);
+                                new AutoGrab());
 
                 m_graphCommand.setGraphRootNode(A);
 
@@ -192,6 +197,7 @@ public class Arm extends SubsystemBase {
                 D.AddNode(E, 1);
                 YY.AddNode(N, 1);
                 YY.AddNode(L, 1);
+                A.AddNode(W, 1);
 
                 // N.AddNode(Y, 1);
                 C.setNextNode(B);
@@ -384,6 +390,9 @@ public class Arm extends SubsystemBase {
                 commands.add(cmd);
 
                 cmd = Arm.setpointCommandFactory("safe forward", -45, 120, 1);
+                commands.add(cmd);
+
+                cmd = new AutoGrab();
                 commands.add(cmd);
 
                 cmd = Commands.runOnce(() -> this.goNextNode());
