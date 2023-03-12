@@ -67,8 +67,10 @@
       "/Shuffleboard/Button.Box/Panel/Vision Reset": "Command",
       "/Shuffleboard/Field/Field": "Field2d",
       "/Shuffleboard/Match.Auto/Autonomous": "String Chooser",
+      "/Shuffleboard/Match.Auto/Commands/AutoBlueOne": "Command",
       "/Shuffleboard/Match.Auto/Commands/AutoMoceBackToPose": "Command",
       "/Shuffleboard/Match.Auto/Commands/AutoMoveConeLeft": "Command",
+      "/Shuffleboard/Match.Auto/Commands/AutoRedOne": "Command",
       "/Shuffleboard/Match.Auto/Commands/DriveUpChargeStation": "Command",
       "/Shuffleboard/Match.Auto/Commands/LowerArmSetPoint": "Command",
       "/Shuffleboard/Match.Auto/Commands/SnapDriveToCargo": "Command",
@@ -88,7 +90,12 @@
           "visible": true
         }
       },
-      "/Shuffleboard/Match.Auto/Commands/AutoMoveConeLeft": {
+      "/Shuffleboard/Match.Auto/Commands/AutoBlueOne": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/Shuffleboard/Match.Auto/Commands/AutoRedOne": {
         "window": {
           "visible": true
         }
@@ -100,7 +107,8 @@
       "LiveWindow": {
         ".status": {
           "open": true
-        }
+        },
+        "open": true
       },
       "Shuffleboard": {
         "Button.Box": {
@@ -115,11 +123,7 @@
           }
         },
         "Match.Auto": {
-          "Commands": {
-            "LowerArmSetPoint": {
-              "open": true
-            }
-          }
+          "open": true
         },
         "open": true
       },
@@ -127,5 +131,8 @@
         "open": true
       }
     }
+  },
+  "NetworkTables View": {
+    "visible": false
   }
 }

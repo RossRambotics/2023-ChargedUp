@@ -30,8 +30,10 @@ import frc.robot.commands.Drive.DriveUpChargeStation;
 import frc.robot.commands.Drive.SnapDrive;
 import frc.robot.commands.Drive.SnapDriveGamePiece;
 import frc.robot.commands.Tracking.EnableLight;
+import frc.robot.commands.auto.AutoBlueOne;
 import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
+import frc.robot.commands.auto.AutoRedOne;
 import frc.robot.sim.PhysicsSim;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
@@ -385,6 +387,14 @@ public class RobotContainer {
                 commands.add(autoCmd);
 
                 autoCmd = new DriveUpChargeStation();
+                m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+                commands.add(autoCmd);
+
+                autoCmd = new AutoBlueOne();
+                m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+                commands.add(autoCmd);
+
+                autoCmd = new AutoRedOne();
                 m_autoChooser.addOption(autoCmd.getName(), autoCmd);
                 commands.add(autoCmd);
 

@@ -352,7 +352,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
                                 m_swerveModuleStates,
                                 MAX_VELOCITY_METERS_PER_SECOND);
 
-                m_lastRotationSpeed = rotationSpeed;
+                m_lastRotationSpeed += rotationSpeed * 0.02;
                 // update the actual swerve modules
                 this.setSwerveModulesStates();
         }
@@ -421,12 +421,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
                                 m_swerveModulePositions[3].angle = m_swerveModuleStates[3].angle;
 
                                 RobotContainer.m_positioning.updateVision(m_odometry);
-                                m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
+                                // m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
+                                m_odometry.update(new Rotation2d(m_lastRotationSpeed), m_swerveModulePositions);
 
                                 Pose2d simPose = new Pose2d(
                                                 getOdometryPose().getX(),
                                                 getOdometryPose().getY(),
                                                 new Rotation2d(m_lastRotationSpeed));
+                                simPose = m_odometry.getEstimatedPosition();
                                 m_field.setRobotPose(simPose);
                         }
                 } else {
@@ -455,6 +457,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         }
 
         public void resetSimEndoers() {
+                m_lastRotationSpeed = 0;
                 m_simEncoders[0] = 0.0;
                 m_simEncoders[1] = 0.0;
                 m_simEncoders[2] = 0.0;
@@ -462,6 +465,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         }
 
         public void setOdometryPose(Pose2d botPose) {
+                m_lastRotationSpeed = 0;
                 m_odometry.resetPosition(getGyroHeading(), m_swerveModulePositions, botPose);
                 System.out.println("Reseting Odometry Pose. Gyro: " + getGyroHeading() + " botPose Heading: "
                                 + botPose.getRotation().getDegrees());

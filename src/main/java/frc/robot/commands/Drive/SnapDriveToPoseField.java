@@ -105,7 +105,7 @@ public class SnapDriveToPoseField extends CommandBase {
         m_error = getError();
 
         // update PIDs
-        double rotationSpeed = m_rotationPID.calculate(m_error.getRotation().getDegrees(), 0);
+        double rotationSpeed = -m_rotationPID.calculate(m_error.getRotation().getDegrees(), 0);
 
         rotationSpeed = MathUtil.clamp(rotationSpeed, -3.0, 3.0);
 
@@ -147,7 +147,7 @@ public class SnapDriveToPoseField extends CommandBase {
                         -translateSpeedY,
                         rotationSpeed,
                         RobotContainer.m_drivetrainSubsystem.getOdometryPose().getRotation()),
-                m_goal.getRotation().getRadians());
+                rotationSpeed);
     }
 
     // Called once the command ends or is interrupted.

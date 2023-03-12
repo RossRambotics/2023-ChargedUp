@@ -14,6 +14,9 @@ import frc.robot.commands.Drive.SnapDriveToPoseField;
 
 /** Add your docs here. */
 public class AutoPoses {
+        public final static Pose2d BlueOne = new Pose2d(1.88, 4.96, new Rotation2d(Math.toRadians(180)));
+        public final static Pose2d GP_BlueOne = new Pose2d(7.10, 5.41, new Rotation2d(Math.toRadians(-90)));
+        public final static Pose2d RedOne = new Pose2d(14.63, 0.50, new Rotation2d(Math.toRadians(0)));
         public final static Pose2d Tag1 = new Pose2d(15.10, 1.25, new Rotation2d(Math.toRadians(0)));
         public final static Pose2d Tag1ConeLeft = new Pose2d(15.10, .5, new Rotation2d(Math.toRadians(0)));
         public final static Pose2d Tag1ConeRight = new Pose2d(14.59, 1.65, new Rotation2d(Math.toRadians(0)));
@@ -63,7 +66,8 @@ public class AutoPoses {
 
                 if (Robot.isSimulation()) {
                         RobotContainer.m_drivetrainSubsystem.getOdometry().resetPosition(
-                                        pose.getRotation(),
+                                        // pose.getRotation(),
+                                        new Rotation2d(0),
                                         RobotContainer.m_drivetrainSubsystem.getSwervePositions(),
                                         pose);
                         RobotContainer.m_drivetrainSubsystem.resetSimEndoers();

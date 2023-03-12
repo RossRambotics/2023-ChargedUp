@@ -49,7 +49,7 @@ public class Positioning extends SubsystemBase {
       Pose2d botPose = new Pose2d(14.0, 2.0, new Rotation2d());
 
       try {
-        odometry.addVisionMeasurement(botPose, Timer.getFPGATimestamp());
+        // odometry.addVisionMeasurement(botPose, Timer.getFPGATimestamp());
       } catch (Exception e) {
         DataLogManager.log("Vision Measurement Error: " + e.getClass());
       }

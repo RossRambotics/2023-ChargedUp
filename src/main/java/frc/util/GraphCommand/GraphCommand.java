@@ -56,6 +56,10 @@ public class GraphCommand extends CommandBase {
     }
   }
 
+  public boolean isTransitioning() {
+    return m_isTransitioning;
+  }
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {

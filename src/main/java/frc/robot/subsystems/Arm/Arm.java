@@ -229,6 +229,10 @@ public class Arm extends SubsystemBase {
                 this.m_graphCommand.setTargetNode(node);
         }
 
+        public boolean isAtTarget() {
+                return !m_graphCommand.isTransitioning();
+        }
+
         private Timer m_testTimer = new Timer();
 
         private boolean m_isFirstTime = true;
