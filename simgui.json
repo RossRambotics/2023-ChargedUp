@@ -114,16 +114,12 @@
         "Button.Box": {
           "Commands": {
             "open": true
-          },
-          "open": true
+          }
         },
         "Field": {
           "Field": {
             "open": true
           }
-        },
-        "Match.Auto": {
-          "open": true
         },
         "open": true
       },

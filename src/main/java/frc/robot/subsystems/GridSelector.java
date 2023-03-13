@@ -128,7 +128,7 @@ public class GridSelector extends SubsystemBase {
             m_midSwitch = SmartDashboard.getBoolean("Mid Switch", false);
         }
 
-        SmartDashboard.putBoolean("Left Switch", m_leftSwitch);
+        SmartDashboard.putBoolean("is Blue Alliance", m_leftSwitch);
         SmartDashboard.putBoolean("Mid Switch", m_midSwitch);
         SmartDashboard.putBoolean("Right Switch", m_rightSwitch);
         SmartDashboard.putBoolean("Button Box", m_buttonBox);
@@ -136,7 +136,7 @@ public class GridSelector extends SubsystemBase {
     }
 
     public Boolean isBlueAlliance() {
-        return m_leftSwitch;
+        return !m_leftSwitch;
     }
 
     public Boolean getMidSwitch() {
