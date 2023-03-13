@@ -25,7 +25,8 @@ public class AutoPoses {
         public final static Pose2d Tag2ConeRight = new Pose2d(14.59, 3.33, new Rotation2d(Math.toRadians(0)));
         public final static Pose2d Tag3 = new Pose2d(14.59, 4.44, new Rotation2d(Math.toRadians(0)));
         public final static Pose2d Tag3ConeLeft = new Pose2d(14.59, 3.89, new Rotation2d(Math.toRadians(0)));
-        public final static Pose2d Tag3ConeRight = new Pose2d(14.59, 5, new Rotation2d(Math.toRadians(0)));
+        public final static Pose2d RedNine = new Pose2d(14.59, 5, new Rotation2d(Math.toRadians(180)));
+        public final static Pose2d RedNineBack = new Pose2d(15, 5, new Rotation2d(Math.toRadians(180)));
         public final static Pose2d Tag6 = new Pose2d(1.97, 4.44, new Rotation2d(Math.toRadians(0)));
         public final static Pose2d Tag6ConeLeft = new Pose2d(1.97, 5, new Rotation2d(Math.toRadians(0)));
         public final static Pose2d Tag6ConeRight = new Pose2d(1.97, 3.89, new Rotation2d(Math.toRadians(0)));
