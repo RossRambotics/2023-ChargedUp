@@ -102,7 +102,7 @@ public class Tracking extends SubsystemBase {
             return 0;
         }
 
-        return (yaw) + 6.5;
+        return (yaw);
     }
 
     public double getTargetHeading() {
@@ -128,7 +128,7 @@ public class Tracking extends SubsystemBase {
             yaw = Math.signum(yaw) * kS;
         }
 
-        return yaw + 6.5 + RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees();
+        return yaw + RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees();
     }
 
     // used only for testing
