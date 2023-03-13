@@ -135,7 +135,7 @@ public class GridSelector extends SubsystemBase {
 
     }
 
-    public Boolean getLeftSwitch() {
+    public Boolean isBlueAlliance() {
         return m_leftSwitch;
     }
 
