@@ -218,6 +218,11 @@ public class Tracking extends SubsystemBase {
     public void enableSearchLight() {
         m_PDH.setSwitchableChannel(true);
         m_camera.setDriverMode(false);
+        if (RobotContainer.m_GridSelector.isCube()) {
+            this.GamePieceCube();
+        } else {
+            this.GamePieceCone();
+        }
         m_isLightOn = true;
     }
 

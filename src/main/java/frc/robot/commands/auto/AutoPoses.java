@@ -14,6 +14,8 @@ import frc.robot.commands.Drive.SnapDriveToPoseField;
 
 /** Add your docs here. */
 public class AutoPoses {
+    public final static Pose2d BluePortal = new Pose2d();
+    public final static Pose2d RedPortal = new Pose2d();
     public final static Pose2d BlueOne = new Pose2d(1.88, 4.96, new Rotation2d(Math.toRadians(180)));
     public final static Pose2d GP_BlueOne = new Pose2d(7.10, 5.41, new Rotation2d(Math.toRadians(-90)));
     // public final static Pose2d GP_BlueOne = new Pose2d(3.0, 4.96, new

@@ -5,8 +5,10 @@
 package frc.robot;
 
 import java.util.Map;
+import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -21,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -29,6 +32,8 @@ import frc.robot.commands.Arm.LowerArmSetPoint;
 import frc.robot.commands.Drive.DriveUpChargeStation;
 import frc.robot.commands.Drive.SnapDrive;
 import frc.robot.commands.Drive.SnapDriveGamePiece;
+import frc.robot.commands.Drive.SnapDriveToPoseField;
+import frc.robot.commands.Grabber.AutoGrab;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.commands.auto.AutoBlueOne;
 import frc.robot.commands.auto.AutoMoveBackToPose;
@@ -101,6 +106,10 @@ public class RobotContainer {
     Trigger btn3rdFloor = new JoystickButton(m_gridSelector2, 10);
     Trigger btn2ndFloor = new JoystickButton(m_gridSelector2, 11);
     Trigger btn1stFloor = new JoystickButton(m_gridSelector2, 12);
+    Trigger rightTrigger = new Trigger(
+            () -> m_controllerDriver.getRawAxis(XboxController.Axis.kRightTrigger.value) >= 0.5);
+    Trigger leftTrigger = new Trigger(
+            () -> m_controllerDriver.getRawAxis(XboxController.Axis.kLeftTrigger.value) >= 0.5);
 
     public PhysicsSim m_PhysicsSim;
 
@@ -331,15 +340,22 @@ public class RobotContainer {
 
         // map button for tracking cargo
         // create tracking cargo drive command
-        cmd = new ParallelCommandGroup(
-                new SnapDriveGamePiece(m_drivetrainSubsystem,
-                        () -> -getInputLeftY(),
-                        () -> -getInputLeftX(),
-                        () -> m_Tracking.getTargetHeading()),
-                new EnableLight());
+        cmd = new ParallelDeadlineGroup(new AutoGrab(),
+                new ParallelCommandGroup(
+                        new InstantCommand(() -> RobotContainer.m_grabber.openJaws()),
+                        new SnapDriveGamePiece(m_drivetrainSubsystem,
+                                () -> -getInputLeftY(),
+                                () -> -getInputLeftX(),
+                                () -> m_Tracking.getTargetHeading()),
+                        new EnableLight()));
 
         cmd.setName("SnapDriveToGamePiece");
         xButton.whileTrue(cmd);
+
+        cmd = new SnapDriveToPoseField(
+                RobotContainer.m_drivetrainSubsystem,
+                new Pose2d(),
+                0.05);
     }
 
     /**
