@@ -27,7 +27,7 @@ public class LEDPanel extends SubsystemBase {
     public LEDPanel() {
         CANdleConfiguration configALL = new CANdleConfiguration();
         configALL.disableWhenLOS = false;
-        configALL.stripType = LEDStripType.GRB;
+        configALL.stripType = LEDStripType.RGBW;
         configALL.brightnessScalar = 0.5; // dim the LEDs to half brightness
         configALL.vBatOutputMode = VBatOutputMode.Modulated;
         m_candle.configAllSettings(configALL);
