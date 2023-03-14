@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -29,6 +30,7 @@ import frc.robot.commands.Arm.LowerArmSetPoint;
 import frc.robot.commands.Drive.DriveUpChargeStation;
 import frc.robot.commands.Drive.SnapDrive;
 import frc.robot.commands.Drive.SnapDriveGamePiece;
+import frc.robot.commands.Grabber.AutoGrab;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.commands.auto.AutoBlueOne;
 import frc.robot.commands.auto.AutoMoveBackToPose;
@@ -331,12 +333,14 @@ public class RobotContainer {
 
         // map button for tracking cargo
         // create tracking cargo drive command
-        cmd = new ParallelCommandGroup(
-                new SnapDriveGamePiece(m_drivetrainSubsystem,
-                        () -> -getInputLeftY(),
-                        () -> -getInputLeftX(),
-                        () -> m_Tracking.getTargetHeading()),
-                new EnableLight());
+        cmd = new ParallelDeadlineGroup(new AutoGrab(),
+                new ParallelCommandGroup(
+                        new InstantCommand(() -> RobotContainer.m_grabber.openJaws()),
+                        new SnapDriveGamePiece(m_drivetrainSubsystem,
+                                () -> -getInputLeftY(),
+                                () -> -getInputLeftX(),
+                                () -> m_Tracking.getTargetHeading()),
+                        new EnableLight()));
 
         cmd.setName("SnapDriveToGamePiece");
         xButton.whileTrue(cmd);
