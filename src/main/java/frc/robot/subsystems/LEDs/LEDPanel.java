@@ -9,6 +9,7 @@ import static frc.robot.Constants.*;
 import com.ctre.phoenix.led.CANdle;
 import com.ctre.phoenix.led.CANdleConfiguration;
 import com.ctre.phoenix.led.CANdle.LEDStripType;
+import com.ctre.phoenix.led.CANdle.VBatOutputMode;
 
 public class LEDPanel extends SubsystemBase {
 
@@ -28,6 +29,7 @@ public class LEDPanel extends SubsystemBase {
         configALL.disableWhenLOS = false;
         configALL.stripType = LEDStripType.GRB;
         configALL.brightnessScalar = 0.5; // dim the LEDs to half brightness
+        configALL.vBatOutputMode = VBatOutputMode.Modulated;
         m_candle.configAllSettings(configALL);
     }
 
