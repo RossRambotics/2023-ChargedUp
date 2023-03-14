@@ -24,8 +24,8 @@ public class GridSelector extends SubsystemBase {
     private Joystick m_gridSelector = new Joystick(1);
     private Joystick m_gridSelector2 = new Joystick(2);
     private long m_dial = 0;
-    private boolean m_leftSwitch = true;
-    private boolean m_midSwitch = true;
+    private boolean m_leftSwitch_isRed = true;
+    private boolean m_isCube = true;
     private boolean m_rightSwitch = true;
     private boolean m_buttonBox = true;
 
@@ -101,18 +101,18 @@ public class GridSelector extends SubsystemBase {
 
             if (m_gridSelector.getRawAxis(0) > -.5) {
                 // Red and Blue switch on Red
-                m_leftSwitch = true;
+                m_leftSwitch_isRed = true;
             } else if (m_gridSelector.getRawAxis(0) < -.5) {
                 // Red and Blue switch on Blue
-                m_leftSwitch = false;
+                m_leftSwitch_isRed = false;
             }
 
             if (m_gridSelector.getRawAxis(1) < -.5) {
                 // Cube and Cone switch on Cube
-                m_midSwitch = true;
+                m_isCube = true;
             } else if (m_gridSelector.getRawAxis(0) > -.5) {
                 // Cube and Cone switch on Cone
-                m_midSwitch = false;
+                m_isCube = false;
             }
 
             if (m_gridSelector2.getRawAxis(1) > .5) {
@@ -124,23 +124,23 @@ public class GridSelector extends SubsystemBase {
             }
         } else {
             m_rightSwitch = SmartDashboard.getBoolean("Right Switch", false);
-            m_leftSwitch = SmartDashboard.getBoolean("Left Switch", false);
-            m_midSwitch = SmartDashboard.getBoolean("Mid Switch", false);
+            m_leftSwitch_isRed = SmartDashboard.getBoolean("is Red Alliance", false);
+            m_isCube = SmartDashboard.getBoolean("is Cube", false);
         }
 
-        SmartDashboard.putBoolean("is Blue Alliance", m_leftSwitch);
-        SmartDashboard.putBoolean("Mid Switch", m_midSwitch);
+        SmartDashboard.putBoolean("is Red Alliance", m_leftSwitch_isRed);
+        SmartDashboard.putBoolean("is Cube", m_isCube);
         SmartDashboard.putBoolean("Right Switch", m_rightSwitch);
         SmartDashboard.putBoolean("Button Box", m_buttonBox);
 
     }
 
     public Boolean isBlueAlliance() {
-        return !m_leftSwitch;
+        return !m_leftSwitch_isRed;
     }
 
-    public Boolean getMidSwitch() {
-        return m_midSwitch;
+    public Boolean isCube() {
+        return m_isCube;
     }
 
     public Boolean getRightSwitch() {
@@ -149,19 +149,19 @@ public class GridSelector extends SubsystemBase {
 
     public void toggleLeftSwitch() {
         System.out.println("**********Toggle Left Switch**********");
-        if (m_leftSwitch == true) {
-            m_leftSwitch = false;
-        } else if (m_leftSwitch == false) {
-            m_leftSwitch = true;
+        if (m_leftSwitch_isRed == true) {
+            m_leftSwitch_isRed = false;
+        } else if (m_leftSwitch_isRed == false) {
+            m_leftSwitch_isRed = true;
         }
     }
 
     public void toggleMidSwitch() {
         System.out.println("**********Toggle Mid Switch**********");
-        if (m_midSwitch == true) {
-            m_midSwitch = false;
-        } else if (m_midSwitch == false) {
-            m_midSwitch = true;
+        if (m_isCube == true) {
+            m_isCube = false;
+        } else if (m_isCube == false) {
+            m_isCube = true;
         }
     }
 
@@ -175,11 +175,15 @@ public class GridSelector extends SubsystemBase {
     }
 
     public void setLeftSwitch(Boolean b) {
-        m_leftSwitch = b;
+        m_leftSwitch_isRed = b;
+
+        SmartDashboard.putBoolean("is Red Alliance", m_leftSwitch_isRed);
     }
 
     public void setMidSwitch(Boolean b) {
-        m_midSwitch = b;
+        m_isCube = b;
+
+        SmartDashboard.putBoolean("is Cube", m_isCube);
     }
 
     public void setRightSwitch(Boolean b) {
@@ -188,6 +192,7 @@ public class GridSelector extends SubsystemBase {
 
     public void setButtonBox(Boolean b) {
         m_buttonBox = b;
+        SmartDashboard.putBoolean("Button Box", m_buttonBox);
     }
 
     public void setDial(Long l) {
