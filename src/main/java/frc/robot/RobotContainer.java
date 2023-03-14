@@ -5,8 +5,10 @@
 package frc.robot;
 
 import java.util.Map;
+import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -30,6 +32,7 @@ import frc.robot.commands.Arm.LowerArmSetPoint;
 import frc.robot.commands.Drive.DriveUpChargeStation;
 import frc.robot.commands.Drive.SnapDrive;
 import frc.robot.commands.Drive.SnapDriveGamePiece;
+import frc.robot.commands.Drive.SnapDriveToPoseField;
 import frc.robot.commands.Grabber.AutoGrab;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.commands.auto.AutoBlueOne;
@@ -103,6 +106,10 @@ public class RobotContainer {
     Trigger btn3rdFloor = new JoystickButton(m_gridSelector2, 10);
     Trigger btn2ndFloor = new JoystickButton(m_gridSelector2, 11);
     Trigger btn1stFloor = new JoystickButton(m_gridSelector2, 12);
+    Trigger rightTrigger = new Trigger(
+            () -> m_controllerDriver.getRawAxis(XboxController.Axis.kRightTrigger.value) >= 0.5);
+    Trigger leftTrigger = new Trigger(
+            () -> m_controllerDriver.getRawAxis(XboxController.Axis.kLeftTrigger.value) >= 0.5);
 
     public PhysicsSim m_PhysicsSim;
 
@@ -344,6 +351,11 @@ public class RobotContainer {
 
         cmd.setName("SnapDriveToGamePiece");
         xButton.whileTrue(cmd);
+
+        cmd = new SnapDriveToPoseField(
+                RobotContainer.m_drivetrainSubsystem,
+                new Pose2d(),
+                0.05);
     }
 
     /**
