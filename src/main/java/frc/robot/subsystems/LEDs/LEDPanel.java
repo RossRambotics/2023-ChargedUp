@@ -47,9 +47,9 @@ public class LEDPanel extends SubsystemBase {
         }
 
         if (RobotContainer.m_Tracking.isTrackingTarget()) {
-            this.showVisionStatusGreen();
+            this.showTrackingStatusGreen();
         } else {
-            this.showVisionStatusRed();
+            this.showTrackingStatusRed();
         }
 
     }
@@ -68,6 +68,22 @@ public class LEDPanel extends SubsystemBase {
 
     public void showVisionStatusRed() {
         m_candle.setLEDs(255, 0, 0, 0, kSTRIP_START, kSTRIP_LENGTH);
+    }
+
+    public void showVisionStatusYellow() {
+        m_candle.setLEDs(255, 255, 0, 0, kSTRIP_START, kSTRIP_LENGTH);
+    }
+
+    public void showTrackingStatusGreen() {
+        m_candle.setLEDs(0, 255, 0, 0, 100, 80);
+    }
+
+    public void showTrackingStatusRed() {
+        m_candle.setLEDs(255, 0, 0, 0, 100, 80);
+    }
+
+    public void showTrackingStatusYellow() {
+        m_candle.setLEDs(255, 255, 0, 0, 100, 80);
     }
 
 }

@@ -88,8 +88,15 @@ public class Positioning extends SubsystemBase {
             // skip it
             double distance = odometry_xy.getDistance(vision_xy);
             if (distance > 1.0) {
-                DataLogManager.log("Odometry & Vision mismatch.  Distance: " + distance);
+                DataLogManager.log("Odometry & Vision mismatch.  Skipping update.  Distance: " + distance);
+
+                RobotContainer.m_LEDPanel.showVisionStatusRed();
+
                 return;
+            } else if (distance <= 1.0 && distance > 0.10) {
+                RobotContainer.m_LEDPanel.showVisionStatusYellow();
+            } else {
+                RobotContainer.m_LEDPanel.showVisionStatusGreen();
             }
 
             try {
