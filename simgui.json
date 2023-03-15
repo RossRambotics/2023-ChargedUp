@@ -69,6 +69,7 @@
       "/Shuffleboard/Field/Field": "Field2d",
       "/Shuffleboard/Match.Auto/Autonomous": "String Chooser",
       "/Shuffleboard/Match.Auto/Commands/AutoBlueOne": "Command",
+      "/Shuffleboard/Match.Auto/Commands/AutoBlueTwo": "Command",
       "/Shuffleboard/Match.Auto/Commands/AutoMoceBackToPose": "Command",
       "/Shuffleboard/Match.Auto/Commands/AutoMoveConeLeft": "Command",
       "/Shuffleboard/Match.Auto/Commands/AutoRedNine": "Command",
@@ -92,7 +93,17 @@
           "visible": true
         }
       },
+      "/Shuffleboard/Match.Auto/Autonomous": {
+        "window": {
+          "visible": true
+        }
+      },
       "/Shuffleboard/Match.Auto/Commands/AutoBlueOne": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/Shuffleboard/Match.Auto/Commands/AutoBlueTwo": {
         "window": {
           "visible": true
         }
@@ -130,7 +141,12 @@
       }
     }
   },
-  "NetworkTables View": {
-    "visible": false
+  "NetworkTables Info": {
+    "Server": {
+      "Publishers": {
+        "open": true
+      },
+      "open": true
+    }
   }
 }

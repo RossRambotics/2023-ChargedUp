@@ -9,6 +9,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DataLogManager;
@@ -47,6 +48,24 @@ public class SnapDriveToPoseField extends CommandBase {
 
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(drivetrainSubsystem);
+    }
+
+    /**
+     * Creates new SnapDriveToPoseField relative to the current pose of the robot.
+     * 
+     * @param pose           - pose to be relative to
+     * @param x              - relative distance in meters
+     * @param y              - relative distance in meters
+     * @param degrees        - relative angle in degrees
+     * @param maxErrorMeters - acceptable error in meters
+     * @return a new SnapDriveToPoseField command
+     */
+    static public SnapDriveToPoseField createRelative(Pose2d pose, double x, double y, double degrees,
+            double maxErrorMeters) {
+        Pose2d target = new Pose2d(x + pose.getX(), y + pose.getY(),
+                new Rotation2d(pose.getRotation().getRadians() + Math.toRadians(degrees)));
+
+        return new SnapDriveToPoseField(RobotContainer.m_drivetrainSubsystem, target, maxErrorMeters);
     }
 
     // Called when the command is initially scheduled.

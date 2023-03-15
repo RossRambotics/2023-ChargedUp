@@ -228,7 +228,7 @@ public class Tracking extends SubsystemBase {
 
     public void disableSearchLight() {
         m_PDH.setSwitchableChannel(false);
-        m_camera.setDriverMode(true);
+        // m_camera.setDriverMode(true);
         m_isLightOn = false;
     }
 }

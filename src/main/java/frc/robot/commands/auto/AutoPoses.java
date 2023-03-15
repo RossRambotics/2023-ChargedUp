@@ -17,7 +17,9 @@ public class AutoPoses {
     public final static Pose2d BluePortal = new Pose2d(14.359, 7.5, new Rotation2d(Math.toRadians(90)));
     public final static Pose2d RedPortal = new Pose2d(2.4, 7.5, new Rotation2d(Math.toRadians(90)));
     public final static Pose2d BlueOne = new Pose2d(1.88, 4.96, new Rotation2d(Math.toRadians(180)));
-    public final static Pose2d GP_BlueOne = new Pose2d(7.10, 5.41, new Rotation2d(Math.toRadians(-90)));
+    public final static Pose2d BlueOneBack = new Pose2d(2.25, 4.96, new Rotation2d(Math.toRadians(180)));
+    public final static Pose2d GP_BlueOne = new Pose2d(2.7, 5.41, new Rotation2d(Math.toRadians(-90)));
+
     // public final static Pose2d GP_BlueOne = new Pose2d(3.0, 4.96, new
     // Rotation2d(Math.toRadians(180)));
     // public final static Pose2d GP_BlueOne2 = new Pose2d(3.0, 4.96, new
@@ -59,31 +61,27 @@ public class AutoPoses {
 
     public static void SetStartPose(Pose2d pose) {
         // RobotContainer.m_drivetrainSubsystem.zeroGyroscope();
-        DataLogManager
-                .log("Setting Start Pose: Current Gyro: "
-                        + RobotContainer.m_drivetrainSubsystem.getGyroscopeRotation());
-        RobotContainer.m_drivetrainSubsystem.setGyroScope(pose.getRotation().getDegrees());
-        DataLogManager
-                .log("Setting Start Pose: Updated Gyro: "
-                        + RobotContainer.m_drivetrainSubsystem.getGyroscopeRotation());
         // RobotContainer.m_drivetrainSubsystem.resetOdometry();
         DataLogManager.log(
                 "Setting Start Pose: Odometry Orignal Pose: "
                         + RobotContainer.m_drivetrainSubsystem.getOdometryPose());
 
         if (Robot.isSimulation()) {
-            RobotContainer.m_drivetrainSubsystem.getOdometry().resetPosition(
-                    // pose.getRotation(),
-                    new Rotation2d(0),
-                    RobotContainer.m_drivetrainSubsystem.getSwervePositions(),
-                    pose);
-            RobotContainer.m_drivetrainSubsystem.resetSimEndoers();
+            // RobotContainer.m_drivetrainSubsystem.getOdometry().resetPosition(
+            // // pose.getRotation(),
+            // new Rotation2d(0),
+            // RobotContainer.m_drivetrainSubsystem.getSwervePositions(),
+            // pose);
+            // RobotContainer.m_drivetrainSubsystem.resetSimEncoders();
+            RobotContainer.m_drivetrainSubsystem.setOdometryPose(pose);
+
         } else {
-            RobotContainer.m_drivetrainSubsystem.getOdometry().resetPosition(pose.getRotation(),
-                    RobotContainer.m_drivetrainSubsystem.getSwervePositions(),
-                    pose); // uses pose, not gyro because gyro update above is async
-                           // and may not be
-                           // updated by now
+            RobotContainer.m_drivetrainSubsystem.setOdometryPose(pose);
+            // RobotContainer.m_drivetrainSubsystem.getOdometry().resetPosition(pose.getRotation(),
+            // RobotContainer.m_drivetrainSubsystem.getSwervePositions(),
+            // pose); // uses pose, not gyro because gyro update above is async
+            // // and may not be
+            // // updated by now
         }
         DataLogManager.log(
                 "Setting Start Pose: Odometry Updated Pose: "

@@ -67,7 +67,7 @@ public class Positioning extends SubsystemBase {
             if (botPose != m_lastVisionPose && LimelightHelpers.getTA("") > .5) {
                 if (vision_xy.getDistance(m_lastVisionPose.getTranslation()) < .5
                         || m_lasttime + .5 < Timer.getFPGATimestamp()) {
-                    resetVision();
+                    // resetVision();
                     m_lastVisionPose = botPose;
                     m_lasttime = Timer.getFPGATimestamp();
 
@@ -88,7 +88,8 @@ public class Positioning extends SubsystemBase {
             // skip it
             double distance = odometry_xy.getDistance(vision_xy);
             if (distance > 1.0) {
-                DataLogManager.log("Odometry & Vision mismatch.  Skipping update.  Distance: " + distance);
+                // DataLogManager.log("Odometry & Vision mismatch. Skipping update. Distance: "
+                // + distance);
 
                 RobotContainer.m_LEDPanel.showVisionStatusRed();
 

@@ -28,10 +28,12 @@ import frc.robot.commands.Arm.LowerArmSetPoint;
 import frc.robot.commands.Drive.DriveUpChargeStation;
 import frc.robot.commands.Drive.SnapDrive;
 import frc.robot.commands.Drive.SnapDriveGamePiece;
+import frc.robot.commands.Drive.SnapDriveToPortal;
 import frc.robot.commands.Drive.SnapDriveToPoseField;
 import frc.robot.commands.Grabber.AutoGrab;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.commands.auto.AutoBlueOne;
+import frc.robot.commands.auto.AutoBlueTwo;
 import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
 import frc.robot.commands.auto.AutoRedNine;
@@ -348,10 +350,11 @@ public class RobotContainer {
         cmd.setName("SnapDriveToGamePiece");
         xButton.whileTrue(cmd);
 
-        cmd = new SnapDriveToPoseField(
+        cmd = new SnapDriveToPortal(
                 RobotContainer.m_drivetrainSubsystem,
-                new Pose2d(),
                 0.05);
+        cmd.setName("SnapDriveToPortal");
+        rightTrigger.whileTrue(cmd);
     }
 
     /**
@@ -424,6 +427,10 @@ public class RobotContainer {
         commands.add(autoCmd);
 
         autoCmd = new AutoBlueOne();
+        m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+        commands.add(autoCmd);
+
+        autoCmd = new AutoBlueTwo();
         m_autoChooser.addOption(autoCmd.getName(), autoCmd);
         commands.add(autoCmd);
 

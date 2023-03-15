@@ -24,7 +24,7 @@ public class GridSelector extends SubsystemBase {
     private Joystick m_gridSelector = new Joystick(1);
     private Joystick m_gridSelector2 = new Joystick(2);
     private long m_dial = 0;
-    private boolean m_leftSwitch_isRed = true;
+    private boolean m_leftSwitch_isRed = false;
     private boolean m_isCube = true;
     private boolean m_rightSwitch = true;
     private boolean m_buttonBox = true;
@@ -101,16 +101,20 @@ public class GridSelector extends SubsystemBase {
 
             if (m_gridSelector.getRawAxis(0) > -.5) {
                 // Red and Blue switch on Red
+                // System.out.println("***************** RED *******************");
                 m_leftSwitch_isRed = true;
             } else if (m_gridSelector.getRawAxis(0) < -.5) {
+                // System.out.println("***************** BLUE *******************");
                 // Red and Blue switch on Blue
                 m_leftSwitch_isRed = false;
             }
 
             if (m_gridSelector.getRawAxis(1) < -.5) {
                 // Cube and Cone switch on Cube
+                // System.out.println("***************** CUBE *******************");
                 m_isCube = true;
-            } else if (m_gridSelector.getRawAxis(0) > -.5) {
+            } else if (m_gridSelector.getRawAxis(1) > -.5) {
+                // System.out.println("***************** CONE *******************");
                 // Cube and Cone switch on Cone
                 m_isCube = false;
             }
@@ -118,7 +122,7 @@ public class GridSelector extends SubsystemBase {
             if (m_gridSelector2.getRawAxis(1) > .5) {
                 // Tracking is on Grid
                 m_rightSwitch = true;
-            } else if (m_gridSelector.getRawAxis(0) < .5) {
+            } else if (m_gridSelector2.getRawAxis(1) < .5) {
                 // Tracking is on Game Piece
                 m_rightSwitch = false;
             }

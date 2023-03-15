@@ -6,7 +6,19 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.RobotContainer;
+import frc.robot.commands.Arm.WaitOnArm;
+import frc.robot.commands.Drive.SnapDriveGamePiece;
+import frc.robot.commands.Drive.SnapDriveToPoseField;
+import frc.robot.commands.Grabber.AutoGrab;
+import frc.robot.commands.Tracking.EnableLight;
+import frc.robot.subsystems.Arm.Arm;
 
 public class AutoBlueOne extends CommandBase {
     /** Creates a new AutoBlueOne. */
@@ -25,7 +37,38 @@ public class AutoBlueOne extends CommandBase {
 
         // Create command group for the auto routine
         SequentialCommandGroup command = new SequentialCommandGroup(
-                AutoPoses.DriveToPose(AutoPoses.GP_BlueOne));
+                Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.W),
+                new WaitOnArm(),
+                Commands.runOnce(() -> RobotContainer.m_grabber.closeJaws()),
+                new WaitOnArm(),
+                Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.C),
+                new WaitOnArm(),
+                Commands.runOnce(() -> RobotContainer.m_grabber.openJaws()),
+                AutoPoses.DriveToPose(AutoPoses.BlueOneBack),
+                Arm.targetNodeCommandFactory(RobotContainer.m_arm,
+                        RobotContainer.m_arm.A),
+                new WaitOnArm())
+                .andThen(AutoPoses.DriveToPose(
+                        AutoPoses.GP_BlueOne))
+                .andThen(Arm.targetNodeCommandFactory(RobotContainer.m_arm,
+                        RobotContainer.m_arm.O))
+                .andThen(new WaitOnArm())
+                .andThen(new ParallelDeadlineGroup(new AutoGrab(),
+                        new ParallelCommandGroup(
+                                new SnapDriveGamePiece(
+                                        RobotContainer.m_drivetrainSubsystem,
+                                        () -> 0.0,
+                                        () -> 0.0,
+                                        () -> RobotContainer.m_Tracking.getTargetHeading()),
+                                new EnableLight())))
+                .andThen(new WaitCommand(0.75))
+                .andThen(Arm.targetNodeCommandFactory(RobotContainer.m_arm,
+                        RobotContainer.m_arm.M))
+                .andThen(new SnapDriveToPoseField(RobotContainer.m_drivetrainSubsystem,
+                        AutoPoses.BlueOne,
+                        0.10))
+                .andThen(Commands.runOnce(() -> RobotContainer.m_grabber.openJaws()))
+                .andThen(SnapDriveToPoseField.createRelative(AutoPoses.BlueOne, 0.5, 0, 0, 0.05));
 
         command.schedule();
     }
