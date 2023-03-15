@@ -27,7 +27,7 @@ public class LEDPanel extends SubsystemBase {
     public LEDPanel() {
         CANdleConfiguration configALL = new CANdleConfiguration();
         configALL.disableWhenLOS = false;
-        configALL.stripType = LEDStripType.RGBW;
+        configALL.stripType = LEDStripType.GRB;
         configALL.brightnessScalar = 0.5; // dim the LEDs to half brightness
         configALL.vBatOutputMode = VBatOutputMode.Modulated;
         m_candle.configAllSettings(configALL);
@@ -41,7 +41,7 @@ public class LEDPanel extends SubsystemBase {
     public void periodic() {
         // Only run if disabled
         if (!DriverStation.isDisabled()) {
-            // Turn all lights off
+            // Turn all lights red
             m_candle.setLEDs(255, 0, 0);
             m_isPanelDisabled = true;
         }

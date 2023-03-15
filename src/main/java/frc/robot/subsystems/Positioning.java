@@ -101,8 +101,10 @@ public class Positioning extends SubsystemBase {
             }
 
             try {
-                odometry.addVisionMeasurement(botPose,
-                        Timer.getFPGATimestamp() - LimelightHelpers.getLatency_Pipeline("") - 10);
+                if (false) {
+                    odometry.addVisionMeasurement(botPose,
+                            Timer.getFPGATimestamp() - LimelightHelpers.getLatency_Pipeline("") - 10);
+                }
             } catch (Exception e) {
                 DataLogManager.log("Vision Measurement Error: " + e.getClass());
             }
