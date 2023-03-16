@@ -101,6 +101,11 @@
           "visible": true
         }
       },
+      "/Shuffleboard/Match.Auto/Commands/AutoBlueNine": {
+        "window": {
+          "visible": true
+        }
+      },
       "/Shuffleboard/Match.Auto/Commands/AutoBlueOne": {
         "window": {
           "visible": true

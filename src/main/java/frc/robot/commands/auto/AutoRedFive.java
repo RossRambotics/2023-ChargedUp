@@ -20,9 +20,9 @@ import frc.robot.commands.Grabber.AutoGrab;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.subsystems.Arm.Arm;
 
-public class AutoBlueTwo extends CommandBase {
-    /** Creates a new AutoBlueTwo. */
-    public AutoBlueTwo() {
+public class AutoRedFive extends CommandBase {
+    /** Creates a new AutoRedFive. */
+    public AutoRedFive() {
         // Use addRequirements() here to declare subsystem dependencies.
     }
 
@@ -33,12 +33,16 @@ public class AutoBlueTwo extends CommandBase {
         DataLogManager.log("Auto command: " + this.getName());
 
         // Set Starting Pose
-        AutoPoses.SetStartPose(AutoPoses.BlueOne);
+        AutoPoses.SetStartPose(AutoPoses.RedFive);
 
         // Create command group for the auto routine
         SequentialCommandGroup command = new SequentialCommandGroup(
-                // AutoPoses.DriveToPose(AutoPoses.BlueOne),
-                SnapDriveToPoseField.createRelative(AutoPoses.BlueOne, 0.15, 0, 10, 0.05));
+                Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.O),
+                new WaitOnArm(),
+                new WaitCommand(1.0),
+                Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.A),
+                new WaitOnArm())
+                .andThen(new RedDriveUpChargeStation().withTimeout(15));
 
         command.schedule();
     }

@@ -27,7 +27,7 @@ public class RedDriveUpChargeStation extends CommandBase {
                 return -0.0;
             },
             0)
-            .withTimeout(0.2);
+            .withTimeout(0.2).andThen(new WaitCommand(0.75));
 
     private CommandBase cmdTowardsBurst = new SnapDrive(RobotContainer.m_drivetrainSubsystem,
             () -> {
@@ -37,7 +37,7 @@ public class RedDriveUpChargeStation extends CommandBase {
                 return -0.0;
             },
             0)
-            .withTimeout(0.2);
+            .withTimeout(0.2).andThen(new WaitCommand(0.75));
 
     /** Creates a new DriveUpChargeStation. */
     public RedDriveUpChargeStation() {
@@ -48,6 +48,7 @@ public class RedDriveUpChargeStation extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        AutoPoses.SetStartPose(AutoPoses.RedFive);
         m_cmd = new ParallelDeadlineGroup(
                 new WaitUntilCommand(() -> {
                     if (RobotContainer.m_drivetrainSubsystem.getPitch() > 5.0)
@@ -56,7 +57,7 @@ public class RedDriveUpChargeStation extends CommandBase {
                 }),
                 new SnapDrive(RobotContainer.m_drivetrainSubsystem,
                         () -> {
-                            return -0.5;
+                            return -0.75;
                         },
                         () -> {
                             return -0.0;

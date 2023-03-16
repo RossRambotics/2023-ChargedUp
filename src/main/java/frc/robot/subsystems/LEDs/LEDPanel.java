@@ -29,7 +29,7 @@ public class LEDPanel extends SubsystemBase {
         CANdleConfiguration configALL = new CANdleConfiguration();
         configALL.disableWhenLOS = false;
         configALL.stripType = LEDStripType.GRB;
-        configALL.brightnessScalar = 0.25; // dim the LEDs to half brightness
+        configALL.brightnessScalar = 0.1; // dim the LEDs to half brightness
         // configALL.vBatOutputMode = VBatOutputMode.Modulated;
         m_candle.configAllSettings(configALL, 100);
         m_Timer.start();
@@ -44,7 +44,7 @@ public class LEDPanel extends SubsystemBase {
             // Only run if not disabled
             if (DriverStation.isDisabled()) {
                 // Turn all lights red
-                m_candle.setLEDs(255, 0, 0);
+                // m_candle.setLEDs(255, 0, 0);
             }
 
             if (RobotContainer.m_Tracking.isTrackingTarget()) {
@@ -63,11 +63,11 @@ public class LEDPanel extends SubsystemBase {
     }
 
     public void showCone() {
-        m_candle.setLEDs(255, 255, 0, 0, 0, 10 * 8);
+        m_candle.setLEDs(255, 255, 0, 0, 0, 33 * 8);
     }
 
     public void showCube() {
-        m_candle.setLEDs(138, 43, 226, 0, 0, 10 * 8);
+        m_candle.setLEDs(138, 43, 226, 0, 0, 33 * 8);
     }
 
     public void showVisionStatusGreen() {

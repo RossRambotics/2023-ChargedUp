@@ -31,11 +31,13 @@ import frc.robot.commands.Drive.SnapDriveToPortal;
 import frc.robot.commands.Drive.SnapDriveToPoseField;
 import frc.robot.commands.Grabber.AutoGrab;
 import frc.robot.commands.Tracking.EnableLight;
+import frc.robot.commands.auto.AutoBlueFive;
 import frc.robot.commands.auto.AutoBlueNine;
 import frc.robot.commands.auto.AutoBlueOne;
 import frc.robot.commands.auto.AutoBlueTwo;
 import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
+import frc.robot.commands.auto.AutoRedFive;
 import frc.robot.commands.auto.AutoRedNine;
 import frc.robot.commands.auto.AutoRedOne;
 import frc.robot.commands.auto.BlueDriveUpChargeStation;
@@ -164,6 +166,21 @@ public class RobotContainer {
         }
     }
 
+    private double getNudgeValue() {
+        if (m_GridSelector.isBlueAlliance()) {
+            return -0.4;
+        } else {
+            return 0.4;
+        }
+    }
+
+    private double getNudgeAngle() {
+        if (m_GridSelector.isBlueAlliance()) {
+            return 10;
+        } else {
+            return 10;
+        }
+    }
     // private double getOperatorRightY() {
     // double operatorRightY = 0;
 
@@ -267,7 +284,7 @@ public class RobotContainer {
 
         cmd = new frc.robot.commands.Drive.SnapDrive(
                 m_drivetrainSubsystem,
-                () -> 0.4,
+                () -> -getNudgeValue(),
                 () -> 0,
                 () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees());
 
@@ -275,7 +292,7 @@ public class RobotContainer {
 
         cmd = new frc.robot.commands.Drive.SnapDrive(
                 m_drivetrainSubsystem,
-                () -> -0.4,
+                () -> getNudgeValue(),
                 () -> 0,
                 () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees());
 
@@ -284,7 +301,7 @@ public class RobotContainer {
         cmd = new frc.robot.commands.Drive.SnapDrive(
                 m_drivetrainSubsystem,
                 () -> 0,
-                () -> -0.4,
+                () -> getNudgeValue(),
                 () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees());
 
         new POVButton(m_controllerDriver, 90).whileTrue(cmd);
@@ -292,7 +309,7 @@ public class RobotContainer {
         cmd = new frc.robot.commands.Drive.SnapDrive(
                 m_drivetrainSubsystem,
                 () -> 0,
-                () -> 0.4,
+                () -> -getNudgeValue(),
                 () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees());
 
         new POVButton(m_controllerDriver, 270).whileTrue(cmd);
@@ -302,7 +319,7 @@ public class RobotContainer {
                 m_drivetrainSubsystem,
                 () -> -getInputLeftY(),
                 () -> -getInputLeftX(),
-                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() + 10);
+                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() + getNudgeAngle());
 
         leftBumper.whileTrue(cmd);
 
@@ -311,7 +328,7 @@ public class RobotContainer {
                 m_drivetrainSubsystem,
                 () -> -getInputLeftY(),
                 () -> -getInputLeftX(),
-                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() - 10);
+                () -> RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees() - getNudgeAngle());
 
         rightBumper.whileTrue(cmd);
 
@@ -445,6 +462,14 @@ public class RobotContainer {
         commands.add(autoCmd);
 
         autoCmd = new AutoRedOne();
+        m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+        commands.add(autoCmd);
+
+        autoCmd = new AutoRedFive();
+        m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+        commands.add(autoCmd);
+
+        autoCmd = new AutoBlueFive();
         m_autoChooser.addOption(autoCmd.getName(), autoCmd);
         commands.add(autoCmd);
 

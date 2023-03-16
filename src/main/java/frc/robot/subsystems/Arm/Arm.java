@@ -164,7 +164,7 @@ public class Arm extends SubsystemBase {
                 Arm.setpointCommandFactory("QQ Waypoint", 120, 150, tolerance),
                 null);
         W = m_graphCommand.new GraphCommandNode("W",
-                Arm.setpointCommandFactory("W Target", -124.5, 120, tolerance),
+                Arm.setpointCommandFactory("W Target", -124.5, 112, tolerance),
                 null,
                 null);
         Z = m_graphCommand.new GraphCommandNode("Z",
