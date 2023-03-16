@@ -20,9 +20,9 @@ import frc.robot.commands.Grabber.AutoGrab;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.subsystems.Arm.Arm;
 
-public class AutoBlueOne extends CommandBase {
-    /** Creates a new AutoBlueOne. */
-    public AutoBlueOne() {
+public class AutoBlueNine extends CommandBase {
+    /** Creates a new AutoBlueNine. */
+    public AutoBlueNine() {
         // Use addRequirements() here to declare subsystem dependencies.
     }
 
@@ -33,7 +33,7 @@ public class AutoBlueOne extends CommandBase {
         DataLogManager.log("Auto command: " + this.getName());
 
         // Set Starting Pose
-        AutoPoses.SetStartPose(AutoPoses.BlueOne);
+        AutoPoses.SetStartPose(AutoPoses.BlueNine);
 
         // Create command group for the auto routine
         SequentialCommandGroup command = new SequentialCommandGroup(
@@ -44,13 +44,13 @@ public class AutoBlueOne extends CommandBase {
                 Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.C),
                 new WaitOnArm(),
                 Commands.runOnce(() -> RobotContainer.m_grabber.openJaws()),
-                SnapDriveToPoseField.createRelative(AutoPoses.BlueOne, 1, 0, 0, 0.10),
+                SnapDriveToPoseField.createRelative(AutoPoses.BlueNine, 1, 0, 0, 0.10),
                 Arm.targetNodeCommandFactory(RobotContainer.m_arm,
                         RobotContainer.m_arm.O),
-                AutoPoses.DriveToPose(AutoPoses.BlueOneBack),
+                AutoPoses.DriveToPose(AutoPoses.BlueNineBack),
                 new WaitOnArm())
                 .andThen(AutoPoses.DriveToPose(
-                        AutoPoses.GP_BlueOne))
+                        AutoPoses.GP_BlueNine))
                 .andThen(new ParallelDeadlineGroup(new AutoGrab(),
                         new ParallelCommandGroup(
                                 new SnapDriveGamePiece(
@@ -63,10 +63,10 @@ public class AutoBlueOne extends CommandBase {
                 .andThen(Arm.targetNodeCommandFactory(RobotContainer.m_arm,
                         RobotContainer.m_arm.M))
                 .andThen(new SnapDriveToPoseField(RobotContainer.m_drivetrainSubsystem,
-                        AutoPoses.BlueOne,
+                        AutoPoses.BlueNine,
                         0.10))
                 .andThen(Commands.runOnce(() -> RobotContainer.m_grabber.openJaws()))
-                .andThen(SnapDriveToPoseField.createRelative(AutoPoses.BlueOne, 0.5, 0, 0, 0.05));
+                .andThen(SnapDriveToPoseField.createRelative(AutoPoses.BlueNine, 0.5, 0, 0, 0.05));
 
         command.schedule();
     }

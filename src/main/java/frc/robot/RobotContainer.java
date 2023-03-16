@@ -25,19 +25,21 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Arm.LowerArmSetPoint;
-import frc.robot.commands.Drive.DriveUpChargeStation;
 import frc.robot.commands.Drive.SnapDrive;
 import frc.robot.commands.Drive.SnapDriveGamePiece;
 import frc.robot.commands.Drive.SnapDriveToPortal;
 import frc.robot.commands.Drive.SnapDriveToPoseField;
 import frc.robot.commands.Grabber.AutoGrab;
 import frc.robot.commands.Tracking.EnableLight;
+import frc.robot.commands.auto.AutoBlueNine;
 import frc.robot.commands.auto.AutoBlueOne;
 import frc.robot.commands.auto.AutoBlueTwo;
 import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
 import frc.robot.commands.auto.AutoRedNine;
 import frc.robot.commands.auto.AutoRedOne;
+import frc.robot.commands.auto.BlueDriveUpChargeStation;
+import frc.robot.commands.auto.RedDriveUpChargeStation;
 import frc.robot.sim.PhysicsSim;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
@@ -418,7 +420,11 @@ public class RobotContainer {
         m_autoChooser.addOption(autoCmd.getName(), autoCmd);
         commands.add(autoCmd);
 
-        autoCmd = new DriveUpChargeStation();
+        autoCmd = new BlueDriveUpChargeStation();
+        m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+        commands.add(autoCmd);
+
+        autoCmd = new RedDriveUpChargeStation();
         m_autoChooser.addOption(autoCmd.getName(), autoCmd);
         commands.add(autoCmd);
 
@@ -431,6 +437,10 @@ public class RobotContainer {
         commands.add(autoCmd);
 
         autoCmd = new AutoBlueTwo();
+        m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+        commands.add(autoCmd);
+
+        autoCmd = new AutoBlueNine();
         m_autoChooser.addOption(autoCmd.getName(), autoCmd);
         commands.add(autoCmd);
 

@@ -68,6 +68,7 @@
       "/Shuffleboard/Button.Box/Panel/Vision Reset": "Command",
       "/Shuffleboard/Field/Field": "Field2d",
       "/Shuffleboard/Match.Auto/Autonomous": "String Chooser",
+      "/Shuffleboard/Match.Auto/Commands/AutoBlueNine": "Command",
       "/Shuffleboard/Match.Auto/Commands/AutoBlueOne": "Command",
       "/Shuffleboard/Match.Auto/Commands/AutoBlueTwo": "Command",
       "/Shuffleboard/Match.Auto/Commands/AutoMoceBackToPose": "Command",

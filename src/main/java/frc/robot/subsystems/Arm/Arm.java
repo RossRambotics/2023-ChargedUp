@@ -448,7 +448,7 @@ public class Arm extends SubsystemBase {
     }
 
     final static public CommandBase targetNodeCommandFactory(Arm arm, GraphCommandNode node) {
-        CommandBase cmd = Commands.runOnce(() -> arm.m_graphCommand.setTargetNode(node)).withTimeout(2.0);
+        CommandBase cmd = Commands.runOnce(() -> arm.m_graphCommand.setTargetNode(node)).withTimeout(5.0);
         cmd.setName(node.getNodeName());
 
         return cmd;

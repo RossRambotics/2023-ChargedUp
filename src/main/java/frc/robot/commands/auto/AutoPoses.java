@@ -16,15 +16,26 @@ import frc.robot.commands.Drive.SnapDriveToPoseField;
 public class AutoPoses {
     public final static Pose2d BluePortal = new Pose2d(14.359, 7.5, new Rotation2d(Math.toRadians(90)));
     public final static Pose2d RedPortal = new Pose2d(2.4, 7.5, new Rotation2d(Math.toRadians(90)));
+
     public final static Pose2d BlueOne = new Pose2d(1.88, 4.96, new Rotation2d(Math.toRadians(180)));
-    public final static Pose2d BlueOneBack = new Pose2d(2.25, 4.96, new Rotation2d(Math.toRadians(180)));
-    public final static Pose2d GP_BlueOne = new Pose2d(2.7, 5.41, new Rotation2d(Math.toRadians(-90)));
+    public final static Pose2d BlueOneBack = new Pose2d(4.0, 4.96, new Rotation2d(Math.toRadians(180)));
+    public final static Pose2d GP_BlueOne = new Pose2d(6.0, 4.59, new Rotation2d(Math.toRadians(0)));
+
+    public final static Pose2d BlueNine = new Pose2d(1.88, 0.51, new Rotation2d(Math.toRadians(180)));
+    public final static Pose2d BlueNineBack = new Pose2d(2.5, 0.75, new Rotation2d(Math.toRadians(180)));
+    public final static Pose2d GP_BlueNine = new Pose2d(6.0, 0.91, new Rotation2d(Math.toRadians(0)));
+
+    public final static Pose2d BlueFive = new Pose2d(1.88, 2.71, new Rotation2d(Math.toRadians(180)));
+    public final static Pose2d BlueFiveBack = new Pose2d(5.5, 2.71, new Rotation2d(Math.toRadians(180)));
+    public final static Pose2d GP_BlueFive = new Pose2d(6.0, 3.4, new Rotation2d(Math.toRadians(0)));
 
     // public final static Pose2d GP_BlueOne = new Pose2d(3.0, 4.96, new
     // Rotation2d(Math.toRadians(180)));
     // public final static Pose2d GP_BlueOne2 = new Pose2d(3.0, 4.96, new
     // Rotation2d(Math.toRadians(-90)));
     public final static Pose2d RedOne = new Pose2d(14.63, 0.50, new Rotation2d(Math.toRadians(0)));
+    public final static Pose2d RedNine = new Pose2d(14.63, 4.97, new Rotation2d(Math.toRadians(0)));
+
     public final static Pose2d Tag1 = new Pose2d(15.10, 1.25, new Rotation2d(Math.toRadians(0)));
     public final static Pose2d Tag1ConeLeft = new Pose2d(15.10, .5, new Rotation2d(Math.toRadians(0)));
     public final static Pose2d Tag1ConeRight = new Pose2d(14.59, 1.65, new Rotation2d(Math.toRadians(0)));
@@ -33,7 +44,7 @@ public class AutoPoses {
     public final static Pose2d Tag2ConeRight = new Pose2d(14.59, 3.33, new Rotation2d(Math.toRadians(0)));
     public final static Pose2d Tag3 = new Pose2d(14.59, 4.44, new Rotation2d(Math.toRadians(0)));
     public final static Pose2d Tag3ConeLeft = new Pose2d(14.59, 3.89, new Rotation2d(Math.toRadians(0)));
-    public final static Pose2d RedNine = new Pose2d(14.59, 5, new Rotation2d(Math.toRadians(180)));
+
     public final static Pose2d RedNineBack = new Pose2d(15, 5, new Rotation2d(Math.toRadians(180)));
     public final static Pose2d Tag6 = new Pose2d(1.97, 4.44, new Rotation2d(Math.toRadians(0)));
     public final static Pose2d Tag6ConeLeft = new Pose2d(1.97, 5, new Rotation2d(Math.toRadians(0)));
