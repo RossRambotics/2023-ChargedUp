@@ -1,6 +1,7 @@
 package frc.robot.subsystems.LEDs;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
@@ -29,27 +30,28 @@ public class LEDPanel extends SubsystemBase {
         configALL.disableWhenLOS = false;
         configALL.stripType = LEDStripType.GRB;
         configALL.brightnessScalar = 0.5; // dim the LEDs to half brightness
-        configALL.vBatOutputMode = VBatOutputMode.Modulated;
-        m_candle.configAllSettings(configALL);
+        // configALL.vBatOutputMode = VBatOutputMode.Modulated;
+        m_candle.configAllSettings(configALL, 100);
+        m_Timer.start();
     }
 
-    public void setLED(int r, int g, int b, int index) {
-        m_candle.setLEDs(r, g, b, 255, index, 1);
-    }
+    private static Timer m_Timer = new Timer();
 
     @Override
     public void periodic() {
-        // Only run if disabled
-        if (!DriverStation.isDisabled()) {
-            // Turn all lights red
-            m_candle.setLEDs(255, 0, 0);
-            m_isPanelDisabled = true;
-        }
+        // limit to 10x a second
+        if (m_Timer.advanceIfElapsed(0.1)) {
+            // Only run if not disabled
+            if (!DriverStation.isDisabled()) {
+                // Turn all lights red
+                m_candle.setLEDs(255, 0, 0);
+            }
 
-        if (RobotContainer.m_Tracking.isTrackingTarget()) {
-            this.showTrackingStatusGreen();
-        } else {
-            this.showTrackingStatusRed();
+            // if (RobotContainer.m_Tracking.isTrackingTarget()) {
+            // this.showTrackingStatusGreen();
+            // } else {
+            // this.showTrackingStatusRed();
+            // }
         }
 
     }
