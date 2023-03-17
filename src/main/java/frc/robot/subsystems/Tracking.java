@@ -102,7 +102,7 @@ public class Tracking extends SubsystemBase {
             return 0;
         }
 
-        return (yaw) + 6.5;
+        return (yaw);
     }
 
     public double getTargetHeading() {
@@ -128,7 +128,7 @@ public class Tracking extends SubsystemBase {
             yaw = Math.signum(yaw) * kS;
         }
 
-        return yaw + 6.5 + RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees();
+        return yaw + RobotContainer.m_drivetrainSubsystem.getGyroHeading().getDegrees();
     }
 
     // used only for testing
@@ -218,12 +218,17 @@ public class Tracking extends SubsystemBase {
     public void enableSearchLight() {
         m_PDH.setSwitchableChannel(true);
         m_camera.setDriverMode(false);
+        if (RobotContainer.m_GridSelector.isCube()) {
+            this.GamePieceCube();
+        } else {
+            this.GamePieceCone();
+        }
         m_isLightOn = true;
     }
 
     public void disableSearchLight() {
         m_PDH.setSwitchableChannel(false);
-        m_camera.setDriverMode(true);
+        // m_camera.setDriverMode(true);
         m_isLightOn = false;
     }
 }

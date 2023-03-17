@@ -108,7 +108,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
     super.enable();
 
     // now do redo reset with the last set point
-    super.getController().reset(m_lastSetPoint);
+    // super.getController().reset(m_lastSetPoint);
   }
 
   @Override
@@ -275,8 +275,6 @@ public class UpperArm extends ProfiledPIDSubsystem {
     m_motor.setVoltage(0);
     m_testTimer.stop();
 
-    // double kV = (Math.abs(m_testStartRad - testEndRad) / m_testTimer.get()) /
-    // m_testVolts;
     double kV = (m_testTimer.get() * m_testVolts) / Math.abs(m_testStartRad - testEndRad);
 
     System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");

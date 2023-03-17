@@ -99,7 +99,7 @@ public class SnapDriveGamePiece extends CommandBase {
         double p = getError();
 
         // convert p from degrees to motor power
-        double rotationSpeed = -m_PIDTracking.calculate(p, 0);
+        double rotationSpeed = m_PIDTracking.calculate(p, 0);
         rotationSpeed = MathUtil.clamp(rotationSpeed, -3.0, 3.0);
         // DataLogManager.log("Snap: Goal: " + m_goalDegrees + " Error: " + p + "
         // Rotation Speed: " + rotationSpeed);
@@ -114,11 +114,11 @@ public class SnapDriveGamePiece extends CommandBase {
             if (Math.abs(RobotContainer.m_Tracking.getYawOffset()) > 5.0) {
                 System.out.println("***************** STAGE 1 *****************");
                 m_drivetrainSubsystem.drive(
-                        new ChassisSpeeds(-0.4, 0.0, rotationSpeed),
+                        new ChassisSpeeds(0.4, 0.0, rotationSpeed),
                         rotationSpeed);
             } else {
                 System.out.println("***************** STAGE 2 *****************");
-                m_drivetrainSubsystem.drive(new ChassisSpeeds(-0.6, 0.0, rotationSpeed),
+                m_drivetrainSubsystem.drive(new ChassisSpeeds(0.6, 0.0, rotationSpeed),
                         rotationSpeed);
             }
         } else {

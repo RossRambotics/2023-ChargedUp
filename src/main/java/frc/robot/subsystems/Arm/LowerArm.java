@@ -138,7 +138,7 @@ public class LowerArm extends ProfiledPIDSubsystem {
     super.enable();
 
     // now do redo reset with the last set point
-    super.getController().reset(m_lastSetPoint);
+    // super.getController().reset(m_lastSetPoint);
   }
 
   @Override

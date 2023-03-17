@@ -9,15 +9,15 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.commands.auto.AutoPoses;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class SnapDriveToPoseField extends CommandBase {
+public class SnapDriveToPortal extends CommandBase {
     private final DrivetrainSubsystem m_drivetrainSubsystem;
     private Pose2d m_goal;
     ProfiledPIDController m_rotationPID = null;
@@ -32,45 +32,33 @@ public class SnapDriveToPoseField extends CommandBase {
     /**
      * 
      * @param drivetrainSubsystem Drive subsystem
-     * @param goal                the goal pose that the robot should move to
      * @param maxErrorMeters      error tolerance in meters. Once the x and y error
      *                            is less than this amount the command will finish.
      */
-    public SnapDriveToPoseField(DrivetrainSubsystem drivetrainSubsystem,
-            Pose2d goal, double maxErrorMeters) {
+    public SnapDriveToPortal(DrivetrainSubsystem drivetrainSubsystem,
+            double maxErrorMeters) {
 
         this.m_drivetrainSubsystem = drivetrainSubsystem;
         double kFACTOR = 1.0; // scaling factor to correct for calculation error between simulated world and
                               // real world
 
-        m_goal = new Pose2d(goal.getX() * kFACTOR, goal.getY() * kFACTOR, goal.getRotation());
         m_maxErrorMeters = maxErrorMeters;
 
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(drivetrainSubsystem);
     }
 
-    /**
-     * Creates new SnapDriveToPoseField relative to the current pose of the robot.
-     * 
-     * @param pose           - pose to be relative to
-     * @param x              - relative distance in meters
-     * @param y              - relative distance in meters
-     * @param degrees        - relative angle in degrees
-     * @param maxErrorMeters - acceptable error in meters
-     * @return a new SnapDriveToPoseField command
-     */
-    static public SnapDriveToPoseField createRelative(Pose2d pose, double x, double y, double degrees,
-            double maxErrorMeters) {
-        Pose2d target = new Pose2d(x + pose.getX(), y + pose.getY(),
-                new Rotation2d(pose.getRotation().getRadians() + Math.toRadians(degrees)));
-
-        return new SnapDriveToPoseField(RobotContainer.m_drivetrainSubsystem, target, maxErrorMeters);
-    }
-
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+
+        // set the goal
+        if (RobotContainer.m_GridSelector.isBlueAlliance()) {
+            m_goal = AutoPoses.BluePortal;
+        } else {
+            m_goal = AutoPoses.RedPortal;
+        }
+
         double TRANSLATE_P = 4.0;
         double TRANSLATE_D = 0.0;
         double TRANSLATE_FF_S = 0.0; // keep zero we are going to use the PID and static FF
@@ -112,7 +100,7 @@ public class SnapDriveToPoseField extends CommandBase {
                 m_goal.getY() - current.getY(),
                 m_goal.getRotation().minus(current.getRotation()));
 
-        DataLogManager.log("SnapDriveToPoseField: Current: " + current + " Error: " + error);
+        DataLogManager.log("SnapDriveToPortal: Current: " + current + " Error: " + error);
 
         return error;
     }
@@ -157,7 +145,7 @@ public class SnapDriveToPoseField extends CommandBase {
             translateSpeedY -= TRANSLATE_FF;
         }
 
-        DataLogManager.log("SnapDriveToPoseField: Corrections: X: " + translateSpeedX + " Y: " + translateSpeedY
+        DataLogManager.log("SnapDriveToPortal: Corrections: X: " + translateSpeedX + " Y: " + translateSpeedY
                 + " Rot: " + rotationSpeed);
 
         m_drivetrainSubsystem.drive(
@@ -173,7 +161,7 @@ public class SnapDriveToPoseField extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         m_drivetrainSubsystem.drive(new ChassisSpeeds(0.0, 0.0, 0.0), 0.0);
-        DataLogManager.log("SnapDriveToPoseField End.");
+        DataLogManager.log("SnapDriveToPortal End.");
     }
 
     // Returns true when the command should end.

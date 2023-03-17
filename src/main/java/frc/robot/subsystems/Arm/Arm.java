@@ -13,15 +13,17 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
-import edu.wpi.first.wpilibj.shuffleboard.WidgetType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.commands.Arm.LowerArmSetPoint;
 import frc.robot.commands.Arm.UpperArmSetPoint;
+import frc.robot.commands.Grabber.AutoGrab;
 import frc.util.GraphCommand.GraphCommand;
 import frc.util.GraphCommand.GraphCommand.GraphCommandNode;
 
@@ -38,7 +40,7 @@ public class Arm extends SubsystemBase {
 
     public GraphCommandNode A, AO;
     public GraphCommandNode B;
-    public GraphCommandNode C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, OO, PP, QQ, NN, Z, X, Y;
+    public GraphCommandNode C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, OO, PP, QQ, NN, Z, X, Y, YY, W;
 
     /** Creates a new Arm. */
     public Arm() {
@@ -49,16 +51,21 @@ public class Arm extends SubsystemBase {
         int tolerance = 5;
         int wp_tolerance = 15;
 
+        SequentialCommandGroup autoGrabCommandGroup = new SequentialCommandGroup(
+                Commands.runOnce(() -> RobotContainer.m_grabber.openJaws()),
+                new WaitCommand(.25),
+                new AutoGrab());
+
         A = m_graphCommand.new GraphCommandNode("A",
                 Arm.setpointCommandFactory("A Target", -132, 123, tolerance),
                 null,
                 null);
         B = m_graphCommand.new GraphCommandNode("B",
-                Arm.setpointCommandFactory("B Target", -2, 52, tolerance),
+                Arm.setpointCommandFactory("B Target", 20, 0, tolerance),
                 null,
                 null);
         C = m_graphCommand.new GraphCommandNode("C",
-                Arm.setpointCommandFactory("C Target", 6, 0, tolerance),
+                Arm.setpointCommandFactory("C Target", 20, -36, tolerance),
                 null,
                 null);
         D = m_graphCommand.new GraphCommandNode("D",
@@ -94,8 +101,8 @@ public class Arm extends SubsystemBase {
                 Arm.setpointCommandFactory("K Waypoint", 120, 150, tolerance),
                 null);
         L = m_graphCommand.new GraphCommandNode("L",
-                Arm.setpointCommandFactory("L Target", 120, 150, tolerance),
-                Arm.setpointCommandFactory("L Waypoint", 120, 150, tolerance),
+                Arm.setpointCommandFactory("L Target", -90, 105, tolerance),
+                null,
                 null);
         M = m_graphCommand.new GraphCommandNode("M",
                 Arm.setpointCommandFactory("M Target", 120, 150, tolerance),
@@ -110,6 +117,11 @@ public class Arm extends SubsystemBase {
                 Arm.setpointCommandFactory("Low Arm", -94, 82, tolerance),
                 null,
                 null);
+
+        // O_Auto = m_graphCommand.new GraphCommandNode("O",
+        // Arm.setpointCommandFactory("Low Arm", -94, 82, tolerance),
+        // null,
+        // null);
 
         AO = m_graphCommand.new GraphCommandNode("AO",
                 Arm.setpointCommandFactory("Low Arm", -96, 105, tolerance),
@@ -151,6 +163,10 @@ public class Arm extends SubsystemBase {
                 Arm.setpointCommandFactory("QQ Target", 120, 150, tolerance),
                 Arm.setpointCommandFactory("QQ Waypoint", 120, 150, tolerance),
                 null);
+        W = m_graphCommand.new GraphCommandNode("W",
+                Arm.setpointCommandFactory("W Target", -124.5, 112, tolerance),
+                null,
+                null);
         Z = m_graphCommand.new GraphCommandNode("Z",
                 Arm.setpointCommandFactory("Z Target", -35, 120, tolerance),
                 Arm.setpointCommandFactory("Z Target", -35, 120,
@@ -164,6 +180,10 @@ public class Arm extends SubsystemBase {
                 Arm.setpointCommandFactory("Y Target", 0, 0, tolerance),
                 Arm.setpointCommandFactory("Y Waypoint", 0, 0, tolerance),
                 null);
+        YY = m_graphCommand.new GraphCommandNode("YY",
+                Arm.setpointCommandFactory("YY Target", -87, 146, tolerance),
+                null,
+                autoGrabCommandGroup);
 
         m_graphCommand.setGraphRootNode(A);
 
@@ -172,6 +192,7 @@ public class Arm extends SubsystemBase {
         A.AddNode(N, 1);
         A.AddNode(AO, 1);
         AO.AddNode(O, 1);
+        // AO.AddNode(O_Auto, 1);
         // NN.AddNode(R, 1);
         // R.AddNode(T, 1);
         // R.AddNode(X, 1);
@@ -186,6 +207,9 @@ public class Arm extends SubsystemBase {
         B.AddNode(C, 1);
         N.AddNode(D, 1);
         D.AddNode(E, 1);
+        YY.AddNode(N, 1);
+        YY.AddNode(L, 1);
+        A.AddNode(W, 1);
 
         // N.AddNode(Y, 1);
         C.setNextNode(B);
@@ -200,6 +224,7 @@ public class Arm extends SubsystemBase {
         // K.setNextNode(J);
         // M.setNextNode(L);
         // L.setNextNode(M);
+        A.AddNode(YY, 1);
 
         m_graphCommand.addRequirements(this);
         this.setDefaultCommand(m_graphCommand);
@@ -220,6 +245,10 @@ public class Arm extends SubsystemBase {
         }
 
         this.m_graphCommand.setTargetNode(node);
+    }
+
+    public boolean isAtTarget() {
+        return !m_graphCommand.isTransitioning();
     }
 
     private Timer m_testTimer = new Timer();
@@ -255,10 +284,10 @@ public class Arm extends SubsystemBase {
         // }
         // }
 
-        RobotContainer.m_GridSelector.setLeftSwitch(m_nt_leftSwitch.getBoolean(false));
-        RobotContainer.m_GridSelector.setMidSwitch(m_nt_midSwitch.getBoolean(false));
-        RobotContainer.m_GridSelector.setRightSwitch(m_nt_rightSwitch.getBoolean(false));
-        RobotContainer.m_GridSelector.setButtonBox(m_nt_buttonBox.getBoolean(false));
+        // RobotContainer.m_GridSelector.setLeftSwitch(m_nt_leftSwitch.getBoolean(false));
+        // RobotContainer.m_GridSelector.setMidSwitch(m_nt_midSwitch.getBoolean(false));
+        // RobotContainer.m_GridSelector.setRightSwitch(m_nt_rightSwitch.getBoolean(false));
+        RobotContainer.m_GridSelector.setButtonBox(m_nt_buttonBox.getBoolean(true));
         RobotContainer.m_GridSelector.setDial(m_nt_dial.getInteger(1));
 
     }
@@ -336,11 +365,11 @@ public class Arm extends SubsystemBase {
         cmd.setName("Vision Reset");
         graph.add(cmd).withPosition(1, 0);
 
-        m_nt_leftSwitch = graph.add("Left Switch", false)
+        m_nt_leftSwitch = graph.add("Red?", false)
                 .withPosition(2, 1)
                 .withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
-        m_nt_midSwitch = graph.add("Mid Switch", false)
+        m_nt_midSwitch = graph.add("Cube?", false)
                 .withPosition(3, 1)
                 .withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
@@ -348,7 +377,7 @@ public class Arm extends SubsystemBase {
                 .withPosition(4, 1)
                 .withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
-        m_nt_buttonBox = graph.add("Button Box", false)
+        m_nt_buttonBox = graph.add("Button Box", true)
                 .withPosition(0, 0)
                 .withWidget(BuiltInWidgets.kToggleButton)
                 .getEntry();
@@ -377,6 +406,9 @@ public class Arm extends SubsystemBase {
         commands.add(cmd);
 
         cmd = Arm.setpointCommandFactory("safe forward", -45, 120, 1);
+        commands.add(cmd);
+
+        cmd = new AutoGrab();
         commands.add(cmd);
 
         cmd = Commands.runOnce(() -> this.goNextNode());
@@ -416,7 +448,7 @@ public class Arm extends SubsystemBase {
     }
 
     final static public CommandBase targetNodeCommandFactory(Arm arm, GraphCommandNode node) {
-        CommandBase cmd = Commands.runOnce(() -> arm.m_graphCommand.setTargetNode(node)).withTimeout(2.0);
+        CommandBase cmd = Commands.runOnce(() -> arm.m_graphCommand.setTargetNode(node)).withTimeout(5.0);
         cmd.setName(node.getNodeName());
 
         return cmd;

@@ -18,6 +18,7 @@ public class TrackCone extends CommandBase {
     @Override
     public void initialize() {
         RobotContainer.m_Tracking.GamePieceCone();
+        RobotContainer.m_LEDPanel.showCone();
     }
 
     // Called every time the scheduler runs while the command is scheduled.

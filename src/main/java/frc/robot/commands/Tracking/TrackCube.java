@@ -18,6 +18,7 @@ public class TrackCube extends CommandBase {
     @Override
     public void initialize() {
         RobotContainer.m_Tracking.GamePieceCube();
+        RobotContainer.m_LEDPanel.showCube();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
