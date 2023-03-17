@@ -39,6 +39,7 @@ public class AutoBlueFive extends CommandBase {
         SequentialCommandGroup command = new SequentialCommandGroup(
                 Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.O),
                 new WaitOnArm(),
+                new WaitCommand(1.0),
                 Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.A),
                 new WaitOnArm(),
                 new BlueDriveUpChargeStation().withTimeout(15));
