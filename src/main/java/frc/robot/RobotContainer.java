@@ -32,12 +32,14 @@ import frc.robot.commands.Drive.SnapDriveToPoseField;
 import frc.robot.commands.Grabber.AutoGrab;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.commands.auto.AutoBlueFive;
+import frc.robot.commands.auto.AutoBlueHighNothing;
 import frc.robot.commands.auto.AutoBlueNine;
 import frc.robot.commands.auto.AutoBlueOne;
 import frc.robot.commands.auto.AutoBlueTwo;
 import frc.robot.commands.auto.AutoMoveBackToPose;
 import frc.robot.commands.auto.AutoMoveConeLeft;
 import frc.robot.commands.auto.AutoRedFive;
+import frc.robot.commands.auto.AutoRedHighNothing;
 import frc.robot.commands.auto.AutoRedNine;
 import frc.robot.commands.auto.AutoRedOne;
 import frc.robot.commands.auto.BlueDriveUpChargeStation;
@@ -470,6 +472,14 @@ public class RobotContainer {
         commands.add(autoCmd);
 
         autoCmd = new AutoBlueFive();
+        m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+        commands.add(autoCmd);
+
+        autoCmd = new AutoRedHighNothing();
+        m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+        commands.add(autoCmd);
+
+        autoCmd = new AutoBlueHighNothing();
         m_autoChooser.addOption(autoCmd.getName(), autoCmd);
         commands.add(autoCmd);
 

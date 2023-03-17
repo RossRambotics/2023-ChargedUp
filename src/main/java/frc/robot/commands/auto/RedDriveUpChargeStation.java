@@ -57,7 +57,7 @@ public class RedDriveUpChargeStation extends CommandBase {
                 }),
                 new SnapDrive(RobotContainer.m_drivetrainSubsystem,
                         () -> {
-                            return -0.75;
+                            return -1.0;
                         },
                         () -> {
                             return -0.0;
@@ -72,7 +72,7 @@ public class RedDriveUpChargeStation extends CommandBase {
                         }),
                         new SnapDrive(RobotContainer.m_drivetrainSubsystem,
                                 () -> {
-                                    return 0.30;
+                                    return 0.50;
                                 },
                                 () -> {
                                     return -0.0;
@@ -127,7 +127,7 @@ public class RedDriveUpChargeStation extends CommandBase {
                     }),
                     new SnapDrive(RobotContainer.m_drivetrainSubsystem,
                             () -> {
-                                return -0.3;
+                                return -0.4;
                             },
                             () -> {
                                 return -0.0;
@@ -148,7 +148,7 @@ public class RedDriveUpChargeStation extends CommandBase {
                     }),
                     new SnapDrive(RobotContainer.m_drivetrainSubsystem,
                             () -> {
-                                return 0.3;
+                                return 0.4;
                             },
                             () -> {
                                 return -0.0;
