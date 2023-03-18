@@ -43,9 +43,9 @@ public class AutoRedNine extends CommandBase {
                 Commands.runOnce(() -> RobotContainer.m_grabber.openJaws()),
                 SnapDriveToPoseField.createRelative(AutoPoses.RedNine, -1, 0, 0, 0.10),
                 Arm.targetNodeCommandFactory(RobotContainer.m_arm,
-                        RobotContainer.m_arm.O),
-                AutoPoses.DriveToPose(AutoPoses.RedNineBack),
-                new WaitOnArm())
+                        RobotContainer.m_arm.O))
+                // AutoPoses.DriveToPose(AutoPoses.RedNineBack),
+                // new WaitOnArm())
                 .andThen(AutoPoses.DriveToPose(
                         AutoPoses.GP_RedNine));
         // .andThen(new ParallelDeadlineGroup(new AutoGrab(),
