@@ -145,12 +145,13 @@ public class RobotContainer {
     private double getInputLeftY() {
         double driverLeftY = modifyAxis(m_controllerDriver.getLeftY());
 
-        double slew = m_slewLeftY.calculate(driverLeftY) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
+        double slew = m_slewLeftY.calculate(driverLeftY * slewLimit)
+                * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
 
         if (m_GridSelector.isBlueAlliance()) {
-            return slew * slewLimit;
+            return slew;
         } else {
-            return -slew * slewLimit;
+            return -slew;
         }
 
     }
@@ -160,12 +161,13 @@ public class RobotContainer {
     private double getInputLeftX() {
         double driverLeftX = modifyAxis(m_controllerDriver.getLeftX());
 
-        double slew = m_slewLeftX.calculate(driverLeftX) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
+        double slew = m_slewLeftX.calculate(driverLeftX * slewLimit)
+                * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
 
         if (m_GridSelector.isBlueAlliance()) {
-            return slew * slewLimit;
+            return slew;
         } else {
-            return -slew * slewLimit;
+            return -slew;
         }
     }
 
@@ -256,6 +258,9 @@ public class RobotContainer {
         bButton.onTrue(Commands.runOnce(() -> m_grabber.closeJaws()));
 
         yButton.onTrue(Commands.runOnce(() -> m_arm.goNextNode()));
+
+        leftTrigger.onTrue(Commands.runOnce(() -> slewLimit = 1.0));
+        leftTrigger.onFalse(Commands.runOnce(() -> slewLimit = 0.6));
 
         // cmd = new DefaultDriveCommand(
         // m_drivetrainSubsystem,
