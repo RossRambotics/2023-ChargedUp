@@ -41,7 +41,7 @@ public class AutoBlueFive extends CommandBase {
                 new WaitOnArm(),
                 new WaitCommand(1.0),
                 Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.A),
-                // new WaitOnArm(),
+                new WaitOnArm(),
                 new Blue2DriveUpChargeStation().withTimeout(15));
 
         command.schedule();

@@ -51,7 +51,7 @@ public class Blue2DriveUpChargeStation extends CommandBase {
     public void initialize() {
         // AutoPoses.SetStartPose(AutoPoses.BlueFive);
         m_cmd = SnapDriveToPoseField.createRelative(AutoPoses.BlueFive, 4.25, 0, 0, 0.10)
-                .andThen(SnapDriveToPoseField.createRelative(AutoPoses.BlueFive, 1.9, 0, 0, 0.10))
+                .andThen(SnapDriveToPoseField.createRelative(AutoPoses.BlueFive, 1.95, 0, 0, 0.05))
                 .andThen(new WaitCommand(1.0));
 
         m_cmd.setName("Inititalize");

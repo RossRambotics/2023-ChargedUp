@@ -481,8 +481,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
                         + RobotContainer.m_drivetrainSubsystem.getGyroscopeRotation());
 
         m_odometry.resetPosition(botPose.getRotation(), m_swerveModulePositions, botPose);
-        System.out.println("Reseting Odometry Pose. Gyro: " + getGyroHeading() + " botPose Heading: "
-                + botPose.getRotation().getDegrees());
+        DataLogManager
+                .log("Reseting Odometry Pose. Gyro: " + getGyroHeading() + " botPose Heading: "
+                        + botPose.getRotation().getDegrees());
     }
 
     public double getPitch() {

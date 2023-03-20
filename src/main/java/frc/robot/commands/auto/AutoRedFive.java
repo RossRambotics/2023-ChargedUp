@@ -40,8 +40,8 @@ public class AutoRedFive extends CommandBase {
                 Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.O),
                 new WaitOnArm(),
                 new WaitCommand(1.0),
-                Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.A))
-                // new WaitOnArm())
+                Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.A),
+                new WaitOnArm())
                 .andThen(new Red2DriveUpChargeStation().withTimeout(15));
 
         command.schedule();

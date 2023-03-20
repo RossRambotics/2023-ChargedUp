@@ -77,7 +77,7 @@ public class SnapDriveToPoseField extends CommandBase {
         double TRANSLATE_FF_V = 1.0; // Weight of the position pid to the velocity
 
         TrapezoidProfile.Constraints rotationConstraints = new TrapezoidProfile.Constraints(
-                1.0, 0.5);
+                1.25, 1.0);
         m_rotationPID = new ProfiledPIDController(
                 SnapConstants.kANGULAR_P, 0, SnapConstants.kANGULAR_D, rotationConstraints);
 
