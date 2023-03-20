@@ -114,7 +114,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     private Field2d m_field = new Field2d();
 
-    private double m_lastRotationSpeed;
+    private double m_simRotation;
 
     private Timer m_Timer = new Timer();
 
@@ -300,7 +300,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
      * @param yawDegrees
      */
     public void setGyroScope(double yawDegrees) {
-        m_lastRotationSpeed = Math.toRadians(yawDegrees);
+        m_simRotation = Math.toRadians(yawDegrees);
         m_pigeon.setYaw(yawDegrees, 50);
     }
 
@@ -353,7 +353,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 m_swerveModuleStates,
                 MAX_VELOCITY_METERS_PER_SECOND);
 
-        m_lastRotationSpeed += rotationSpeed * 0.02;
+        m_simRotation += rotationSpeed * 0.02;
         // update the actual swerve modules
         this.setSwerveModulesStates();
     }
@@ -423,7 +423,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
                 RobotContainer.m_positioning.updateVision(m_odometry);
                 // m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
-                m_odometry.update(new Rotation2d(m_lastRotationSpeed), m_swerveModulePositions);
+                m_odometry.update(new Rotation2d(m_simRotation), m_swerveModulePositions);
                 m_field.setRobotPose(getOdometryPose());
             }
         } else {
