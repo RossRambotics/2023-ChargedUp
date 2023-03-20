@@ -47,9 +47,9 @@ public class AutoBlueNine extends CommandBase {
                 Commands.runOnce(() -> RobotContainer.m_grabber.openJaws()),
                 SnapDriveToPoseField.createRelative(AutoPoses.BlueNine, 1, 0, 0, 0.10),
                 Arm.targetNodeCommandFactory(RobotContainer.m_arm,
-                        RobotContainer.m_arm.O),
-                AutoPoses.DriveToPose(AutoPoses.BlueNineBack),
-                new WaitOnArm())
+                        RobotContainer.m_arm.O))
+                // AutoPoses.DriveToPose(AutoPoses.BlueNineBack),
+                // new WaitOnArm())
                 .andThen(AutoPoses.DriveToPose(
                         AutoPoses.GP_BlueNine));
         // .andThen(new ParallelDeadlineGroup(new AutoGrab(),

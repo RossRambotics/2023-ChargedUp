@@ -47,9 +47,9 @@ public class AutoBlueOne extends CommandBase {
                 Commands.runOnce(() -> RobotContainer.m_grabber.openJaws()),
                 SnapDriveToPoseField.createRelative(AutoPoses.BlueOne, 1, 0, 0, 0.10),
                 Arm.targetNodeCommandFactory(RobotContainer.m_arm,
-                        RobotContainer.m_arm.O),
-                AutoPoses.DriveToPose(AutoPoses.BlueOneBack),
-                new WaitOnArm())
+                        RobotContainer.m_arm.O))
+                // AutoPoses.DriveToPose(AutoPoses.BlueOneBack),
+                // new WaitOnArm())
                 .andThen(AutoPoses.DriveToPose(
                         AutoPoses.GP_BlueOne));
         // .andThen(new ParallelDeadlineGroup(new AutoGrab(),

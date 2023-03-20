@@ -42,6 +42,7 @@ import frc.robot.commands.auto.AutoRedFive;
 import frc.robot.commands.auto.AutoRedHighNothing;
 import frc.robot.commands.auto.AutoRedNine;
 import frc.robot.commands.auto.AutoRedOne;
+import frc.robot.commands.auto.Blue2DriveUpChargeStation;
 import frc.robot.commands.auto.BlueDriveUpChargeStation;
 import frc.robot.commands.auto.RedDriveUpChargeStation;
 import frc.robot.sim.PhysicsSim;
@@ -480,6 +481,10 @@ public class RobotContainer {
         commands.add(autoCmd);
 
         autoCmd = new AutoBlueHighNothing();
+        m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+        commands.add(autoCmd);
+
+        autoCmd = new Blue2DriveUpChargeStation();
         m_autoChooser.addOption(autoCmd.getName(), autoCmd);
         commands.add(autoCmd);
 
