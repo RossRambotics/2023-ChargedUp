@@ -100,7 +100,7 @@ public class Positioning extends SubsystemBase {
             }
 
             try {
-                if (true) {
+                if (false) {
                     odometry.addVisionMeasurement(botPose,
                             Timer.getFPGATimestamp() - LimelightHelpers.getLatency_Pipeline("") - 10);
                 }
