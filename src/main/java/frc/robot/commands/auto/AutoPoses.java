@@ -41,6 +41,8 @@ public class AutoPoses {
     public final static Pose2d RedNineBack = new Pose2d(12.55, 4.8, new Rotation2d(Math.toRadians(0)));
     public final static Pose2d GP_RedNine = new Pose2d(10.5, 4.6, new Rotation2d(Math.toRadians(0)));
 
+    public final static Pose2d RedTwo = new Pose2d(14.63, 1.05, new Rotation2d(Math.toRadians(0)));
+
     public final static Pose2d RedFive = new Pose2d(14.63, 2.73, new Rotation2d(Math.toRadians(0)));
 
     public final static Pose2d Tag1 = new Pose2d(15.10, 1.25, new Rotation2d(Math.toRadians(0)));
