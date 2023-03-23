@@ -37,7 +37,7 @@ public class CalibrateRedXY extends CommandBase {
 
         // Create command group for the auto routine
         SequentialCommandGroup command = new SequentialCommandGroup(
-                SnapDriveToPoseField.createRelative(AutoPoses.RedTwo, -1, 1, 0, 0.01));
+                SnapDriveToPoseField.createRelative(AutoPoses.RedTwo, -1, -0.5, 0, 0.01));
 
         command.schedule();
     }
