@@ -20,9 +20,9 @@ import frc.robot.commands.Grabber.AutoGrab;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.subsystems.Arm.Arm;
 
-public class CalibrateRed extends CommandBase {
+public class CalibrateRedX extends CommandBase {
     /** Creates a new CalibrateRed. */
-    public CalibrateRed() {
+    public CalibrateRedX() {
         // Use addRequirements() here to declare subsystem dependencies.
     }
 
