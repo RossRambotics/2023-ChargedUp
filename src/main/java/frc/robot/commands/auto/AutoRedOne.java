@@ -49,6 +49,7 @@ public class AutoRedOne extends CommandBase {
                         RobotContainer.m_arm.O))
                 // AutoPoses.DriveToPose(AutoPoses.RedOneBack),
                 // new WaitOnArm())
+                .andThen(SnapDriveToPoseField.createRelative(AutoPoses.RedOne, -4, 0, 0, 0.10))
                 .andThen(AutoPoses.DriveToPose(
                         AutoPoses.GP_RedOne));
         // .andThen(new ParallelDeadlineGroup(new AutoGrab(),

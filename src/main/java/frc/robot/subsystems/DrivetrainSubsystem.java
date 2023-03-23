@@ -20,6 +20,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
@@ -113,6 +114,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private static SwerveDrivePoseEstimator m_odometry = null;
 
     private Field2d m_field = new Field2d();
+    private GenericEntry m_nt_OdometryX;
+    private GenericEntry m_nt_OdometryY;
+    private GenericEntry m_nt_LimelightX;
+    private GenericEntry m_nt_LimelightY;
 
     private double m_simRotation;
 
@@ -133,8 +138,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
         ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
         ShuffleboardTab fieldtab = Shuffleboard.getTab("Field");
         fieldtab.add(m_field).withWidget(BuiltInWidgets.kField)
-                .withSize(8, 8)
+                .withSize(6, 5)
                 .withPosition(0, 0);
+
+        m_nt_OdometryX = fieldtab.add("OdometryX", 0.0)
+                .withPosition(6, 0).getEntry();
+        m_nt_OdometryY = fieldtab.add("OdometryY", 0.0)
+                .withPosition(7, 0).getEntry();
+
+        m_nt_LimelightX = fieldtab.add("LimelightX", 0.0)
+                .withPosition(6, 1).getEntry();
+        m_nt_LimelightY = fieldtab.add("LimelightY", 0.0)
+                .withPosition(7, 1).getEntry();
 
         // gets the serial number ooff of the robot
         // Midas serial number is 031E3241
@@ -388,6 +403,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("Gyro Heading (Yaw)", this.getGyroHeading().getDegrees());
         SmartDashboard.putNumber("Gyro Pitch", this.getPitch());
+        Pose2d pose = m_odometry.getEstimatedPosition();
+        m_nt_OdometryX.setDouble(pose.getX());
+        m_nt_OdometryY.setDouble(pose.getY());
+        pose = RobotContainer.m_positioning.getLastBotPose();
+        m_nt_LimelightX.setDouble(pose.getX());
+        m_nt_LimelightY.setDouble(pose.getY());
+
         // update odometry
         if (!Robot.isSimulation()) {
             RobotContainer.m_positioning.updateVision(m_odometry);

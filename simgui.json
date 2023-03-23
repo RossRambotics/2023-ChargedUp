@@ -81,6 +81,7 @@
       "/Shuffleboard/Match.Auto/Commands/AutoRedOne": "Command",
       "/Shuffleboard/Match.Auto/Commands/Blue2DriveUpChargeStation": "Command",
       "/Shuffleboard/Match.Auto/Commands/BlueDriveUpChargeStation": "Command",
+      "/Shuffleboard/Match.Auto/Commands/CalibrateRed": "Command",
       "/Shuffleboard/Match.Auto/Commands/DriveUpChargeStation": "Command",
       "/Shuffleboard/Match.Auto/Commands/LowerArmSetPoint": "Command",
       "/Shuffleboard/Match.Auto/Commands/RedDriveUpChargeStation": "Command",

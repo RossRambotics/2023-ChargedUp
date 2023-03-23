@@ -38,7 +38,7 @@ public class Positioning extends SubsystemBase {
         // Pose2d botPose = new Pose2d(14.0, 2.0, new Rotation2d());
 
         DataLogManager.log("Updating pose in odometry from Vision. botPose: " + botPose);
-        // RobotContainer.m_drivetrainSubsystem.setOdometryPose(botPose);
+        RobotContainer.m_drivetrainSubsystem.setOdometryPose(botPose);
         return;
 
     }
@@ -64,25 +64,24 @@ public class Positioning extends SubsystemBase {
             Translation2d odometry_xy = odometry.getEstimatedPosition().getTranslation();
             Translation2d vision_xy = botPose.getTranslation();
 
-            if (botPose != m_lastVisionPose && LimelightHelpers.getTA("") > .5) {
-                if (vision_xy.getDistance(m_lastVisionPose.getTranslation()) < .5
-                        || m_lasttime + .5 < Timer.getFPGATimestamp()) {
-                    // resetVision();
-                    m_lastVisionPose = botPose;
-                    m_lasttime = Timer.getFPGATimestamp();
-
-                }
+            // image too small to tryst
+            if (LimelightHelpers.getTA("") < .5) {
+                return;
             }
 
+            // no id found
             double fID = LimelightHelpers.getFiducialID("");
             if (fID == 0.0) {
                 return;
             }
 
+            // botpose is ZERO!!
             if (vision_xy.getDistance(new Translation2d()) == 0.0) {
                 DataLogManager.log("Zero botpose.");
                 return;
             }
+
+            m_lastVisionPose = botPose;
 
             // if the poses is more than 1.0m different
             // skip it
@@ -101,7 +100,7 @@ public class Positioning extends SubsystemBase {
             }
 
             try {
-                if (false) {
+                if (true) {
                     odometry.addVisionMeasurement(botPose,
                             Timer.getFPGATimestamp() - LimelightHelpers.getLatency_Pipeline("") - 10);
                 }
@@ -110,6 +109,10 @@ public class Positioning extends SubsystemBase {
             }
         }
 
+    }
+
+    public Pose2d getLastBotPose() {
+        return m_lastVisionPose;
     }
 
     @Override
