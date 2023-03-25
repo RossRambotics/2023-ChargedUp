@@ -61,7 +61,7 @@ public class Arm extends SubsystemBase {
                 null,
                 null);
         B = m_graphCommand.new GraphCommandNode("B",
-                Arm.setpointCommandFactory("B Target", 20, 0, tolerance),
+                Arm.setpointCommandFactory("B Target", 15, 0, tolerance),
                 null,
                 null);
         C = m_graphCommand.new GraphCommandNode("C",
@@ -209,6 +209,7 @@ public class Arm extends SubsystemBase {
         D.AddNode(E, 1);
         YY.AddNode(N, 1);
         YY.AddNode(L, 1);
+        YY.AddNode(D, 1);
         A.AddNode(W, 1);
 
         // N.AddNode(Y, 1);
@@ -229,6 +230,7 @@ public class Arm extends SubsystemBase {
         m_graphCommand.addRequirements(this);
         this.setDefaultCommand(m_graphCommand);
         m_graphCommand.setCurrentNode(S);
+        m_graphCommand.setTargetNode(S);
         m_graphCommand.initialize();
     }
 
