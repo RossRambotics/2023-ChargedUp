@@ -106,13 +106,14 @@ public class UpperArm extends ProfiledPIDSubsystem {
     @Override
     public void enable() {
         // do super enable
-        TrapezoidProfile.State temp = m_lastSetPoint;
+        // TrapezoidProfile.State temp = m_lastSetPoint;
         super.enable();
 
         // now do redo reset with the last set point
-        super.getController().reset(m_lastSetPoint);
-        DataLogManager.log(
-                "Upper Arm enable: last pos: " + temp.position + " last vel: " + temp.velocity);
+        // super.getController().reset(m_lastSetPoint);
+        // DataLogManager.log(
+        // "Upper Arm enable: last pos: " + temp.position + " last vel: " +
+        // temp.velocity);
     }
 
     @Override

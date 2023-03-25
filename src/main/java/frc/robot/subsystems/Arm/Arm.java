@@ -39,7 +39,7 @@ public class Arm extends SubsystemBase {
     private GenericEntry m_nt_dial;
 
     public GraphCommandNode A, AO;
-    public GraphCommandNode B;
+    public GraphCommandNode B, S1;
     public GraphCommandNode C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, OO, PP, QQ, NN, Z, X, Y, YY, W;
 
     /** Creates a new Arm. */
@@ -65,7 +65,7 @@ public class Arm extends SubsystemBase {
                 null,
                 null);
         C = m_graphCommand.new GraphCommandNode("C",
-                Arm.setpointCommandFactory("C Target", 20, -36, tolerance),
+                Arm.setpointCommandFactory("C Target", 20, -36, tolerance * 2.0),
                 null,
                 null);
         D = m_graphCommand.new GraphCommandNode("D",
@@ -140,7 +140,11 @@ public class Arm extends SubsystemBase {
                 Arm.setpointCommandFactory("R Waypoint", 120, 150, tolerance),
                 null);
         S = m_graphCommand.new GraphCommandNode("S",
-                Arm.setpointCommandFactory("S Target", -127, 105, tolerance),
+                Arm.setpointCommandFactory("S Target", -127, 110, tolerance),
+                null,
+                null);
+        S1 = m_graphCommand.new GraphCommandNode("S1",
+                Arm.setpointCommandFactory("S Target", -127, 110, tolerance),
                 null,
                 null);
         T = m_graphCommand.new GraphCommandNode("T",
@@ -188,6 +192,8 @@ public class Arm extends SubsystemBase {
         m_graphCommand.setGraphRootNode(A);
 
         A.AddNode(S, 1);
+        S.AddNode(W, 1);
+        S1.AddNode(S, 1);
         // A.AddNode(NN, 1);
         A.AddNode(N, 1);
         A.AddNode(AO, 1);
@@ -200,6 +206,7 @@ public class Arm extends SubsystemBase {
         // X.AddNode(PP, 1);
         // X.AddNode(QQ, 1);
         N.AddNode(O, 1);
+        O.AddNode(L, 1);
         // N.AddNode(P, 1);
         // N.AddNode(Q, 1);
         N.AddNode(Z, 1);
@@ -229,7 +236,7 @@ public class Arm extends SubsystemBase {
 
         m_graphCommand.addRequirements(this);
         this.setDefaultCommand(m_graphCommand);
-        m_graphCommand.setCurrentNode(S);
+        m_graphCommand.setCurrentNode(S1);
         m_graphCommand.setTargetNode(S);
         m_graphCommand.initialize();
     }

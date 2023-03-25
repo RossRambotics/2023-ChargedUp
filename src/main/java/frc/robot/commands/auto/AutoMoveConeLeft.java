@@ -11,42 +11,42 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.Drive.SnapDriveToPoseField;
 
 public class AutoMoveConeLeft extends CommandBase {
-  /** Creates a new AutoMoveConeLeft. */
-  public AutoMoveConeLeft() {
-    // Use addRequirements() here to declare subsystem dependencies.
+    /** Creates a new AutoMoveConeLeft. */
+    public AutoMoveConeLeft() {
+        // Use addRequirements() here to declare subsystem dependencies.
 
-  }
+    }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    // Log the auto command name
-    DataLogManager.log("Auto command: " + this.getName());
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+        // Log the auto command name
+        DataLogManager.log("Auto command: " + this.getName());
 
-    // Set Starting Pose
-    AutoPoses.SetStartPose(AutoPoses.Tag1);
+        // Set Starting Pose
+        AutoPoses.SetStartPose(AutoPoses.RedNine);
 
-    // Create command group for the auto routine
-    SequentialCommandGroup command = new SequentialCommandGroup(new SnapDriveToPoseField(
-        RobotContainer.m_drivetrainSubsystem,
-        AutoPoses.Tag1ConeLeft,
-        0.02));
-    command.schedule();
-  }
+        // Create command group for the auto routine
+        SequentialCommandGroup command = new SequentialCommandGroup(new SnapDriveToPoseField(
+                RobotContainer.m_drivetrainSubsystem,
+                AutoPoses.RedOne,
+                0.02));
+        command.schedule();
+    }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return true;
-  }
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }
