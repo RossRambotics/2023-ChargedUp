@@ -9,6 +9,7 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -110,8 +111,8 @@ public class UpperArm extends ProfiledPIDSubsystem {
 
         // now do redo reset with the last set point
         super.getController().reset(m_lastSetPoint);
-        System.out.println(
-                "^^^^^^^^^^^^^^^^^^^^^^^^^ pos: " + temp.position + "vel: " + temp.velocity);
+        DataLogManager.log(
+                "Upper Arm enable: last pos: " + temp.position + " last vel: " + temp.velocity);
     }
 
     @Override
