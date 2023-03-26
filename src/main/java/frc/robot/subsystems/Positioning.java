@@ -65,9 +65,9 @@ public class Positioning extends SubsystemBase {
             Translation2d vision_xy = botPose.getTranslation();
 
             // image too small to tryst
-            if (LimelightHelpers.getTA("") < .5) {
-                return;
-            }
+            // if (LimelightHelpers.getTA("") < .5) {
+            // return;
+            // }
 
             // no id found
             double fID = LimelightHelpers.getFiducialID("");
@@ -100,7 +100,7 @@ public class Positioning extends SubsystemBase {
             }
 
             try {
-                if (false) {
+                if (true) {
                     odometry.addVisionMeasurement(botPose,
                             Timer.getFPGATimestamp() - LimelightHelpers.getLatency_Pipeline("") - 10);
                 }

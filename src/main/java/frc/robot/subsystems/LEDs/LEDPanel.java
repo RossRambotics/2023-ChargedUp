@@ -16,10 +16,10 @@ public class LEDPanel extends SubsystemBase {
 
     private final CANdle m_candle = new CANdle(CANdle);
 
-    private final static int kLED_COLUMNS = 32;
+    private final static int kLED_COLUMNS = 33;
     private final static int kLED_ROWS = 8;
     private final static int kSTRIP_START = kLED_COLUMNS * kLED_ROWS;
-    private final static int kSTRIP_LENGTH = 32;
+    private final static int kSTRIP_LENGTH = 48;
     private final static int kLED_TOTAL = kLED_COLUMNS * kLED_ROWS + kSTRIP_LENGTH;
 
     private boolean m_isPanelDisabled = false;
