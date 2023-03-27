@@ -12,7 +12,7 @@ import frc.robot.Constants;
 
 public class IntakeFrame extends SubsystemBase {
 
-    public edu.wpi.first.wpilibj.AnalogInput m_Sensor_Grabber = new edu.wpi.first.wpilibj.AnalogInput(
+    public edu.wpi.first.wpilibj.AnalogInput m_intakeSensor = new edu.wpi.first.wpilibj.AnalogInput(
             Constants.INTAKE_SENSOR);
     DoubleSolenoid m_grabDoubleSolenoid = new DoubleSolenoid(frc.robot.Constants.PNEUMATIC_HUB,
             PneumaticsModuleType.REVPH, 2, 3);
@@ -33,5 +33,15 @@ public class IntakeFrame extends SubsystemBase {
     public void retract() {
         m_grabDoubleSolenoid.set(Value.kReverse);
 
+    }
+
+    public boolean hasGamePiece() {
+        return false;
+
+        // if (m_intakeSensor.getValue() < 10) {
+        // return true;
+        // } else {
+        // return false;
+        // }
     }
 }
