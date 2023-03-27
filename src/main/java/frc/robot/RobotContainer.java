@@ -30,6 +30,7 @@ import frc.robot.commands.Drive.SnapDriveGamePiece;
 import frc.robot.commands.Drive.SnapDriveToPortal;
 import frc.robot.commands.Drive.SnapDriveToPoseField;
 import frc.robot.commands.Grabber.AutoGrab;
+import frc.robot.commands.Positioning.TrackingButton;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.commands.auto.AutoBlueFive;
 import frc.robot.commands.auto.AutoBlueHighNothing;
@@ -144,7 +145,7 @@ public class RobotContainer {
 
     private SlewRateLimiter m_slewLeftY = new SlewRateLimiter(1.5);
 
-    private double getInputLeftY() {
+    public double getInputLeftY() {
         double driverLeftY = modifyAxis(m_controllerDriver.getLeftY());
 
         double slew = m_slewLeftY.calculate(driverLeftY * slewLimit)
@@ -160,7 +161,7 @@ public class RobotContainer {
 
     private SlewRateLimiter m_slewLeftX = new SlewRateLimiter(1.5);
 
-    private double getInputLeftX() {
+    public double getInputLeftX() {
         double driverLeftX = modifyAxis(m_controllerDriver.getLeftX());
 
         double slew = m_slewLeftX.calculate(driverLeftX * slewLimit)
@@ -367,16 +368,18 @@ public class RobotContainer {
 
         // map button for tracking cargo
         // create tracking cargo drive command
-        cmd = new ParallelDeadlineGroup(new AutoGrab(),
-                new ParallelCommandGroup(
-                        new InstantCommand(() -> RobotContainer.m_grabber.openJaws()),
-                        new SnapDriveGamePiece(m_drivetrainSubsystem,
-                                () -> -getInputLeftY(),
-                                () -> -getInputLeftX(),
-                                () -> m_Tracking.getTargetHeading()),
-                        new EnableLight()));
 
-        cmd.setName("SnapDriveToGamePiece");
+        // cmd = new ParallelDeadlineGroup(new AutoGrab(),
+        // new ParallelCommandGroup(
+        // new InstantCommand(() -> RobotContainer.m_grabber.openJaws()),
+        // new SnapDriveGamePiece(m_drivetrainSubsystem,
+        // () -> -getInputLeftY(),
+        // () -> -getInputLeftX(),
+        // () -> m_Tracking.getTargetHeading()),
+        // new EnableLight()));
+
+        cmd = new TrackingButton();
+        cmd.setName("TrackingButton");
         xButton.whileTrue(cmd);
 
         cmd = new SnapDriveToPortal(

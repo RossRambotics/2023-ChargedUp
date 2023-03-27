@@ -20,12 +20,17 @@ public class Positioning extends SubsystemBase {
     private Timer m_timer = new Timer();
     private Pose2d m_lastVisionPose = new Pose2d();
     private double m_lasttime = 0;
+    private boolean m_isVisionEnabled = false;
 
     /** Creates a new Positioning. */
     public Positioning() {
 
         m_timer.start();
         LimelightHelpers.setStreamMode_PiPSecondary("");
+    }
+
+    public void setIsVisionEnabled(boolean b) {
+        m_isVisionEnabled = b;
     }
 
     public void resetVision() {
@@ -100,9 +105,11 @@ public class Positioning extends SubsystemBase {
             }
 
             try {
-                if (true) {
+                if (m_isVisionEnabled) {
                     odometry.addVisionMeasurement(botPose,
-                            Timer.getFPGATimestamp() - LimelightHelpers.getLatency_Pipeline("") - 10);
+                            Timer.getFPGATimestamp()
+                                    - LimelightHelpers.getLatency_Pipeline("") / 1000.0
+                                    - LimelightHelpers.getLatency_Capture("") / 1000.0);
                 }
             } catch (Exception e) {
                 DataLogManager.log("Vision Measurement Error: " + e.getClass());

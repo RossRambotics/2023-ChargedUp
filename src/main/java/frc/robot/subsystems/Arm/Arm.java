@@ -297,7 +297,7 @@ public class Arm extends SubsystemBase {
         // RobotContainer.m_GridSelector.setMidSwitch(m_nt_midSwitch.getBoolean(false));
         // RobotContainer.m_GridSelector.setRightSwitch(m_nt_rightSwitch.getBoolean(false));
         RobotContainer.m_GridSelector.setButtonBox(m_nt_buttonBox.getBoolean(true));
-        RobotContainer.m_GridSelector.setDial(m_nt_dial.getInteger(1));
+        RobotContainer.m_GridSelector.setDial((int) m_nt_dial.getInteger(1));
 
     }
 
@@ -374,15 +374,15 @@ public class Arm extends SubsystemBase {
         cmd.setName("Vision Reset");
         graph.add(cmd).withPosition(1, 0);
 
-        m_nt_leftSwitch = graph.add("Red?", false)
+        m_nt_leftSwitch = graph.add("Red", false)
                 .withPosition(2, 1)
                 .withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
-        m_nt_midSwitch = graph.add("Cube?", false)
+        m_nt_midSwitch = graph.add("Cube", false)
                 .withPosition(3, 1)
                 .withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
-        m_nt_rightSwitch = graph.add("Right Switch", false)
+        m_nt_rightSwitch = graph.add("Grid Tracking", false)
                 .withPosition(4, 1)
                 .withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
