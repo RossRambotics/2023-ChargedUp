@@ -13,6 +13,7 @@ public class IntakeWheels extends SubsystemBase {
 
     WPI_TalonFX m_leftMotor = new WPI_TalonFX(Constants.INTAKE_LEFT_MOTOR, "");
     WPI_TalonFX m_rightMotor = new WPI_TalonFX(Constants.INTAKE_RIGHT_MOTOR, "");
+    private int m_stallCounter = 0;
 
     /** Creates a new IntakeWheels. */
     public IntakeWheels() {
@@ -26,10 +27,25 @@ public class IntakeWheels extends SubsystemBase {
 
     public void intakeOn() {
         m_leftMotor.setVoltage(3.0);
+        m_stallCounter = 0;
     }
 
     public void intakeOff() {
         m_leftMotor.setVoltage(0.0);
+    }
+
+    public boolean isStalled() {
+        double vel = Math.abs(m_leftMotor.getSelectedSensorVelocity());
+
+        if (vel < 30) {
+            m_stallCounter++;
+        }
+
+        if (m_stallCounter > 10) {
+            return true;
+        }
+
+        return false;
     }
 
     public void intakeReverse() {
