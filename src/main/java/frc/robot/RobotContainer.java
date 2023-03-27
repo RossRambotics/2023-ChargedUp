@@ -60,6 +60,8 @@ import frc.robot.subsystems.Tracking;
 import frc.robot.subsystems.Arm.Arm;
 import frc.robot.subsystems.Arm.LowerArm;
 import frc.robot.subsystems.Arm.UpperArm;
+import frc.robot.subsystems.Intake.IntakeFrame;
+import frc.robot.subsystems.Intake.IntakeWheels;
 import frc.robot.subsystems.LEDs.LEDPanel;
 
 public class RobotContainer {
@@ -88,6 +90,8 @@ public class RobotContainer {
     static public final UpperArm m_upperArm = new UpperArm();
     static public final LowerArm m_lowerArm = new LowerArm();
     static public final Grabber m_grabber = new Grabber();
+    static public final IntakeFrame m_intakeFrame = new IntakeFrame();
+    static public final IntakeWheels m_intakeWheels = new IntakeWheels();
 
     static public final Tracking m_Tracking = new Tracking();
     private static double slewLimit = 0.6;
