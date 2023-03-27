@@ -11,8 +11,8 @@ import frc.robot.Constants;
 
 public class IntakeWheels extends SubsystemBase {
 
-    WPI_TalonFX m_leftMotor = new WPI_TalonFX(Constants.INTAKE_LEFT_MOTOR, "");
-    WPI_TalonFX m_rightMotor = new WPI_TalonFX(Constants.INTAKE_RIGHT_MOTOR, "");
+    WPI_TalonFX m_leftMotor = new WPI_TalonFX(Constants.INTAKE_LEFT_MOTOR, "usb");
+    WPI_TalonFX m_rightMotor = new WPI_TalonFX(Constants.INTAKE_RIGHT_MOTOR, "usb");
     private int m_stallCounter = 0;
 
     /** Creates a new IntakeWheels. */

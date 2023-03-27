@@ -30,6 +30,10 @@ import frc.robot.commands.Drive.SnapDriveGamePiece;
 import frc.robot.commands.Drive.SnapDriveToPortal;
 import frc.robot.commands.Drive.SnapDriveToPoseField;
 import frc.robot.commands.Grabber.AutoGrab;
+import frc.robot.commands.Intake.ExtendIntake;
+import frc.robot.commands.Intake.IntakeOn;
+import frc.robot.commands.Intake.IntakeReverse;
+import frc.robot.commands.Intake.RetractIntake;
 import frc.robot.commands.Positioning.TrackingButton;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.commands.auto.AutoBlueFive;
@@ -510,9 +514,16 @@ public class RobotContainer {
         m_autoChooser.addOption(autoCmd.getName(), autoCmd);
         commands.add(autoCmd);
 
-        autoCmd = new LowerArmSetPoint(5.6, 0.0001);
-        autoCmd.setName("LowerArmSetPoint");
-        m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+        autoCmd = new ExtendIntake();
+        commands.add(autoCmd);
+
+        autoCmd = new RetractIntake();
+        commands.add(autoCmd);
+
+        autoCmd = new IntakeOn();
+        commands.add(autoCmd);
+
+        autoCmd = new IntakeReverse();
         commands.add(autoCmd);
 
         tab.add("Autonomous", m_autoChooser).withSize(2, 1);

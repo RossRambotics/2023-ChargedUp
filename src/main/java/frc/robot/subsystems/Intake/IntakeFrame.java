@@ -26,11 +26,11 @@ public class IntakeFrame extends SubsystemBase {
         // This method will be called once per scheduler run
     }
 
-    public void extend() {
+    public void retract() {
         m_grabDoubleSolenoid.set(Value.kForward);
     }
 
-    public void retract() {
+    public void extend() {
         m_grabDoubleSolenoid.set(Value.kReverse);
 
     }
