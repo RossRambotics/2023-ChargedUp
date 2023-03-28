@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.networktables.DoubleArraySubscriber;
 import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
@@ -20,7 +21,7 @@ public class Positioning extends SubsystemBase {
     private Timer m_timer = new Timer();
     private Pose2d m_lastVisionPose = new Pose2d();
     private double m_lasttime = 0;
-    private boolean m_isVisionEnabled = false;
+    private boolean m_isVisionEnabled = true;
 
     /** Creates a new Positioning. */
     public Positioning() {
@@ -92,8 +93,8 @@ public class Positioning extends SubsystemBase {
             // skip it
             double distance = odometry_xy.getDistance(vision_xy);
             if (distance > 1.0) {
-                // DataLogManager.log("Odometry & Vision mismatch. Skipping update. Distance: "
-                // + distance);
+                DataLogManager.log("Odometry & Vision mismatch. Skipping update. Distance: "
+                        + distance);
 
                 RobotContainer.m_LEDPanel.showVisionStatusRed();
 
@@ -105,7 +106,9 @@ public class Positioning extends SubsystemBase {
             }
 
             try {
-                if (m_isVisionEnabled) {
+                // only update vision during teleop
+                // most auto testing is done without apriltags... so don't use them during auto.
+                if (m_isVisionEnabled && DriverStation.isTeleop()) {
                     odometry.addVisionMeasurement(botPose,
                             Timer.getFPGATimestamp()
                                     - LimelightHelpers.getLatency_Pipeline("") / 1000.0

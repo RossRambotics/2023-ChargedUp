@@ -122,11 +122,11 @@ public class GridSelector extends SubsystemBase {
             if (m_gridSelector2.getRawAxis(1) > .5) {
                 // Tracking is on Grid
                 m_isGridTracking = true;
-                RobotContainer.m_positioning.setIsVisionEnabled(true);
+                // RobotContainer.m_positioning.setIsVisionEnabled(true);
             } else if (m_gridSelector2.getRawAxis(1) < .5) {
                 // Tracking is on Game Piece
                 m_isGridTracking = false;
-                RobotContainer.m_positioning.setIsVisionEnabled(false);
+                // RobotContainer.m_positioning.setIsVisionEnabled(false);
             }
         } else {
             m_isGridTracking = SmartDashboard.getBoolean("is Grid Tracking", false);

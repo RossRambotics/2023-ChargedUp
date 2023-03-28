@@ -35,6 +35,8 @@ import frc.robot.commands.Intake.IntakeOn;
 import frc.robot.commands.Intake.IntakeReverse;
 import frc.robot.commands.Intake.RetractIntake;
 import frc.robot.commands.Positioning.TrackingButton;
+import frc.robot.commands.Positioning.VisionOff;
+import frc.robot.commands.Positioning.VisionOn;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.commands.auto.AutoBlueFive;
 import frc.robot.commands.auto.AutoBlueHighNothing;
@@ -448,16 +450,6 @@ public class RobotContainer {
         autoCmd.setName("Do Nothing");
         m_autoChooser.addOption("Do Nothing", autoCmd);
 
-        autoCmd = new AutoMoveConeLeft();
-        autoCmd.setName("AutoMoveConeLeft");
-        m_autoChooser.addOption(autoCmd.getName(), autoCmd);
-        commands.add(autoCmd);
-
-        autoCmd = new AutoMoveBackToPose();
-        autoCmd.setName("AutoMoceBackToPose");
-        m_autoChooser.addOption(autoCmd.getName(), autoCmd);
-        commands.add(autoCmd);
-
         autoCmd = new BlueDriveUpChargeStation();
         m_autoChooser.addOption(autoCmd.getName(), autoCmd);
         commands.add(autoCmd);
@@ -524,6 +516,12 @@ public class RobotContainer {
         commands.add(autoCmd);
 
         autoCmd = new IntakeReverse();
+        commands.add(autoCmd);
+
+        autoCmd = new VisionOff();
+        commands.add(autoCmd);
+
+        autoCmd = new VisionOn();
         commands.add(autoCmd);
 
         tab.add("Autonomous", m_autoChooser).withSize(2, 1);
