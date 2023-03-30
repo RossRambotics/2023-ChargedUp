@@ -4,11 +4,13 @@
 
 package frc.robot.commands.Intake;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
 public class IntakeOn extends CommandBase {
     private boolean m_isFinished;
+    Timer m_timer = new Timer();
 
     /** Creates a new IntakeOn. */
     public IntakeOn() {
@@ -21,6 +23,8 @@ public class IntakeOn extends CommandBase {
     public void initialize() {
         RobotContainer.m_intakeWheels.intakeOn();
         m_isFinished = false;
+        m_timer.stop();
+        m_timer.reset();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -28,6 +32,8 @@ public class IntakeOn extends CommandBase {
     public void execute() {
         if (RobotContainer.m_intakeFrame.hasGamePiece()) {
             m_isFinished = true;
+            m_timer.start();
+
         }
 
     }
@@ -41,6 +47,9 @@ public class IntakeOn extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return m_isFinished;
+        if (m_timer.get() > 0.2) {
+            return m_isFinished;
+        }
+        return false;
     }
 }
