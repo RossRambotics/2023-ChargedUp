@@ -36,6 +36,10 @@ public class Grabber extends SubsystemBase {
 
     public void openJaws() {
         m_grabDoubleSolenoid.set(Value.kForward);
+
+        Pose2d current = RobotContainer.m_drivetrainSubsystem.getOdometryPose();
+        DataLogManager.log("Grabber Open: Grid Dial: " + (RobotContainer.m_GridSelector.getDial() + 1)
+                + " Current Pose: " + current);
     }
 
     public void closeJaws() {

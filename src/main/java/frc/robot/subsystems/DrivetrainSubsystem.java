@@ -20,6 +20,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
@@ -61,7 +62,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // SdsModuleConfigurations.MK4_L1.getDriveReduction() *
     // SdsModuleConfigurations.MK4_L1.getWheelDiameter() * Math.PI; // this is
     // roughly 4.116 for our setup
-    public static final double MAX_VELOCITY_METERS_PER_SECOND = 6;
+    public static final double MAX_VELOCITY_METERS_PER_SECOND = 4.12;
 
     /**
      * The maximum angular velocity of the robot in radians per second.
@@ -113,8 +114,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private static SwerveDrivePoseEstimator m_odometry = null;
 
     private Field2d m_field = new Field2d();
+    private GenericEntry m_nt_OdometryX;
+    private GenericEntry m_nt_OdometryY;
+    private GenericEntry m_nt_LimelightX;
+    private GenericEntry m_nt_LimelightY;
 
-    private double m_lastRotationSpeed;
+    private double m_simRotation;
 
     private Timer m_Timer = new Timer();
 
@@ -133,8 +138,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
         ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
         ShuffleboardTab fieldtab = Shuffleboard.getTab("Field");
         fieldtab.add(m_field).withWidget(BuiltInWidgets.kField)
-                .withSize(8, 8)
+                .withSize(6, 5)
                 .withPosition(0, 0);
+
+        m_nt_OdometryX = fieldtab.add("OdometryX", 0.0)
+                .withPosition(6, 0).getEntry();
+        m_nt_OdometryY = fieldtab.add("OdometryY", 0.0)
+                .withPosition(7, 0).getEntry();
+
+        m_nt_LimelightX = fieldtab.add("LimelightX", 0.0)
+                .withPosition(6, 1).getEntry();
+        m_nt_LimelightY = fieldtab.add("LimelightY", 0.0)
+                .withPosition(7, 1).getEntry();
 
         // gets the serial number ooff of the robot
         // Midas serial number is 031E3241
@@ -300,7 +315,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
      * @param yawDegrees
      */
     public void setGyroScope(double yawDegrees) {
-        m_lastRotationSpeed = Math.toRadians(yawDegrees);
+        m_simRotation = Math.toRadians(yawDegrees);
         m_pigeon.setYaw(yawDegrees, 50);
     }
 
@@ -353,7 +368,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 m_swerveModuleStates,
                 MAX_VELOCITY_METERS_PER_SECOND);
 
-        m_lastRotationSpeed += rotationSpeed * 0.02;
+        m_simRotation += rotationSpeed * 0.02;
         // update the actual swerve modules
         this.setSwerveModulesStates();
     }
@@ -388,6 +403,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("Gyro Heading (Yaw)", this.getGyroHeading().getDegrees());
         SmartDashboard.putNumber("Gyro Pitch", this.getPitch());
+        Pose2d pose = m_odometry.getEstimatedPosition();
+        m_nt_OdometryX.setDouble(pose.getX());
+        m_nt_OdometryY.setDouble(pose.getY());
+        pose = RobotContainer.m_positioning.getLastBotPose();
+        m_nt_LimelightX.setDouble(pose.getX());
+        m_nt_LimelightY.setDouble(pose.getY());
+
         // update odometry
         if (!Robot.isSimulation()) {
             RobotContainer.m_positioning.updateVision(m_odometry);
@@ -423,7 +445,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
                 RobotContainer.m_positioning.updateVision(m_odometry);
                 // m_odometry.update(getGyroscopeRotation(), m_swerveModulePositions);
-                m_odometry.update(new Rotation2d(m_lastRotationSpeed), m_swerveModulePositions);
+                m_odometry.update(new Rotation2d(m_simRotation), m_swerveModulePositions);
                 m_field.setRobotPose(getOdometryPose());
             }
         } else {

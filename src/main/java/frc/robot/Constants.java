@@ -22,13 +22,13 @@ public final class Constants {
      *
      * Should be measured from center to center.
      */
-    public static final double DRIVETRAIN_TRACKWIDTH_METERS = .441; // FIXME Measure and set trackwidth
+    public static final double DRIVETRAIN_TRACKWIDTH_METERS = 0.49; // FIXME Measure and set trackwidth
     /**
      * The front-to-back distance between the drivetrain wheels.
      *
      * Should be measured from center to center.
      */
-    public static final double DRIVETRAIN_WHEELBASE_METERS = .441; // FIXME Measure and set wheelbase
+    public static final double DRIVETRAIN_WHEELBASE_METERS = 0.77; // FIXME Measure and set wheelbase
 
     public static final int DRIVETRAIN_PIGEON_ID = 19; // FIXME Set Pigeon ID
 
@@ -73,15 +73,6 @@ public final class Constants {
 
     // right steer offset
 
-    public static final int TURRET_MOTOR = 35; // CAN ID of the yaw turret motor
-    public static final int ANGULAR_MOTOR = 36; // CAN ID of the angular (pitch) motor on the turret
-    public static final int TURRET_SENSOR = 0; // Analog IN port for light beam sensor
-
-    public static final int INDEXER_ENTRY = 1; // Sensor ID for the Indexer Entry
-    public static final int INDEXER_MIDDLE = 2; // Sensor ID for the Indexer Middle
-    public static final int INDEXER_EXIT = 3; // Sensor ID for the Indexer Exit
-
-    public static final int CLIMB_WINCH = 50; // CAN ID for Climb Winch
     public static final int PDH = 51; // CAN ID for PDP
 
     public static final int CANdle = 31; // CAN ID for CANdle
@@ -91,4 +82,8 @@ public final class Constants {
     public static final String CANBUS_DRIVETRAIN_MIDAS = "usb";
 
     public static final int GRABBER_SENSOR = 1;
+
+    public static final int INTAKE_LEFT_MOTOR = 35;
+    public static final int INTAKE_RIGHT_MOTOR = 36;
+    public static final int INTAKE_SENSOR = 2;
 }

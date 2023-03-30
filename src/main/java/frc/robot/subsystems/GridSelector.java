@@ -23,10 +23,10 @@ import frc.robot.subsystems.Arm.Arm;
 public class GridSelector extends SubsystemBase {
     private Joystick m_gridSelector = new Joystick(1);
     private Joystick m_gridSelector2 = new Joystick(2);
-    private long m_dial = 0;
+    private int m_dial = 0;
     private boolean m_leftSwitch_isRed = false;
     private boolean m_isCube = true;
-    private boolean m_rightSwitch = true;
+    private boolean m_isGridTracking = true;
     private boolean m_buttonBox = true;
 
     /** Creates a new GridSelector2. */
@@ -121,20 +121,22 @@ public class GridSelector extends SubsystemBase {
 
             if (m_gridSelector2.getRawAxis(1) > .5) {
                 // Tracking is on Grid
-                m_rightSwitch = true;
+                m_isGridTracking = true;
+                // RobotContainer.m_positioning.setIsVisionEnabled(true);
             } else if (m_gridSelector2.getRawAxis(1) < .5) {
                 // Tracking is on Game Piece
-                m_rightSwitch = false;
+                m_isGridTracking = false;
+                // RobotContainer.m_positioning.setIsVisionEnabled(false);
             }
         } else {
-            m_rightSwitch = SmartDashboard.getBoolean("Right Switch", false);
+            m_isGridTracking = SmartDashboard.getBoolean("is Grid Tracking", false);
             m_leftSwitch_isRed = SmartDashboard.getBoolean("is Red Alliance", false);
             m_isCube = SmartDashboard.getBoolean("is Cube", false);
         }
 
         SmartDashboard.putBoolean("is Red Alliance", m_leftSwitch_isRed);
         SmartDashboard.putBoolean("is Cube", m_isCube);
-        SmartDashboard.putBoolean("Right Switch", m_rightSwitch);
+        SmartDashboard.putBoolean("is Grid Tracking", m_isGridTracking);
         SmartDashboard.putBoolean("Button Box", m_buttonBox);
 
     }
@@ -147,8 +149,8 @@ public class GridSelector extends SubsystemBase {
         return m_isCube;
     }
 
-    public Boolean getRightSwitch() {
-        return m_rightSwitch;
+    public Boolean isGridTracking() {
+        return m_isGridTracking;
     }
 
     public void toggleLeftSwitch() {
@@ -171,10 +173,10 @@ public class GridSelector extends SubsystemBase {
 
     public void toggleRightSwitch() {
         System.out.println("**********Toggle Right Switch**********");
-        if (m_rightSwitch == true) {
-            m_rightSwitch = false;
-        } else if (m_rightSwitch == false) {
-            m_rightSwitch = true;
+        if (m_isGridTracking == true) {
+            m_isGridTracking = false;
+        } else if (m_isGridTracking == false) {
+            m_isGridTracking = true;
         }
     }
 
@@ -191,7 +193,7 @@ public class GridSelector extends SubsystemBase {
     }
 
     public void setRightSwitch(Boolean b) {
-        m_rightSwitch = b;
+        m_isGridTracking = b;
     }
 
     public void setButtonBox(Boolean b) {
@@ -199,7 +201,11 @@ public class GridSelector extends SubsystemBase {
         SmartDashboard.putBoolean("Button Box", m_buttonBox);
     }
 
-    public void setDial(Long l) {
+    public void setDial(int l) {
         m_dial = l;
+    }
+
+    public int getDial() {
+        return m_dial;
     }
 }

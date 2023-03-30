@@ -30,6 +30,13 @@ import frc.robot.commands.Drive.SnapDriveGamePiece;
 import frc.robot.commands.Drive.SnapDriveToPortal;
 import frc.robot.commands.Drive.SnapDriveToPoseField;
 import frc.robot.commands.Grabber.AutoGrab;
+import frc.robot.commands.Intake.ExtendIntake;
+import frc.robot.commands.Intake.IntakeOn;
+import frc.robot.commands.Intake.IntakeReverse;
+import frc.robot.commands.Intake.RetractIntake;
+import frc.robot.commands.Positioning.TrackingButton;
+import frc.robot.commands.Positioning.VisionOff;
+import frc.robot.commands.Positioning.VisionOn;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.commands.auto.AutoBlueFive;
 import frc.robot.commands.auto.AutoBlueHighNothing;
@@ -44,6 +51,8 @@ import frc.robot.commands.auto.AutoRedNine;
 import frc.robot.commands.auto.AutoRedOne;
 import frc.robot.commands.auto.Blue2DriveUpChargeStation;
 import frc.robot.commands.auto.BlueDriveUpChargeStation;
+import frc.robot.commands.auto.CalibrateRedX;
+import frc.robot.commands.auto.CalibrateRedXY;
 import frc.robot.commands.auto.RedDriveUpChargeStation;
 import frc.robot.sim.PhysicsSim;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -57,6 +66,8 @@ import frc.robot.subsystems.Tracking;
 import frc.robot.subsystems.Arm.Arm;
 import frc.robot.subsystems.Arm.LowerArm;
 import frc.robot.subsystems.Arm.UpperArm;
+import frc.robot.subsystems.Intake.IntakeFrame;
+import frc.robot.subsystems.Intake.IntakeWheels;
 import frc.robot.subsystems.LEDs.LEDPanel;
 
 public class RobotContainer {
@@ -85,6 +96,8 @@ public class RobotContainer {
     static public final UpperArm m_upperArm = new UpperArm();
     static public final LowerArm m_lowerArm = new LowerArm();
     static public final Grabber m_grabber = new Grabber();
+    static public final IntakeFrame m_intakeFrame = new IntakeFrame();
+    static public final IntakeWheels m_intakeWheels = new IntakeWheels();
 
     static public final Tracking m_Tracking = new Tracking();
     private static double slewLimit = 0.6;
@@ -142,30 +155,32 @@ public class RobotContainer {
 
     private SlewRateLimiter m_slewLeftY = new SlewRateLimiter(1.5);
 
-    private double getInputLeftY() {
+    public double getInputLeftY() {
         double driverLeftY = modifyAxis(m_controllerDriver.getLeftY());
 
-        double slew = m_slewLeftY.calculate(driverLeftY) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
+        double slew = m_slewLeftY.calculate(driverLeftY * slewLimit)
+                * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
 
         if (m_GridSelector.isBlueAlliance()) {
-            return slew * slewLimit;
+            return slew;
         } else {
-            return -slew * slewLimit;
+            return -slew;
         }
 
     }
 
     private SlewRateLimiter m_slewLeftX = new SlewRateLimiter(1.5);
 
-    private double getInputLeftX() {
+    public double getInputLeftX() {
         double driverLeftX = modifyAxis(m_controllerDriver.getLeftX());
 
-        double slew = m_slewLeftX.calculate(driverLeftX) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
+        double slew = m_slewLeftX.calculate(driverLeftX * slewLimit)
+                * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
 
         if (m_GridSelector.isBlueAlliance()) {
-            return slew * slewLimit;
+            return slew;
         } else {
-            return -slew * slewLimit;
+            return -slew;
         }
     }
 
@@ -256,6 +271,9 @@ public class RobotContainer {
         bButton.onTrue(Commands.runOnce(() -> m_grabber.closeJaws()));
 
         yButton.onTrue(Commands.runOnce(() -> m_arm.goNextNode()));
+
+        leftTrigger.onTrue(Commands.runOnce(() -> slewLimit = 1.0));
+        leftTrigger.onFalse(Commands.runOnce(() -> slewLimit = 0.6));
 
         // cmd = new DefaultDriveCommand(
         // m_drivetrainSubsystem,
@@ -360,16 +378,18 @@ public class RobotContainer {
 
         // map button for tracking cargo
         // create tracking cargo drive command
-        cmd = new ParallelDeadlineGroup(new AutoGrab(),
-                new ParallelCommandGroup(
-                        new InstantCommand(() -> RobotContainer.m_grabber.openJaws()),
-                        new SnapDriveGamePiece(m_drivetrainSubsystem,
-                                () -> -getInputLeftY(),
-                                () -> -getInputLeftX(),
-                                () -> m_Tracking.getTargetHeading()),
-                        new EnableLight()));
 
-        cmd.setName("SnapDriveToGamePiece");
+        // cmd = new ParallelDeadlineGroup(new AutoGrab(),
+        // new ParallelCommandGroup(
+        // new InstantCommand(() -> RobotContainer.m_grabber.openJaws()),
+        // new SnapDriveGamePiece(m_drivetrainSubsystem,
+        // () -> -getInputLeftY(),
+        // () -> -getInputLeftX(),
+        // () -> m_Tracking.getTargetHeading()),
+        // new EnableLight()));
+
+        cmd = new TrackingButton();
+        cmd.setName("TrackingButton");
         xButton.whileTrue(cmd);
 
         cmd = new SnapDriveToPortal(
@@ -430,16 +450,6 @@ public class RobotContainer {
         autoCmd.setName("Do Nothing");
         m_autoChooser.addOption("Do Nothing", autoCmd);
 
-        autoCmd = new AutoMoveConeLeft();
-        autoCmd.setName("AutoMoveConeLeft");
-        m_autoChooser.addOption(autoCmd.getName(), autoCmd);
-        commands.add(autoCmd);
-
-        autoCmd = new AutoMoveBackToPose();
-        autoCmd.setName("AutoMoceBackToPose");
-        m_autoChooser.addOption(autoCmd.getName(), autoCmd);
-        commands.add(autoCmd);
-
         autoCmd = new BlueDriveUpChargeStation();
         m_autoChooser.addOption(autoCmd.getName(), autoCmd);
         commands.add(autoCmd);
@@ -488,9 +498,30 @@ public class RobotContainer {
         m_autoChooser.addOption(autoCmd.getName(), autoCmd);
         commands.add(autoCmd);
 
-        autoCmd = new LowerArmSetPoint(5.6, 0.0001);
-        autoCmd.setName("LowerArmSetPoint");
+        autoCmd = new CalibrateRedX();
         m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+        commands.add(autoCmd);
+
+        autoCmd = new CalibrateRedXY();
+        m_autoChooser.addOption(autoCmd.getName(), autoCmd);
+        commands.add(autoCmd);
+
+        autoCmd = new ExtendIntake();
+        commands.add(autoCmd);
+
+        autoCmd = new RetractIntake();
+        commands.add(autoCmd);
+
+        autoCmd = new IntakeOn();
+        commands.add(autoCmd);
+
+        autoCmd = new IntakeReverse();
+        commands.add(autoCmd);
+
+        autoCmd = new VisionOff();
+        commands.add(autoCmd);
+
+        autoCmd = new VisionOn();
         commands.add(autoCmd);
 
         tab.add("Autonomous", m_autoChooser).withSize(2, 1);
