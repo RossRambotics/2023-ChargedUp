@@ -5,6 +5,7 @@
 package frc.robot.commands.Positioning;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.commands.Drive.SnapDriveToPoseField;
@@ -29,6 +30,8 @@ public class GridStrafe extends CommandBase {
             redPose();
         }
 
+        DataLogManager.log("Straffing to: " + m_pose);
+
         m_cmd = new SnapDriveToPoseField(RobotContainer.m_drivetrainSubsystem,
                 m_pose,
                 0.05);
@@ -36,7 +39,7 @@ public class GridStrafe extends CommandBase {
     }
 
     private void bluePose() {
-        int i = RobotContainer.m_GridSelector.getDial();
+        int i = RobotContainer.m_GridSelector.getDial() + 1;
 
         switch (i) {
             case 1:
@@ -72,7 +75,7 @@ public class GridStrafe extends CommandBase {
     }
 
     private void redPose() {
-        int i = RobotContainer.m_GridSelector.getDial();
+        int i = RobotContainer.m_GridSelector.getDial() + 1;
 
         switch (i) {
             case 1:

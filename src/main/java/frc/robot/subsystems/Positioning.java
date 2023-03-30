@@ -109,6 +109,7 @@ public class Positioning extends SubsystemBase {
                 // only update vision during teleop
                 // most auto testing is done without apriltags... so don't use them during auto.
                 if (m_isVisionEnabled && DriverStation.isTeleop()) {
+                    botPose = new Pose2d(botPose.getTranslation(), odometry.getEstimatedPosition().getRotation());
                     odometry.addVisionMeasurement(botPose,
                             Timer.getFPGATimestamp()
                                     - LimelightHelpers.getLatency_Pipeline("") / 1000.0

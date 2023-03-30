@@ -92,6 +92,8 @@
       "/Shuffleboard/Match.Auto/Commands/RedDriveUpChargeStation": "Command",
       "/Shuffleboard/Match.Auto/Commands/RetractIntake": "Command",
       "/Shuffleboard/Match.Auto/Commands/SnapDriveToCargo": "Command",
+      "/Shuffleboard/Match.Auto/Commands/VisionOff": "Command",
+      "/Shuffleboard/Match.Auto/Commands/VisionOn": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Blue Cargo": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Cone": "Command",
       "/Shuffleboard/Sub.Tracking/Commands/Cube": "Command",
