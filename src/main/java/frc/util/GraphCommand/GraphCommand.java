@@ -48,12 +48,12 @@ public class GraphCommand extends CommandBase {
             String nodeName = iterator.next();
             GraphCommandNode node = m_nodes.get(nodeName);
 
-            System.out.println("Optimizing Node: " + node.m_nodeName);
+            DataLogManager.log("Optimizing Node: " + node.m_nodeName);
             node.optimizeGraph(node, null, null, 0);
             node.printNeighbors();
-            System.out.println();
+            DataLogManager.log(" ");
             node.printLinks();
-            System.out.println();
+            DataLogManager.log(" ");
 
         }
     }
@@ -404,7 +404,7 @@ public class GraphCommand extends CommandBase {
                 String nodeName = iterator.next();
                 GraphCommandNodeLink link = m_neighborLinks.get(nodeName);
 
-                System.out.println("Neighbor: " + nodeName + " Cost: " + link.m_cost);
+                DataLogManager.log("Neighbor: " + nodeName + " Cost: " + link.m_cost);
             }
         }
 
@@ -421,12 +421,10 @@ public class GraphCommand extends CommandBase {
                 GraphCommandNodeLink link = m_optimizedLinks.get(nodeName);
 
                 if (link.m_wayPointNode == null) {
-                    System.out
-                            .println("Link: " + nodeName + " Cost: " + link.m_cost + " Waypoint: null");
+                    DataLogManager.log("Link: " + nodeName + " Cost: " + link.m_cost + " Waypoint: null");
                 } else {
-                    System.out
-                            .println("Link: " + nodeName + " Cost: " + link.m_cost + " Waypoint: "
-                                    + link.m_wayPointNode.m_nodeName);
+                    DataLogManager.log("Link: " + nodeName + " Cost: " + link.m_cost + " Waypoint: "
+                            + link.m_wayPointNode.m_nodeName);
                 }
 
             }

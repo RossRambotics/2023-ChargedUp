@@ -83,10 +83,9 @@ public class UpperArm extends ProfiledPIDSubsystem {
         m_motor.setInverted(true);
         // m_encoder.setPosition(Math.toRadians(-110.0));
 
-        System.out.println("Upper Arm Position: " + m_encoder.getPosition()); // prints the position of the CANCoder
-        System.out.println("Upper Arm absolute Position: " + m_encoder.getPosition());
-
-        System.out.println("Upper Arm absolute Position: " + m_encoder.getAbsolutePosition());
+        DataLogManager.log("Upper Arm Position: " + m_encoder.getPosition()); // prints the position of the CANCoder
+        DataLogManager.log("Upper Arm absolute Position: " + m_encoder.getPosition());
+        DataLogManager.log("Upper Arm absolute Position: " + m_encoder.getAbsolutePosition());
 
         // ErrorCode error = m_encoder.getLastError(); // gets the last error generated
         // by the CANCoder
