@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -77,6 +78,8 @@ public class GraphCommand extends CommandBase {
                 // just finished running
                 m_isTransitioning = false;
                 m_command = m_currentNode.m_arrivedCommand;
+
+                DataLogManager.log("GraphCommand arrived: " + m_currentNode.getNodeName());
 
                 if (m_command != null) {
                     m_command.schedule();
@@ -271,6 +274,8 @@ public class GraphCommand extends CommandBase {
             }
 
             // this is the target node
+            DataLogManager.log(
+                    "GraphCommand next node for: " + node.getNodeName() + " is " + link.m_wayPointNode.getNodeName());
             return link.m_wayPointNode;
         }
 
@@ -449,6 +454,7 @@ public class GraphCommand extends CommandBase {
         }
 
         public void setNextNode(GraphCommandNode node) {
+            DataLogManager.log("GraphCommand setNextNode: " + node.getNodeName());
             m_nextNode = node;
         }
 
