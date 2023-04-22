@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -47,12 +48,12 @@ public class GraphCommand extends CommandBase {
             String nodeName = iterator.next();
             GraphCommandNode node = m_nodes.get(nodeName);
 
-            System.out.println("Optimizing Node: " + node.m_nodeName);
+            DataLogManager.log("Optimizing Node: " + node.m_nodeName);
             node.optimizeGraph(node, null, null, 0);
             node.printNeighbors();
-            System.out.println();
+            DataLogManager.log(" ");
             node.printLinks();
-            System.out.println();
+            DataLogManager.log(" ");
 
         }
     }
@@ -77,6 +78,8 @@ public class GraphCommand extends CommandBase {
                 // just finished running
                 m_isTransitioning = false;
                 m_command = m_currentNode.m_arrivedCommand;
+
+                DataLogManager.log("GraphCommand arrived: " + m_currentNode.getNodeName());
 
                 if (m_command != null) {
                     m_command.schedule();
@@ -271,6 +274,8 @@ public class GraphCommand extends CommandBase {
             }
 
             // this is the target node
+            DataLogManager.log(
+                    "GraphCommand next node for: " + node.getNodeName() + " is " + link.m_wayPointNode.getNodeName());
             return link.m_wayPointNode;
         }
 
@@ -399,7 +404,7 @@ public class GraphCommand extends CommandBase {
                 String nodeName = iterator.next();
                 GraphCommandNodeLink link = m_neighborLinks.get(nodeName);
 
-                System.out.println("Neighbor: " + nodeName + " Cost: " + link.m_cost);
+                DataLogManager.log("Neighbor: " + nodeName + " Cost: " + link.m_cost);
             }
         }
 
@@ -416,12 +421,10 @@ public class GraphCommand extends CommandBase {
                 GraphCommandNodeLink link = m_optimizedLinks.get(nodeName);
 
                 if (link.m_wayPointNode == null) {
-                    System.out
-                            .println("Link: " + nodeName + " Cost: " + link.m_cost + " Waypoint: null");
+                    DataLogManager.log("Link: " + nodeName + " Cost: " + link.m_cost + " Waypoint: null");
                 } else {
-                    System.out
-                            .println("Link: " + nodeName + " Cost: " + link.m_cost + " Waypoint: "
-                                    + link.m_wayPointNode.m_nodeName);
+                    DataLogManager.log("Link: " + nodeName + " Cost: " + link.m_cost + " Waypoint: "
+                            + link.m_wayPointNode.m_nodeName);
                 }
 
             }
@@ -449,6 +452,7 @@ public class GraphCommand extends CommandBase {
         }
 
         public void setNextNode(GraphCommandNode node) {
+            DataLogManager.log("GraphCommand setNextNode: " + node.getNodeName());
             m_nextNode = node;
         }
 

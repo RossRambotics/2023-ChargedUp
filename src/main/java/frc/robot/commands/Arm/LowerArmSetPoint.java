@@ -15,7 +15,7 @@ public class LowerArmSetPoint extends CommandBase {
     /** Creates a new UpperArm. */
     public LowerArmSetPoint(double radians, double toleranceRadians) {
         // Use addRequirements() here to declare subsystem dependencies.
-        this.addRequirements(RobotContainer.m_lowerArm);
+        // this.addRequirements(RobotContainer.m_lowerArm);
 
         m_radians = radians;
         m_tolerance = toleranceRadians;
@@ -44,6 +44,6 @@ public class LowerArmSetPoint extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return RobotContainer.m_lowerArm.getController().atGoal();
+        return RobotContainer.m_upperArm.getController().atGoal();
     }
 }

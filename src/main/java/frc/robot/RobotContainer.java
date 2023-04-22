@@ -108,6 +108,7 @@ public class RobotContainer {
     private final XboxController m_controllerDriver = new XboxController(0);
     private Joystick m_gridSelector2 = new Joystick(2);
     private Joystick m_gridSelector = new Joystick(1);
+    private Joystick m_intakeController = new Joystick(3);
     // private final XboxController m_controllerOperator = new XboxController(1);
     Trigger xButton = new JoystickButton(m_controllerDriver, XboxController.Button.kX.value);
     Trigger leftBumper = new JoystickButton(m_controllerDriver, XboxController.Button.kLeftBumper.value);
@@ -128,7 +129,13 @@ public class RobotContainer {
             () -> m_controllerDriver.getRawAxis(XboxController.Axis.kRightTrigger.value) >= 0.5);
     Trigger leftTrigger = new Trigger(
             () -> m_controllerDriver.getRawAxis(XboxController.Axis.kLeftTrigger.value) >= 0.5);
+    Trigger intakeDown = new Trigger(
+            () -> m_intakeController.getRawAxis(4) >= 0.5);
+    Trigger intakeUp = new Trigger(
+            () -> m_intakeController.getRawAxis(4) <= -0.5);
 
+    Trigger intakeOn = new JoystickButton(m_intakeController, 2);
+    Trigger intakeReverse = new JoystickButton(m_intakeController, 3);
     public PhysicsSim m_PhysicsSim;
 
     public RobotContainer() {
@@ -258,7 +265,7 @@ public class RobotContainer {
         backButton.whileTrue(new RunCommand(() -> m_drivetrainSubsystem.zeroGyroscope()));
 
         startButton.onTrue(Commands.runOnce(() -> {
-            m_positioning.resetVision();
+            // m_positioning.resetVision();
             m_drivetrainSubsystem.resetSteerEncoders();
         }));
 
@@ -274,6 +281,12 @@ public class RobotContainer {
 
         leftTrigger.onTrue(Commands.runOnce(() -> slewLimit = 1.0));
         leftTrigger.onFalse(Commands.runOnce(() -> slewLimit = 0.6));
+
+        intakeDown.whileTrue(new ExtendIntake());
+        intakeUp.whileTrue(new RetractIntake());
+
+        intakeOn.whileTrue(new IntakeOn());
+        intakeReverse.whileTrue(new IntakeReverse());
 
         // cmd = new DefaultDriveCommand(
         // m_drivetrainSubsystem,
