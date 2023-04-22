@@ -33,6 +33,7 @@ public class AutoRedNine extends CommandBase {
         AutoPoses.SetStartPose(AutoPoses.RedNine);
 
         SequentialCommandGroup command = new SequentialCommandGroup(
+                new WaitCommand(2.0),
                 Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.W),
                 new WaitOnArm(),
                 new WaitCommand(0.5),

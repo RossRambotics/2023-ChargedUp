@@ -159,7 +159,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
 
         // The offset of the arm from the horizontal in its neutral position,
         // measured from the horizontal
-        public static final double kArmOffsetRads = -4.270;
+        public static final double kArmOffsetRads = -4.270 - (0.0175 * 2);
     }
 
     public void periodic() {
