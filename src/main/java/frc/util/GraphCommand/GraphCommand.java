@@ -22,6 +22,7 @@ public class GraphCommand extends CommandBase {
     private GraphCommandNode m_previousNode = null;
     private GraphCommandNode m_targetNode = null;
     private boolean m_isTransitioning = false;
+    private boolean m_isInitialized = false;
 
     private Command m_command = null;
 
@@ -37,6 +38,13 @@ public class GraphCommand extends CommandBase {
         if (m_rootNode == null) {
             System.err.println("Error: Root Node cannot be null");
             return;
+        }
+
+        if (m_isInitialized) {
+            DataLogManager.log("GraphCommand initialization again.  Skipping optimize.");
+            return;
+        } else {
+            m_isInitialized = true;
         }
 
         Map<String, GraphCommandNode> m_nodes = new HashMap<>();
