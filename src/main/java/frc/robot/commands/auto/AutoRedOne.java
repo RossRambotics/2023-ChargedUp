@@ -16,6 +16,9 @@ import frc.robot.commands.Arm.WaitOnArm;
 import frc.robot.commands.Drive.SnapDriveGamePiece;
 import frc.robot.commands.Drive.SnapDriveToPoseField;
 import frc.robot.commands.Grabber.AutoGrab;
+import frc.robot.commands.Intake.ExtendIntake;
+import frc.robot.commands.Intake.IntakeOn;
+import frc.robot.commands.Intake.IntakeReverse;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.subsystems.Arm.Arm;
 
@@ -36,18 +39,21 @@ public class AutoRedOne extends CommandBase {
 
         // Create command group for the auto routine
         SequentialCommandGroup command = new SequentialCommandGroup(
-                new WaitCommand(2.0),
-                Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.W),
-                new WaitOnArm(),
-                new WaitCommand(0.5),
-                Commands.runOnce(() -> RobotContainer.m_grabber.closeJaws()),
-                new WaitCommand(0.75),
+                // new WaitCommand(2.0),
+                // Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.W),
+                // new WaitOnArm(),
+                // new WaitCommand(0.5),
+                // Commands.runOnce(() -> RobotContainer.m_grabber.closeJaws()),
+                //Commands.runOnce(() -> RobotContainer.m_intakeFrame.retract()),
+                //new WaitCommand(0.75),
                 Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.C),
                 new WaitOnArm(),
                 Commands.runOnce(() -> RobotContainer.m_grabber.openJaws()),
                 Arm.targetNodeCommandFactory(RobotContainer.m_arm,
-                        RobotContainer.m_arm.O))
+                        RobotContainer.m_arm.YY))
                 .andThen(SnapDriveToPoseField.createRelative(AutoPoses.RedOne, -3.9, 0, 0, 0.10))
+                .andThen(new ExtendIntake())
+                .andThen(new IntakeOn())
                 .andThen(AutoPoses.DriveToPose(
                         AutoPoses.GP_RedOne))
                 .andThen(new ParallelDeadlineGroup(new AutoGrab(),
@@ -59,15 +65,9 @@ public class AutoRedOne extends CommandBase {
                                         () -> RobotContainer.m_Tracking.getTargetHeading()),
                                 new EnableLight())))
                 .andThen(new WaitCommand(0.75))
-                .andThen(Arm.targetNodeCommandFactory(RobotContainer.m_arm,
-                        RobotContainer.m_arm.N))
                 .andThen(new WaitCommand(0.5))
-                .andThen(new SnapDriveToPoseField(RobotContainer.m_drivetrainSubsystem,
-                        AutoPoses.RedOne,
-                        0.1))
-                .andThen(new SnapDriveToPoseField(RobotContainer.m_drivetrainSubsystem,
-                        AutoPoses.RedThree,
-                        0.1));
+                .andThen(SnapDriveToPoseField.createRelative(AutoPoses.RedOne, -3.9, 0, 180, 0.10))
+                .andThen(new IntakeReverse());
 
         command.schedule();
     }

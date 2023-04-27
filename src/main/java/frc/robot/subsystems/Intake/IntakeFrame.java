@@ -28,11 +28,11 @@ public class IntakeFrame extends SubsystemBase {
     }
 
     public void retract() {
-        m_grabDoubleSolenoid.set(Value.kForward);
+        m_grabDoubleSolenoid.set(Value.kReverse);
     }
 
     public void extend() {
-        m_grabDoubleSolenoid.set(Value.kReverse);
+        m_grabDoubleSolenoid.set(Value.kForward);
 
     }
 

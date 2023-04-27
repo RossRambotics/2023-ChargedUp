@@ -282,8 +282,8 @@ public class RobotContainer {
         leftTrigger.onTrue(Commands.runOnce(() -> slewLimit = 1.0));
         leftTrigger.onFalse(Commands.runOnce(() -> slewLimit = 0.6));
 
-        intakeDown.whileTrue(new ExtendIntake());
-        intakeUp.whileTrue(new RetractIntake());
+        intakeDown.onTrue(new ExtendIntake());
+        intakeUp.onTrue(new RetractIntake());
 
         intakeOn.whileTrue(new IntakeOn());
         intakeReverse.whileTrue(new IntakeReverse());

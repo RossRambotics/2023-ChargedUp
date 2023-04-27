@@ -42,7 +42,7 @@ public class AutoPoses {
     // Rotation2d(Math.toRadians(-90)));
 
     public final static Pose2d RedOneBack = new Pose2d(14, 0.5, new Rotation2d(Math.toRadians(0)));
-    public final static Pose2d GP_RedOne = new Pose2d(10.5, 0.9, new Rotation2d(Math.toRadians(180)));
+    public final static Pose2d GP_RedOne = new Pose2d(10.5, 0.9, new Rotation2d(Math.toRadians(0)));
 
     public final static Pose2d RedNineBack = new Pose2d(12.55, 4.8, new Rotation2d(Math.toRadians(0)));
     public final static Pose2d GP_RedNine = new Pose2d(10.5, 4.6, new Rotation2d(Math.toRadians(180)));
