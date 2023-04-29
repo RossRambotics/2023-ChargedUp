@@ -285,8 +285,8 @@ public class RobotContainer {
         intakeDown.onTrue(new ExtendIntake());
         intakeUp.onTrue(new RetractIntake());
 
-        intakeOn.whileTrue(new IntakeOn());
-        intakeReverse.whileTrue(new IntakeReverse());
+        intakeOn.onTrue(new IntakeOn());
+        intakeReverse.onTrue(new IntakeReverse());
 
         // cmd = new DefaultDriveCommand(
         // m_drivetrainSubsystem,
