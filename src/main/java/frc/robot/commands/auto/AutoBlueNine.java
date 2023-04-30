@@ -40,15 +40,27 @@ public class AutoBlueNine extends CommandBase {
 
         // Create command group for the auto routine
 
-        SequentialCommandGroup command = Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.C)
-                .andThen(new WaitOnArm())
-                .andThen(Commands.runOnce(() -> RobotContainer.m_grabber.openJaws()))
-                .andThen(Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.A))
-                .andThen(new ExtendIntake())
-                .andThen(new IntakeOn()
-                        .raceWith(AutoPoses.DriveToPose(AutoPoses.GP_BlueNine)))
-                .andThen(SnapDriveToPoseField.createRelative(AutoPoses.BlueNine, 0.5, 0, 180, 0.1))
-                .andThen(new IntakeReverse().withTimeout(0.5));
+        SequentialCommandGroup command =
+                // Place the cone
+                Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.C)
+                        .andThen(new WaitOnArm())
+
+                        // drop off the cone high
+                        .andThen(Commands.runOnce(() -> RobotContainer.m_grabber.openJaws()))
+
+                        // retract the arm to carry
+                        .andThen(Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.A))
+
+                        // extend the intake, turn it on and grab a cube
+                        .andThen(new ExtendIntake())
+                        .andThen(new IntakeOn()
+                                .raceWith(AutoPoses.DriveToPose(AutoPoses.GP_BlueNine)))
+
+                        // drive back to original pose, stop a little short and turn around
+                        .andThen(SnapDriveToPoseField.createRelative(AutoPoses.BlueNine, 0.5, 0, 180, 0.1))
+
+                        // spit out the cube
+                        .andThen(new IntakeReverse().withTimeout(0.5));
 
         command.schedule();
     }
