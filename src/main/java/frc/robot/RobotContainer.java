@@ -160,7 +160,7 @@ public class RobotContainer {
         // LiveWindow.enableAllTelemetry();
     }
 
-    private SlewRateLimiter m_slewLeftY = new SlewRateLimiter(1.5);
+    private SlewRateLimiter m_slewLeftY = new SlewRateLimiter(1.4);
 
     public double getInputLeftY() {
         double driverLeftY = modifyAxis(m_controllerDriver.getLeftY());
@@ -176,7 +176,7 @@ public class RobotContainer {
 
     }
 
-    private SlewRateLimiter m_slewLeftX = new SlewRateLimiter(1.5);
+    private SlewRateLimiter m_slewLeftX = new SlewRateLimiter(1.4);
 
     public double getInputLeftX() {
         double driverLeftX = modifyAxis(m_controllerDriver.getLeftX());
@@ -285,8 +285,8 @@ public class RobotContainer {
         intakeDown.onTrue(new ExtendIntake());
         intakeUp.onTrue(new RetractIntake());
 
-        intakeOn.onTrue(new IntakeOn());
-        intakeReverse.onTrue(new IntakeReverse());
+        intakeOn.whileTrue(new IntakeOn());
+        intakeReverse.whileTrue(new IntakeReverse());
 
         // cmd = new DefaultDriveCommand(
         // m_drivetrainSubsystem,
