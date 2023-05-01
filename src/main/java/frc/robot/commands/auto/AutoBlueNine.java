@@ -52,7 +52,7 @@ public class AutoBlueNine extends CommandBase {
                         .andThen(Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.A))
 
                         // extend the intake, turn it on and grab a cube
-                        // raceWith ends with it reachs the pose OR picked up the cube
+                        // raceWith ends when it reaches the pose OR picked up the cube
                         .andThen(new ExtendIntake())
                         .andThen(new IntakeOn()
                                 .raceWith(AutoPoses.DriveToPose(AutoPoses.GP_BlueNine)))
