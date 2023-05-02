@@ -151,7 +151,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
         public static final int kMotorPort = 60;
 
         public static final double kP = 8;
-        public static final double kI = 0.000001;
+        public static final double kI = 0.1;
 
         public static final double kSVolts = 0.05;
         public static final double kGVolts = 1.0;
