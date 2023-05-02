@@ -20,6 +20,7 @@ import frc.robot.commands.Grabber.AutoGrab;
 import frc.robot.commands.Intake.ExtendIntake;
 import frc.robot.commands.Intake.IntakeOn;
 import frc.robot.commands.Intake.IntakeReverse;
+import frc.robot.commands.Intake.RetractIntake;
 import frc.robot.commands.Tracking.EnableLight;
 import frc.robot.subsystems.Arm.Arm;
 
@@ -57,11 +58,15 @@ public class AutoBlueNine extends CommandBase {
                         .andThen(new IntakeOn()
                                 .raceWith(AutoPoses.DriveToPose(AutoPoses.GP_BlueNine)))
 
+                        // retract the intake so it is protected by the bumpers when we turn around
+                        .andThen(new RetractIntake())
+
                         // drive back to original pose, stop a little short and turn around
-                        .andThen(SnapDriveToPoseField.createRelative(AutoPoses.BlueNine, 0.5, 0, 180, 0.1))
+                        .andThen(SnapDriveToPoseField.createRelative(AutoPoses.BlueNine, 0.3, 0.4, 180, 0.1))
 
                         // spit out the cube
-                        .andThen(new IntakeReverse().withTimeout(0.5));
+                        .andThen(new ExtendIntake())
+                        .andThen(new IntakeReverse().withTimeout(1.5));
 
         command.schedule();
     }

@@ -6,7 +6,7 @@ package frc.robot.commands.Drive;
 
 /** Add your docs here. */
 public class SnapConstants {
-    public static final double kMAX_TRANSLATE_VELOCITY = 2.0;
+    public static final double kMAX_TRANSLATE_VELOCITY = 4.0;
     public static final double kMAX_TRANSLATE_ACCEL = 2.0;
 
     public static final double kANGULAR_P = 0.1;
