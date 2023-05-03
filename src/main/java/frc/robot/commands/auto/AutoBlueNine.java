@@ -50,7 +50,7 @@ public class AutoBlueNine extends CommandBase {
                         .andThen(Commands.runOnce(() -> RobotContainer.m_grabber.openJaws()))
 
                         // retract the arm to carry
-                        .andThen(Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.A))
+                        .andThen(Arm.targetNodeCommandFactory(RobotContainer.m_arm, RobotContainer.m_arm.AA))
 
                         // extend the intake, turn it on and grab a cube
                         // raceWith ends when it reaches the pose OR picked up the cube
@@ -66,6 +66,7 @@ public class AutoBlueNine extends CommandBase {
 
                         // spit out the cube
                         .andThen(new ExtendIntake())
+                        .andThen(new WaitCommand(1))
                         .andThen(new IntakeReverse().withTimeout(1.5));
 
         command.schedule();

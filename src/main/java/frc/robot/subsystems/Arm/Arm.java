@@ -39,7 +39,7 @@ public class Arm extends SubsystemBase {
     private GenericEntry m_nt_buttonBox;
     private GenericEntry m_nt_dial;
 
-    public GraphCommandNode A, AO;
+    public GraphCommandNode A, AO, AA;
     public GraphCommandNode B, S1;
     public GraphCommandNode C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, OO, PP, QQ, NN, Z, X, Y, YY, W;
 
@@ -190,6 +190,11 @@ public class Arm extends SubsystemBase {
                 null,
                 autoGrabCommandGroup);
 
+        AA = m_graphCommand.new GraphCommandNode("Y",
+                Arm.setpointCommandFactory("AA Target", -120, 150, tolerance),
+                Arm.setpointCommandFactory("AA Waypoint", -120, 150, tolerance),
+                null);
+
         m_graphCommand.setGraphRootNode(A);
 
         A.AddNode(S, 1);
@@ -219,6 +224,7 @@ public class Arm extends SubsystemBase {
         YY.AddNode(L, 1);
         YY.AddNode(D, 1);
         A.AddNode(W, 1);
+        // A.AddNode(C, 1);
 
         // N.AddNode(Y, 1);
         C.setNextNode(B);
@@ -234,6 +240,8 @@ public class Arm extends SubsystemBase {
         // M.setNextNode(L);
         // L.setNextNode(M);
         A.AddNode(YY, 1);
+        C.AddNode(AA, 1, true);
+        YY.AddNode(AA, 1);
 
         m_graphCommand.addRequirements(this);
         this.setDefaultCommand(m_graphCommand);

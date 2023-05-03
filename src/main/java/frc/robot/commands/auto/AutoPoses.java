@@ -18,7 +18,7 @@ public class AutoPoses {
     public final static Pose2d RedPortal = new Pose2d(2.4, 7.2, new Rotation2d(Math.toRadians(90)));
 
     public final static Pose2d BlueOneBack = new Pose2d(4.0, 4.96, new Rotation2d(Math.toRadians(180)));
-    public final static Pose2d GP_BlueOne = new Pose2d(6.0, 4.59, new Rotation2d(Math.toRadians(0)));
+    public final static Pose2d GP_BlueOne = new Pose2d(6.7, 4.5, new Rotation2d(Math.toRadians(180)));
 
     public final static Pose2d BlueNineBack = new Pose2d(2.5, 0.75, new Rotation2d(Math.toRadians(180)));
     public final static Pose2d GP_BlueNine = new Pose2d(6.7, 1.15, new Rotation2d(Math.toRadians(180)));
@@ -45,7 +45,7 @@ public class AutoPoses {
     public final static Pose2d GP_RedOne = new Pose2d(10.5, 0.9, new Rotation2d(Math.toRadians(0)));
 
     public final static Pose2d RedNineBack = new Pose2d(12.55, 4.8, new Rotation2d(Math.toRadians(0)));
-    public final static Pose2d GP_RedNine = new Pose2d(10.5, 4.6, new Rotation2d(Math.toRadians(180)));
+    public final static Pose2d GP_RedNine = new Pose2d(10.5, 4.6, new Rotation2d(Math.toRadians(0)));
 
     public final static Pose2d RedOne = new Pose2d(14.63, 0.50, new Rotation2d(Math.toRadians(0)));
     public final static Pose2d RedTwo = new Pose2d(14.63, 1.05, new Rotation2d(Math.toRadians(0)));

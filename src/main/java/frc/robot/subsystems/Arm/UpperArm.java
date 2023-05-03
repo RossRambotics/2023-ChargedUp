@@ -151,7 +151,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
         public static final int kMotorPort = 60;
 
         public static final double kP = 8;
-        public static final double kI = 0.1;
+        public static final double kI = 1.0;
 
         public static final double kSVolts = 0.05;
         public static final double kGVolts = 1.0;
@@ -165,7 +165,7 @@ public class UpperArm extends ProfiledPIDSubsystem {
 
         // The offset of the arm from the horizontal in its neutral position,
         // measured from the horizontal
-        public static final double kArmOffsetRads = -4.270 - (0.0175 * (15 - 3.8));
+        public static final double kArmOffsetRads = -4.937 + (0.0175 * 1.5);
     }
 
     public void periodic() {
