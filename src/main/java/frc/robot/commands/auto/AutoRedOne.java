@@ -61,7 +61,7 @@ public class AutoRedOne extends CommandBase {
                         .andThen(new RetractIntake())
 
                         // drive back to original pose, stop a little short and turn around
-                        .andThen(SnapDriveToPoseField.createRelative(AutoPoses.RedOne, 0.3, 0.4, 180, 0.1))
+                        .andThen(SnapDriveToPoseField.createRelative(AutoPoses.RedOne, -0.3, 0.4, 180, 0.1))
 
                         // spit out the cube
                         .andThen(new ExtendIntake())
